@@ -11,6 +11,7 @@
     "lint:fix": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\" --fix"
   },
   "devDependencies": {
+    "@types/node": "^20.12.7",
     "eslint": "^8.57.0",
     "eslint-kit": "^10.28.0",
     "handlebars": "^4.7.8",

@@ -6,7 +6,13 @@ const {
 module.exports = configure({
     allowDebug: process.env.NODE_ENV !== "production",
     presets: [
-        presets.imports(),
+        presets.imports({
+            alias: {
+                root: './src',
+                paths: { '@app': './' },
+                tsconfig: 'tsconfig.json'
+            }
+        }),
         presets.node(),
         presets.prettier(),
         presets.typescript({
