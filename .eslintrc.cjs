@@ -16,5 +16,10 @@ module.exports = configure({
     ],
     parserOptions: {
       project: ['./tsconfig.json'],
+    },
+    extend: {
+        rules: {
+            'import/no-default-export': 'off',
+        }
     }
 });
