@@ -129,6 +129,34 @@ a:focus-visible {
     padding: 24px;
 }
 
+/*AUTH*/
+
+.auth-container {
+    display: grid;
+    place-content: center;
+    min-height: 100dvh;
+}
+
+.auth-form {
+    display: grid;
+    gap: 1rem;
+    width: 25rem;
+}
+
+.auth-form__title {
+    font-size: var(--fs-2xl);
+}
+
+.auth-form__actions {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    a {
+        text-align: center;
+    }
+}
+
 /* LOGIN */
 
 .login {
@@ -141,7 +169,6 @@ a:focus-visible {
     display: grid;
     gap: 1rem;
     width: 25rem;
-
 }
 
 .login-form__title {
@@ -157,3 +184,5 @@ a:focus-visible {
         text-align: center;
     }
 }
+
+/* SIGN UP */
