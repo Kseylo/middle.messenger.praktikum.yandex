@@ -25,6 +25,6 @@
     "types": ["node"],
   },
 
-  "include": ["src", "vite.config.ts", ".eslintrc.cjs"],
+  "include": ["src", "vite.config.ts", ".eslintrc.cjs", "server"],
   "exclude": ["node_modules"],
 }

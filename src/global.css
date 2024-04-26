@@ -36,6 +36,8 @@
     --fs-3xl: 1.875rem;
     --fs-4xl: 2.25rem;
     --fs-5xl: 3rem;
+
+    --max-width-md: 28rem;
 }
 
 *, *::before, *::after {
@@ -77,6 +79,7 @@ a:focus-visible {
 .input-wrapper {
     display: grid;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .input {
@@ -135,15 +138,19 @@ a:focus-visible {
 /* AUTH PAGES */
 
 .auth-container {
-    display: grid;
-    place-content: center;
     min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem;
 }
 
 .auth-form {
     display: grid;
+    margin: 0 auto;
+    width: 100%;
     gap: 1rem;
-    width: 25rem;
+    max-width: var(--max-width-md);
 }
 
 .auth-form__title {
