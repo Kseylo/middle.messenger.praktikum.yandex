@@ -1,11 +1,13 @@
 <div class='auth-container'>
-    <form class='card auth-form'>
-      <h1 class='auth-form__title'>Вход</h1>
-      {{> FormInput label='Логин' placeholder='Логин' id='login' }}
-      {{> FormInput label='Пароль' placeholder='Пароль' id='password' }}
-      <div class='auth-form__actions'>
-        <button class='button'>Войти</button>
-        <a href='#'>Нет аккаунта?</a>
-      </div>
-    </form>
+  <form class='card auth-form'>
+    <h1 class='auth-form__title'>Вход</h1>
+    {{> FormInput label='Логин' placeholder='Логин' id='login' }}
+    {{> FormInput label='Пароль' placeholder='Пароль' id='password' }}
+    <div class='auth-form__actions'>
+      <a href="/chat">
+        <button class='button' style="width: 100%; pointer-events: none">Войти</button>
+      </a>
+      <a href='/sign-up'>Нет аккаунта?</a>
+    </div>
+  </form>
 </div>

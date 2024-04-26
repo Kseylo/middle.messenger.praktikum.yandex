@@ -1,25 +1,48 @@
 import Handlebars from 'handlebars'
 import HandlebarsRuntime from 'handlebars/runtime'
-// import { Error } from '@/pages/error'
-// import { Login } from '@/pages/login'
-import { SignIn } from '@/pages/sign-in'
+import * as Pages from '@/pages'
 import * as UI from '@/shared/ui'
 
 Object.entries(UI).forEach(([name, partial]) =>
   HandlebarsRuntime.registerPartial(name, partial),
 )
 
+enum Routes {
+  Login = '/',
+  SignUp = '/sign-up',
+  Chat = '/chat',
+  NotFound = '/not-found',
+  ServerError = '/server-error',
+}
+
+export const pages: Record<string, string> = {
+  [Routes.Login]: Pages.Login({}),
+  [Routes.SignUp]: Pages.SignUp({}),
+  [Routes.Chat]: Pages.Chat({}),
+  [Routes.NotFound]: Pages.Error({ code: 404, description: 'Не туда попали' }),
+  [Routes.ServerError]: Pages.Error({
+    code: 500,
+    description: 'Мы уже фиксим',
+  }),
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector('#root')!
-  const signInTemplate = Handlebars.compile(SignIn())
-  // const loginTemplate = Handlebars.compile(Login())
-  // const errorTemplate = Handlebars.compile(
-  //   Error({
-  //     code: 404,
-  //     description: 'Страница не найдена',
-  //   }),
-  // )
-  root.innerHTML = signInTemplate({})
-  // root.innerHTML = loginTemplate({})
-  // root.innerHTML = errorTemplate({})
+  handleRouteChange()
+  window.addEventListener('popstate', handleRouteChange)
 })
+
+function handleRouteChange() {
+  const { pathname } = window.location
+  const route = pathname
+
+  if (Object.prototype.hasOwnProperty.call(pages, route)) {
+    renderPage(pages[route])
+  } else {
+    renderPage(pages[Routes.NotFound])
+  }
+}
+
+function renderPage(page: string) {
+  const root = document.querySelector('#root')!
+  root.innerHTML = Handlebars.compile(page)({})
+}
