@@ -33,6 +33,9 @@
     --fs-lg: 1.125rem;
     --fs-xl: 1.25rem;
     --fs-2xl: 1.5rem;
+    --fs-3xl: 1.875rem;
+    --fs-4xl: 2.25rem;
+    --fs-5xl: 3rem;
 }
 
 *, *::before, *::after {
@@ -129,7 +132,7 @@ a:focus-visible {
     padding: 24px;
 }
 
-/*AUTH*/
+/* AUTH PAGES */
 
 .auth-container {
     display: grid;
@@ -157,32 +160,21 @@ a:focus-visible {
     }
 }
 
-/* LOGIN */
+/* ERROR PAGE */
 
-.login {
+.error-container {
     display: grid;
     place-content: center;
     min-height: 100dvh;
+    justify-items: center;
+    gap: 2rem;
 }
 
-.login-form {
-    display: grid;
-    gap: 1rem;
-    width: 25rem;
+.error-code {
+    font-size: var(--fs-5xl);
+    text-align: center;
 }
 
-.login-form__title {
-    font-size: var(--fs-2xl);
+.error-description {
+    font-size: var(--fs-lg);
 }
-
-.login-form__actions {
-    display: grid;
-    gap: 1rem;
-    margin-top: 1rem;
-
-    a {
-        text-align: center;
-    }
-}
-
-/* SIGN UP */

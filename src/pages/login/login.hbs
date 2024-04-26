@@ -1,18 +1,11 @@
 <div class='auth-container'>
   <form class='card auth-form'>
     <h1 class='auth-form__title'>Вход</h1>
-    <div class='input-wrapper'>
-      <label for='login' class='label'>Логин</label>
-      <input placeholder='Логин' id='login' class='input' />
-    </div>
-    <div class='input-wrapper'>
-      <label for='password' class='label'>Пароль</label>
-      <input placeholder='Пароль' id='password' class='input' />
-    </div>
+    {{> FormInput label='Логин' placeholder='Логин' id='login' }}
+    {{> FormInput label='Пароль' placeholder='Пароль' id='password' }}
     <div class='auth-form__actions'>
       <button class='button'>Войти</button>
       <a href='#'>Нет аккаунта?</a>
     </div>
-    {{> FormInput label='Email' placeholder='pochta@yandex.ru' id='email' }}
   </form>
 </div>

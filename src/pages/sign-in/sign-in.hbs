@@ -1,26 +1,11 @@
 <div class='auth-container'>
   <form class='card auth-form'>
     <h1 class='auth-form__title'>Регистрация</h1>
-    <div class='input-wrapper'>
-      <label for='first_name' class='label'>Имя</label>
-      <input placeholder='Имя' id='first_name' class='input' />
-    </div>
-    <div class='input-wrapper'>
-      <label for='second_name' class='label'>Фамилия</label>
-      <input placeholder='Фамилия' id='second_name' class='input' />
-    </div>
-    <div class='input-wrapper'>
-      <label for='login' class='label'>Логин</label>
-      <input placeholder='Логин' id='login' class='input' />
-    </div>
-    <div class='input-wrapper'>
-      <label for='email' class='label'>Email</label>
-      <input placeholder='pochta@yandex.ru' id='email' class='input' />
-    </div>
-    <div class='input-wrapper'>
-      <label for='password' class='label'>Пароль</label>
-      <input placeholder='Пароль' id='password' class='input' />
-    </div>
+    {{> FormInput label='Имя' placeholder='Имя' id='first_name' }}
+    {{> FormInput label='Фамилия' placeholder='Фамилия' id='second_name' }}
+    {{> FormInput label='Логин' placeholder='Логин' id='login' }}
+    {{> FormInput label='Email' placeholder='pochta@yandex.ru' id='email' }}
+    {{> FormInput label='Пароль' placeholder='Пароль' id='password' }}
     <div class='auth-form__actions'>
       <button class='button'>Создать аккаунт</button>
       <a href='#'>Войти</a>
