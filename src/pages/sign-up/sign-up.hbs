@@ -1,10 +1,11 @@
-<div class='auth-container'>
+<main class='auth-container'>
   <form class='card auth-form'>
     <h1 class='auth-form__title'>Регистрация</h1>
-    {{> FormInput label='Имя' placeholder='Имя' id='first_name' }}
-    {{> FormInput label='Фамилия' placeholder='Фамилия' id='second_name' }}
     {{> FormInput label='Логин' placeholder='Логин' id='login' }}
     {{> FormInput label='Email' placeholder='pochta@yandex.ru' id='email' }}
+    {{> FormInput label='Телефон' placeholder='+7 (999) 999-99-99' id='phone' }}
+    {{> FormInput label='Имя' placeholder='Имя' id='first_name' }}
+    {{> FormInput label='Фамилия' placeholder='Фамилия' id='second_name' }}
     {{> FormInput label='Пароль' placeholder='Пароль' id='password' }}
     <div class='auth-form__actions'>
       <a href="/chat">
@@ -13,4 +14,4 @@
       <a href='/'>Войти</a>
     </div>
   </form>
-</div>
+</main>
