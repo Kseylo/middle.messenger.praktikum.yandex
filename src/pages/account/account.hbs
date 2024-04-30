@@ -1,0 +1,20 @@
+<div class='app-container'>
+  {{> Sidebar chats=chats }}
+  <main class="account">
+    <header class="account-header">
+      <nav class="account-nav">
+        <a href="/profile" class="account-link">Профиль</a>
+        <a href="/account" class="account-link active">Аккаунт</a>
+      </nav>
+    </header>
+    <div class="account-main">
+      <div class="account-update card">
+        <form class="account-form">
+          {{> FormInput label='Старый пароль' placeholder='Старый пароль' id='oldPassword' }}
+          {{> FormInput label='Новый пароль' placeholder='Новый пароль' id='newPassword' }}
+          <button class="button button-primary">Обновить аккаунт</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

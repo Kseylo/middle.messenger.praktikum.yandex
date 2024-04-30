@@ -1,3 +1,4 @@
+export { Account } from './account'
 export { ChatFeed } from './chat-feed'
 export { Error } from './error'
 export { Login } from './login'

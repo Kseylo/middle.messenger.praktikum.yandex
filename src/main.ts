@@ -19,6 +19,7 @@ enum Routes {
   SelectChat = '/chat',
   ChatFeed = '/chat-feed',
   Profile = '/profile',
+  Account = '/account',
   NotFound = '/not-found',
   ServerError = '/server-error',
 }
@@ -31,6 +32,9 @@ export const pages: Record<string, string> = {
   }),
   [Routes.ChatFeed]: Pages.ChatFeed({ chats: chatsPlaceholderData }),
   [Routes.Profile]: Pages.Profile({
+    chats: chatsPlaceholderData,
+  }),
+  [Routes.Account]: Pages.Account({
     chats: chatsPlaceholderData,
   }),
   [Routes.NotFound]: Pages.Error({ code: 404, description: 'Не туда попали' }),

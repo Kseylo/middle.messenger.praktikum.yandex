@@ -1,0 +1,52 @@
+.account {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-header {
+    display: flex;
+    align-items: center;
+    height: var(--header-height);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem;
+}
+
+.account-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.account-link {
+    text-decoration: none;
+}
+
+.active {
+    text-decoration: revert;
+}
+
+.account-main {
+    padding: 0.75rem;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    height: 100%;
+}
+
+.account-update {
+    display: grid;
+    width: 100%;
+    max-width: var(--max-width-2xl);
+    gap: 0.75rem;
+}
+
+.account-form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.account-form > button {
+    justify-self: flex-start;
+    margin-top: 0.75rem;
+}
