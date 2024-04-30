@@ -43,6 +43,8 @@
 
     --max-width-xs: 20rem;
     --max-width-md: 28rem;
+
+    --header-height: 4rem;
 }
 
 *, *::before, *::after {
@@ -88,13 +90,8 @@ a:focus-visible {
     border-radius: var(--radius-md);
     font-weight: 500;
     border: none;
-    color: var(--primary-foreground);
-    background-color: var(--primary);
     padding: 0.5rem 1rem;
     height: 2.5rem;
-}
-
-.button:hover {
     cursor: pointer;
 }
 
@@ -103,12 +100,35 @@ a:focus-visible {
     outline-offset: 2px;
 }
 
+.button-primary {
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+}
+
+.ghost-button {
+    background-color: transparent;
+    padding: 0.5rem;
+}
+
+.ghost-button:hover {
+    background: var(--accent);
+}
+
 .card {
     background-color: var(--card);
     color: var(--card-foreground);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     padding: 1.5rem;
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    stroke: var(--primary);
 }
 
 /* AUTH PAGES */
@@ -145,4 +165,5 @@ a:focus-visible {
 
 .app-container {
     min-height: 100dvh;
+    display: flex;
 }

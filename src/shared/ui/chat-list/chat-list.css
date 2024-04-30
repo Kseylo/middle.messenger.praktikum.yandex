@@ -37,6 +37,7 @@
 
 .chat__user-title {
     color: var(--primary);
+    font-weight: 400;
 }
 
 .chat__last-message {

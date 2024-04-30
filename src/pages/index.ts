@@ -1,5 +1,6 @@
-export { Chat } from './chat'
+export { ChatFeed } from './chat-feed'
 export { Error } from './error'
 export { Login } from './login'
 export { Profile } from './profile'
+export { SelectChat } from './select-chat'
 export { SignUp } from './sign-up'
