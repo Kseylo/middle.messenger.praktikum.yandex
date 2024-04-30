@@ -4,33 +4,17 @@
     flex-direction: column;
 }
 
-.profile-header {
-    display: flex;
-    align-items: center;
-    height: var(--header-height);
-    border-bottom: 1px solid var(--border);
-    padding: 0.75rem;
-}
-
 .profile-nav {
     display: flex;
     gap: 1rem;
 }
 
-.profile-link {
-    text-decoration: none;
-}
-
-.active {
-    text-decoration: revert;
-}
-
 .profile-main {
     padding: 0.75rem;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
+    display: grid;
     align-items: center;
+    justify-items: center;
+    gap: 1rem;
 }
 
 .profile-update {

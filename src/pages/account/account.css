@@ -4,34 +4,13 @@
     flex-direction: column;
 }
 
-.account-header {
-    display: flex;
-    align-items: center;
-    height: var(--header-height);
-    border-bottom: 1px solid var(--border);
-    padding: 0.75rem;
-}
-
-.account-nav {
-    display: flex;
-    gap: 1rem;
-}
-
-.account-link {
-    text-decoration: none;
-}
-
-.active {
-    text-decoration: revert;
-}
-
 .account-main {
     padding: 0.75rem;
     display: grid;
     align-items: center;
     justify-items: center;
     gap: 1rem;
-    height: 100%;
+    height: calc(100dvh - var(--header-height));
 }
 
 .account-update {

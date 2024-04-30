@@ -6,12 +6,7 @@
 }
 
 .chat-feed__header {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    height: var(--header-height);
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border);
 }
 
 .chat-feed__title {
