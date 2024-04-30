@@ -23,9 +23,6 @@
     --accent: hsl(240 3.7% 15.9%);
     --accent-foreground: hsl(0 0% 98%);
 
-
-
-    /* RADIUS */
     --radius-sm: 0.25;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
