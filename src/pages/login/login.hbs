@@ -1,8 +1,8 @@
 <main class='auth-container'>
   <form class='card auth-form'>
     <h1 class='auth-form__title'>Вход</h1>
-    {{> FormInput label='Логин' placeholder='Логин' id='login' }}
-    {{> FormInput label='Пароль' placeholder='Пароль' id='password' }}
+    {{> FormInput label='Логин' placeholder='Логин' id='login' name='login' }}
+    {{> FormInput label='Пароль' placeholder='Пароль' id='password' name='password' }}
     <div class='auth-form__actions'>
       <a href="/chat">
         <button class='button button-primary' style="width: 100%; pointer-events: none">Войти</button>
