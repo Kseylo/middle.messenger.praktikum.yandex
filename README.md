@@ -1,25 +1,32 @@
 # Веб-мессенджер
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b8cf15ed-eb3d-4c0f-8134-e9fa6dc0ab79/deploy-status)](https://app.netlify.com/sites/melodious-fenglisu-a607f8/deploys)
 
-Проект в рамках обучения по курсу [«Мидл фронтенд-разработчик»](https://practicum.yandex.ru/middle-frontend/?from=catalog) от Яндекс Практикум.
+Проект в рамках обучения по
+курсу [«Мидл фронтенд-разработчик»](https://practicum.yandex.ru/middle-frontend/?from=catalog) от Яндекс Практикум.
+
 ## Установка
 
 Установка зависимостей:
+
 ```
 npm install
 ```
 
 Запуск Dev-сервера:
+
 ```
 npm run dev
 ```
 
 Сборка проекта:
+
 ```
 npm run build
 ```
 
 Сборка проекта и запуск Express-сервера
+
 ```
 npm run start
 ```
@@ -43,6 +50,7 @@ npm run start
 [/account](http://localhost:3000/account) - аккаунт (форма смены пароля) <br />
 
 ## Технологии
+
 - Typescript
 - Vite
 - Handlebars

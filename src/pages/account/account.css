@@ -1,0 +1,31 @@
+.account {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-main {
+    padding: 0.75rem;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    height: calc(100dvh - var(--header-height));
+}
+
+.account-update {
+    display: grid;
+    width: 100%;
+    max-width: var(--max-width-2xl);
+    gap: 0.75rem;
+}
+
+.account-form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.account-form > button {
+    justify-self: flex-start;
+    margin-top: 0.75rem;
+}
