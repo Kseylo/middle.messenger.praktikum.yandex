@@ -50,6 +50,7 @@
 
 .chat__unread-count {
     --size: 1.375rem;
+
     padding: 0 .4375rem;
     background-color: var(--new-message);
     color: var(--primary);

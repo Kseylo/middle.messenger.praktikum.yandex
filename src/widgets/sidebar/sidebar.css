@@ -9,11 +9,13 @@
     ::-webkit-scrollbar {
         width: 0.3rem;
     }
+
     ::-webkit-scrollbar-thumb {
         background-color: var(--accent);
         border-radius: var(--radius-md);
         visibility: hidden;
     }
+
     ::-webkit-scrollbar-thumb {
         border-radius: var(--radius-md);
     }
