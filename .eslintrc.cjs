@@ -23,6 +23,7 @@ module.exports = configure({
   parserOptions: {
     project: ['./tsconfig.json']
   },
+// (@typescript-eslint/ban-types)
   extend: {
     rules: {
       'import/no-default-export': 'off',
@@ -34,6 +35,14 @@ module.exports = configure({
           'jsx': 'never',
           'ts': 'never',
           'tsx': 'never'
+        }
+      ],
+      '@typescript-eslint/ban-types': [
+        'error',
+        {
+          'types': {
+            'Function': false
+          }
         }
       ]
     }

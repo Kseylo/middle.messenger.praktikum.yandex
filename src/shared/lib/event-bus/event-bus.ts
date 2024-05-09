@@ -1,7 +1,5 @@
 type EventName = string
 
-type EventPayload<T> = T
-
 export class EventBus {
   private readonly subscribers: Record<EventName, Function[]>
   private static instance?: EventBus = undefined
@@ -17,7 +15,7 @@ export class EventBus {
     return this.instance
   }
 
-  subscribe<T>(event: EventName, callback: (payload: EventPayload<T>) => void) {
+  subscribe(event: EventName, callback: Function) {
     if (!this.subscribers[event]) {
       this.subscribers[event] = []
     }
@@ -33,11 +31,10 @@ export class EventBus {
     )
   }
 
-  dispatch<T>(event: EventName, payload: EventPayload<T>) {
+  dispatch(event: EventName, ...args: object[]) {
     if (!this.subscribers[event]) {
       throw new Error(`Нет события: ${event}`)
     }
-
-    this.subscribers[event].forEach((subscriber) => subscriber(payload))
+    this.subscribers[event].forEach((subscriber) => subscriber(...args))
   }
 }
