@@ -25,6 +25,7 @@ module.exports = configure({
   },
 // (@typescript-eslint/ban-types)
   extend: {
+
     rules: {
       'import/no-default-export': 'off',
       'import/extensions': [
@@ -45,6 +46,6 @@ module.exports = configure({
           }
         }
       ]
-    }
+    },
   }
 })

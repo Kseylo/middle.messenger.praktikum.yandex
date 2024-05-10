@@ -1,3 +1,4 @@
+import { v4 as makeUUID } from 'uuid'
 import { EventBus } from '@/shared/lib/event-bus'
 
 export type BlockProps = {
@@ -16,13 +17,15 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   private readonly _meta: { tagName: string; props: TypeProps }
   private eventBus: EventBus
   readonly props: TypeProps
+  private readonly _id
 
-  constructor(tagName = 'div', props: TypeProps) {
+  constructor(tagName = 'div', propsWithChildren: TypeProps) {
     this._meta = {
       tagName,
-      props,
+      props: propsWithChildren,
     }
-    this.props = this._makePropsProxy(props)
+    this._id = makeUUID()
+    this.props = this._makePropsProxy({ ...propsWithChildren, _id: this._id })
     this.eventBus = EventBus.getInstance()
     this._registerEvents()
     this.eventBus.dispatch(Block.EVENTS.INIT)
@@ -42,13 +45,15 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   init() {
-    this._createResources()
+    this._createDocumentElement()
     this.eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
   }
 
-  private _createResources() {
+  private _createDocumentElement() {
     const { tagName } = this._meta
-    this._element = document.createElement(tagName)
+    const element = document.createElement(tagName)
+    element.dataset.id = this._id
+    this._element = element
   }
 
   private _componentDidMount() {
@@ -86,6 +91,8 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     this._addEvents()
   }
 
+  render() {}
+
   private _removeEvents() {
     const { events = {} } = this.props
     Object.keys(events).forEach((eventName) => {
@@ -99,8 +106,6 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
       this._element?.addEventListener(eventName, events[eventName])
     })
   }
-
-  render() {}
 
   private _makePropsProxy(props: TypeProps) {
     return new Proxy(props, {

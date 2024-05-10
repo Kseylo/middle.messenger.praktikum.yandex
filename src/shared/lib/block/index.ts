@@ -1,1 +1,1 @@
-export { Block, type BlockProps } from './block.ts'
+export { Block, type BlockProps } from './block'

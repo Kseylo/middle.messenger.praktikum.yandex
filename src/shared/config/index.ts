@@ -1,1 +1,1 @@
-export { chatsPlaceholderData } from './chats-placeholder-data.ts'
+export { chatsPlaceholderData } from './chats-placeholder-data'

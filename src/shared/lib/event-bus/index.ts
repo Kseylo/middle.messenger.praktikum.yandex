@@ -1,1 +1,1 @@
-export { EventBus } from './event-bus.ts'
+export { EventBus } from './event-bus'
