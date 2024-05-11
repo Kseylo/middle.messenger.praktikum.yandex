@@ -15,32 +15,23 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   private _element: HTMLElement | null = null
-  private eventBus: EventBus
-  readonly props: TypeProps
+  private _eventBus: EventBus
   private readonly _id
+  readonly props: TypeProps
   children: Record<string, Block>
 
   constructor(propsWithChildren: TypeProps) {
-    const { children, props } = this._getChildrenAndProps(propsWithChildren)
-    this.children = children
-    this.props = this._makePropsProxy(props as TypeProps)
     this._id = makeUUID()
-    this.eventBus = EventBus.getInstance()
-    this._registerEvents()
-    this.eventBus.dispatch(Block.EVENTS.INIT)
-  }
+    const { props, children } = this._getChildrenAndProps(propsWithChildren)
+    this.props = this._makePropsProxy({
+      ...props,
+      _id: this._id,
+    } as unknown as TypeProps)
+    this.children = children
 
-  private _registerEvents() {
-    this.eventBus.subscribe(Block.EVENTS.INIT, this.init.bind(this))
-    this.eventBus.subscribe(
-      Block.EVENTS.FLOW_CDM,
-      this._componentDidMount.bind(this),
-    )
-    this.eventBus.subscribe(
-      Block.EVENTS.FLOW_CDU,
-      this._componentDidUpdate.bind(this),
-    )
-    this.eventBus.subscribe(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
+    this._eventBus = EventBus.getInstance()
+    this._registerEvents()
+    this._eventBus.dispatch(Block.EVENTS.INIT)
   }
 
   private _getChildrenAndProps(propsWithChildren: TypeProps) {
@@ -56,14 +47,45 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     return { props, children }
   }
 
+  private _makePropsProxy(props: TypeProps) {
+    return new Proxy(props, {
+      get: (target, prop) => {
+        const value = target[prop as keyof TypeProps]
+        return typeof value === 'function' ? value.bind(target) : value
+      },
+      set: (target, prop, value) => {
+        const prevProps = { ...target }
+        target[prop as keyof TypeProps] = value
+        this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, prevProps, target)
+        return true
+      },
+      deleteProperty() {
+        throw new Error('Нет доступа')
+      },
+    })
+  }
+
+  private _registerEvents() {
+    this._eventBus.subscribe(Block.EVENTS.INIT, this.init.bind(this))
+    this._eventBus.subscribe(
+      Block.EVENTS.FLOW_CDM,
+      this._componentDidMount.bind(this),
+    )
+    this._eventBus.subscribe(
+      Block.EVENTS.FLOW_CDU,
+      this._componentDidUpdate.bind(this),
+    )
+    this._eventBus.subscribe(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
+  }
+
   compile(template: string, props: TypeProps) {
     const propsAndStubs = { ...(props as BlockProps) }
-
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`
     })
-
-    const fragment = document.createElement('template')
+    const fragment = this._createDocumentElement(
+      'template',
+    ) as HTMLTemplateElement
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs)
 
     Object.values(this.children).forEach((child) => {
@@ -76,13 +98,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   init() {
     this._element = this._createDocumentElement()
-    this.eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
-  }
-
-  private _createDocumentElement(tagName = 'div') {
-    const element = document.createElement(tagName)
-    element.dataset.id = this._id
-    return element
+    this._eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
   }
 
   private _componentDidMount() {
@@ -95,23 +111,18 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   componentDidMount() {}
 
   dispatchComponentDidMount() {
-    this.eventBus.dispatch(Block.EVENTS.FLOW_CDM)
+    this._eventBus.dispatch(Block.EVENTS.FLOW_CDM)
   }
 
   private _componentDidUpdate(oldProps: TypeProps, newProps: TypeProps) {
-    const response = this.componentDidUpdate(oldProps, newProps)
-    if (!response) {
-      return
+    const isComponentDidUpdate = this.componentDidUpdate(oldProps, newProps)
+    if (isComponentDidUpdate) {
+      this._eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
     }
-    this._render()
   }
 
-  componentDidUpdate(_oldProps: TypeProps, _newProps: TypeProps) {
-    return true
-  }
-
-  setProps(nextProps: Partial<TypeProps>) {
-    Object.assign(this.props, nextProps)
+  componentDidUpdate(oldProps: TypeProps, newProps: TypeProps) {
+    return oldProps !== newProps
   }
 
   private _render() {
@@ -122,14 +133,23 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
     if (this._element) {
       this._element.replaceWith(newElement)
+      this._element = newElement
     }
 
-    this._element = newElement
-    this._element.dataset.id = this._id
     this._addEvents()
   }
 
   render() {}
+
+  private _createDocumentElement(tagName = 'div') {
+    const element = document.createElement(tagName)
+    element.dataset.id = this._id
+    return element
+  }
+
+  setProps(nextProps: TypeProps) {
+    Object.assign(this.props, nextProps)
+  }
 
   private _removeEvents() {
     const { events = {} } = this.props
@@ -145,25 +165,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     })
   }
 
-  private _makePropsProxy(props: TypeProps) {
-    return new Proxy(props, {
-      get(target, prop) {
-        const value = target[prop as keyof TypeProps]
-        return typeof value === 'function' ? value.bind(target) : value
-      },
-      set: (target, prop, value) => {
-        target[prop as keyof TypeProps] = value
-        this.eventBus.dispatch(Block.EVENTS.FLOW_CDU, { ...target }, target)
-        return true
-      },
-      deleteProperty() {
-        throw new Error('Нет доступа')
-      },
-    })
-  }
-
   getContent() {
-    console.log(this._element)
     return this._element!
   }
 
