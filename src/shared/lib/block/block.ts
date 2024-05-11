@@ -1,7 +1,8 @@
+import Handlebars from 'handlebars'
 import { v4 as makeUUID } from 'uuid'
 import { EventBus } from '@/shared/lib/event-bus'
 
-export type BlockProps = {
+export type BlockProps = Record<string, unknown> & {
   events?: Record<string, (event: Event) => void>
 } & object
 
@@ -14,18 +15,16 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   private _element: HTMLElement | null = null
-  private readonly _meta: { tagName: string; props: TypeProps }
   private eventBus: EventBus
   readonly props: TypeProps
   private readonly _id
+  children: Record<string, Block>
 
-  constructor(tagName = 'div', propsWithChildren: TypeProps) {
-    this._meta = {
-      tagName,
-      props: propsWithChildren,
-    }
+  constructor(propsWithChildren: TypeProps) {
+    const { children, props } = this._getChildrenAndProps(propsWithChildren)
+    this.children = children
+    this.props = this._makePropsProxy(props as TypeProps)
     this._id = makeUUID()
-    this.props = this._makePropsProxy({ ...propsWithChildren, _id: this._id })
     this.eventBus = EventBus.getInstance()
     this._registerEvents()
     this.eventBus.dispatch(Block.EVENTS.INIT)
@@ -44,20 +43,53 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     this.eventBus.subscribe(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
   }
 
+  private _getChildrenAndProps(propsWithChildren: TypeProps) {
+    const children = {} as Record<string, Block>
+    const props = {} as BlockProps
+    Object.entries(propsWithChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value
+      } else {
+        props[key] = value
+      }
+    })
+    return { props, children }
+  }
+
+  compile(template: string, props: TypeProps) {
+    const propsAndStubs = { ...(props as BlockProps) }
+
+    Object.entries(this.children).forEach(([key, child]) => {
+      propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+    })
+
+    const fragment = document.createElement('template')
+    fragment.innerHTML = Handlebars.compile(template)(propsAndStubs)
+
+    Object.values(this.children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
+      stub?.replaceWith(child.getContent())
+    })
+
+    return fragment.content
+  }
+
   init() {
-    this._createDocumentElement()
+    this._element = this._createDocumentElement()
     this.eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
   }
 
-  private _createDocumentElement() {
-    const { tagName } = this._meta
+  private _createDocumentElement(tagName = 'div') {
     const element = document.createElement(tagName)
     element.dataset.id = this._id
-    this._element = element
+    return element
   }
 
   private _componentDidMount() {
     this.componentDidMount()
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount()
+    })
   }
 
   componentDidMount() {}
@@ -83,11 +115,17 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   private _render() {
-    const block = this.render() as unknown as string
+    const block = this.render() as unknown as HTMLElement
+    const newElement = block.firstElementChild as HTMLElement
+
     this._removeEvents()
+
     if (this._element) {
-      this._element.innerHTML = block
+      this._element.replaceWith(newElement)
     }
+
+    this._element = newElement
+    this._element.dataset.id = this._id
     this._addEvents()
   }
 
@@ -125,6 +163,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   getContent() {
+    console.log(this._element)
     return this._element!
   }
 
