@@ -83,6 +83,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`
     })
+
     const fragment = this._createDocumentElement(
       'template',
     ) as HTMLTemplateElement
@@ -128,7 +129,6 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   private _render() {
     const block = this.render() as unknown as HTMLElement
     const newElement = block.firstElementChild as HTMLElement
-
     this._removeEvents()
 
     if (this._element) {

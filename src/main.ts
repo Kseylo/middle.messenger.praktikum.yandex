@@ -2,6 +2,7 @@ import Handlebars from 'handlebars'
 import HandlebarsRuntime from 'handlebars/runtime'
 import * as Pages from '@/pages'
 import { chatsPlaceholderData } from '@/shared/config'
+import { Block } from '@/shared/lib/block'
 import * as UI from '@/shared/ui'
 import * as Widgets from '@/widgets'
 
@@ -24,21 +25,33 @@ enum Routes {
   ServerError = '/server-error',
 }
 
-export const pages: Record<string, string> = {
-  [Routes.Login]: Pages.Login({}),
-  [Routes.SignUp]: Pages.SignUp({}),
-  [Routes.SelectChat]: Pages.SelectChat({
-    chats: chatsPlaceholderData,
+export const pages: Record<Routes, Block> = {
+  [Routes.Login]: new Pages.Login({}),
+  [Routes.SignUp]: new Pages.SignUp({}),
+  // [Routes.SignUp]: Pages.SignUp({}),
+  // [Routes.SelectChat]: Pages.SelectChat({
+  //   chats: chatsPlaceholderData,
+  // }),
+  // [Routes.ChatFeed]: Pages.ChatFeed({ chats: chatsPlaceholderData }),
+  // [Routes.Profile]: Pages.Profile({
+  //   chats: chatsPlaceholderData,
+  // }),
+  // [Routes.Account]: Pages.Account({
+  //   chats: chatsPlaceholderData,
+  // }),
+  // [Routes.NotFound]: new Pages.Error({
+  //   code: 404,
+  //   description: 'Не туда попали',
+  // }),
+  // [Routes.ServerError]: Pages.Error({
+  //   code: 500,
+  //   description: 'Мы уже фиксим',
+  // }),
+  [Routes.NotFound]: new Pages.Error({
+    code: 404,
+    description: 'Не туда попали',
   }),
-  [Routes.ChatFeed]: Pages.ChatFeed({ chats: chatsPlaceholderData }),
-  [Routes.Profile]: Pages.Profile({
-    chats: chatsPlaceholderData,
-  }),
-  [Routes.Account]: Pages.Account({
-    chats: chatsPlaceholderData,
-  }),
-  [Routes.NotFound]: Pages.Error({ code: 404, description: 'Не туда попали' }),
-  [Routes.ServerError]: Pages.Error({
+  [Routes.ServerError]: new Pages.Error({
     code: 500,
     description: 'Мы уже фиксим',
   }),
@@ -51,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleRouteChange() {
   const { pathname } = window.location
-  const route = pathname
+  const route = pathname as Routes
 
   if (Object.prototype.hasOwnProperty.call(pages, route)) {
     renderPage(pages[route])
@@ -60,7 +73,7 @@ function handleRouteChange() {
   }
 }
 
-function renderPage(page: string) {
+function renderPage(page: Block) {
   const root = document.querySelector('#root')!
-  root.innerHTML = Handlebars.compile(page)({})
+  root.append(page.getContent())
 }

@@ -1,1 +1,1 @@
-export { default as SignUp } from './sign-up.hbs'
+export { SignUp } from './sign-up'

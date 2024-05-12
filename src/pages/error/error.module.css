@@ -1,4 +1,4 @@
-.error-container {
+.container {
     display: grid;
     place-content: center;
     min-height: 100dvh;
@@ -6,11 +6,11 @@
     gap: 2rem;
 }
 
-.error-code {
+.code {
     font-size: var(--fs-5xl);
     text-align: center;
 }
 
-.error-description {
+.description {
     font-size: var(--fs-lg);
 }

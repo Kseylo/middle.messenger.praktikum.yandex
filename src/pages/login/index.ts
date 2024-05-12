@@ -1,1 +1,1 @@
-export { default as Login } from './login.hbs'
+export { Login } from './login'

@@ -1,0 +1,29 @@
+.container {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.form {
+    display: grid;
+    margin: 0 auto;
+    width: 100%;
+    gap: 1rem;
+    max-width: var(--max-width-md);
+}
+
+.title {
+    font-size: var(--fs-2xl);
+}
+
+.actions {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    a {
+        text-align: center;
+    }
+}
