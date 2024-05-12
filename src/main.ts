@@ -28,6 +28,8 @@ enum Routes {
 export const pages: Record<Routes, Block> = {
   [Routes.Login]: new Pages.Login({}),
   [Routes.SignUp]: new Pages.SignUp({}),
+  [Routes.Account]: new Pages.Account({}),
+  // [Routes.Profile]: new Pages.Profile({}),
   // [Routes.SignUp]: Pages.SignUp({}),
   // [Routes.SelectChat]: Pages.SelectChat({
   //   chats: chatsPlaceholderData,

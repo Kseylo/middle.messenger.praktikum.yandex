@@ -1,3 +1,6 @@
+import { Block, BlockProps } from '@/shared/lib/block'
+
+const template = `
 <div class='app-container'>
   {{> Sidebar chats=chats }}
   <main class="profile">
@@ -27,3 +30,12 @@
     </div>
   </main>
 </div>
+`
+
+type ProfileProps = BlockProps
+
+export class Profile extends Block<ProfileProps> {
+  render() {
+    return this.compile(template, this.props)
+  }
+}
