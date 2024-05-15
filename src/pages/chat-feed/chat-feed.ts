@@ -1,5 +1,11 @@
+import { Block, BlockProps } from '@/shared/lib/block'
+import { Sidebar } from '@/widgets'
+
+type ChatFeedProps = BlockProps
+
+const template = `
 <div class='app-container'>
-  {{> Sidebar chats=chats }}
+  {{{ sidebar }}}
   <main class="chat-feed">
     <header class="sidebar-header chat-feed__header">
       <h4 class="chat-feed__title">Андрей</h4>
@@ -30,3 +36,15 @@
     </footer>
   </main>
 </div>
+`
+
+export class ChatFeed extends Block<ChatFeedProps> {
+  constructor(props: ChatFeedProps) {
+    const sidebar = new Sidebar({})
+    super({ ...props, sidebar })
+  }
+
+  render() {
+    return this.compile(template, this.props)
+  }
+}

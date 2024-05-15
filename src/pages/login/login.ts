@@ -1,14 +1,15 @@
 import { Block, type BlockProps } from '@/shared/lib/block'
-import { FormInput } from '@/shared/ui'
+import { Input } from '@/shared/ui'
 import styles from './login.module.css'
 
 type LoginProps = BlockProps
+
 const template = `
 <main class='${styles.container}'>
   <form class='card ${styles.form}'>
     <h1 class='${styles.title}'>Вход</h1>
-    {{{ LoginInput }}}
-    {{{ PasswordInput }}}
+    {{{ loginInput }}}
+    {{{ passwordInput }}}
     <div class='${styles.actions}'>
       <a href="/chat">
         <button class='button button-primary' style="width: 100%; pointer-events: none">Войти</button>
@@ -21,19 +22,20 @@ const template = `
 
 export class Login extends Block<LoginProps> {
   constructor(props: LoginProps) {
-    const LoginInput = new FormInput({
+    const loginInput = new Input({
       id: 'login',
       label: 'Логин',
       placeholder: 'Логин',
       name: 'login',
     })
-    const PasswordInput = new FormInput({
+
+    const passwordInput = new Input({
       id: 'password',
       label: 'Пароль',
       placeholder: 'Пароль',
       name: 'password',
     })
-    super({ ...props, LoginInput, PasswordInput })
+    super({ ...props, loginInput, passwordInput })
   }
 
   render() {

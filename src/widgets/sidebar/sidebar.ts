@@ -1,19 +1,32 @@
-import { Block } from '@/shared/lib/block'
+import { chatsPlaceholderData } from '@/shared/config'
+import { Block, BlockProps } from '@/shared/lib/block'
+import { Avatar, ChatList, SearchInput } from '@/shared/ui'
 
 const template = `
 <aside class="sidebar">
   <div class="sidebar-header">
     <a href="/profile" style="min-width: 40px">
-      {{> Avatar width='40' height='40' }}
+      {{{ profileAvatar }}}
     </a>
-    {{> SearchInput placeholder='Поиск' }}
+    {{{ searchInput}}}
   </div>
-  {{> ChatList chats=chats }}
+  {{{ chatList }}}
 </aside>
 `
 
-export class Sidebar extends Block {
+type SidebarProps = BlockProps
+
+export class Sidebar extends Block<SidebarProps> {
+  constructor(props: SidebarProps) {
+    const profileAvatar = new Avatar({ width: 40, height: 40 })
+    const searchInput = new SearchInput({
+      placeholder: 'Поиск',
+    })
+    const chatList = new ChatList({ chats: chatsPlaceholderData })
+    super({ ...props, profileAvatar, searchInput, chatList })
+  }
+
   render() {
-    this.compile(template, this.props)
+    return this.compile(template, this.props)
   }
 }

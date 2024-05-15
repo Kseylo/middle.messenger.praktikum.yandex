@@ -1,3 +1,3 @@
 import './chat-feed.css'
 
-export { default as ChatFeed } from './chat-feed.hbs'
+export { ChatFeed } from './chat-feed'

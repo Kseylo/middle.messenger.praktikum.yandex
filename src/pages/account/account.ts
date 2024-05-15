@@ -1,10 +1,11 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { FormInput } from '@/shared/ui'
+import { Input } from '@/shared/ui'
+import { Sidebar } from '@/widgets'
 import styles from './account.module.css'
 
-// {{> Sidebar chats=chats }}
 const template = `
 <div class='app-container'>
+    {{{ sidebar }}}
   <main class="${styles.container}">
     <header class="sidebar-header">
       <a href="/profile" class="sidebar-link">Профиль</a>
@@ -13,9 +14,8 @@ const template = `
     <div class="${styles.main}">
       <div class="${styles.wrapper} card">
         <form class="${styles.form}">
-          {{{ OldPasswordInput }}}
-          {{{ NewPasswordInput}}}
-          {{{ ProfileAvatar }}}
+          {{{ oldPasswordInput }}}
+          {{{ newPasswordInput}}}
           <button class="button button-primary">Обновить аккаунт</button>
         </form>
       </div>
@@ -28,19 +28,27 @@ type AccountProps = BlockProps
 
 export class Account extends Block<AccountProps> {
   constructor(props: AccountProps) {
-    const OldPasswordInput = new FormInput({
+    const oldPasswordInput = new Input({
       id: 'oldPassword',
       label: 'Старый пароль',
       placeholder: 'Старый пароль',
       name: 'oldPassword',
+      type: 'password',
     })
-    const NewPasswordInput = new FormInput({
+    const newPasswordInput = new Input({
       id: 'newPassword',
       label: 'Новый пароль',
       placeholder: 'Новый пароль',
       name: 'newPassword',
+      type: 'password',
     })
-    super({ ...props, OldPasswordInput, NewPasswordInput })
+    const sidebar = new Sidebar({})
+    super({
+      ...props,
+      oldPasswordInput,
+      newPasswordInput,
+      sidebar,
+    })
   }
 
   render() {

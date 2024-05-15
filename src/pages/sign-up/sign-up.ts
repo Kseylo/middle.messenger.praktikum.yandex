@@ -1,16 +1,16 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { FormInput } from '@/shared/ui'
+import { Input } from '@/shared/ui'
 import styles from './sign-up.module.css'
 
 const template = `
 <main class='${styles.container}'>
   <form class='card ${styles.form}'>
     <h1 class='${styles.title}'>Регистрация</h1>
-    {{{ LoginInput }}}
-    {{{ EmailInput }}}
-    {{{ NameInput }}}
-    {{{ SecondNameInput }}}
-    {{{ PasswordInput }}}
+    {{{ loginInput }}}
+    {{{ emailInput }}}
+    {{{ nameInput }}}
+    {{{ secondNameInput }}}
+    {{{ passwordInput }}}
     <div class='${styles.actions}'>
       <button class='button button-primary'>Создать аккаунт</button>
       <a href='/'>Войти</a>
@@ -23,37 +23,37 @@ type SignUpProps = BlockProps
 
 export class SignUp extends Block<SignUpProps> {
   constructor(props: SignUpProps) {
-    const LoginInput = new FormInput({
+    const loginInput = new Input({
       id: 'login',
       label: 'Логин',
       placeholder: 'Логин',
       name: 'login',
     })
-    const EmailInput = new FormInput({
+    const emailInput = new Input({
       id: 'email',
       label: 'Email',
       placeholder: 'pochta@yandex.ru',
       name: 'email',
     })
-    const PhoneInput = new FormInput({
+    const phoneInput = new Input({
       id: 'phone',
       label: 'Телефон',
       placeholder: '+7 (999) 999-99-99',
       name: 'phone',
     })
-    const NameInput = new FormInput({
+    const nameInput = new Input({
       id: 'first_name',
       label: 'Имя',
       placeholder: 'Имя',
       name: 'first_name',
     })
-    const SecondNameInput = new FormInput({
+    const secondNameInput = new Input({
       id: 'second_name',
       label: 'Фамилия',
       placeholder: 'Фамилия',
       name: 'second_name',
     })
-    const PasswordInput = new FormInput({
+    const passwordInput = new Input({
       id: 'password',
       label: 'Пароль',
       placeholder: 'Пароль',
@@ -62,12 +62,12 @@ export class SignUp extends Block<SignUpProps> {
 
     super({
       ...props,
-      LoginInput,
-      EmailInput,
-      PhoneInput,
-      NameInput,
-      SecondNameInput,
-      PasswordInput,
+      loginInput,
+      emailInput,
+      phoneInput,
+      nameInput,
+      secondNameInput,
+      passwordInput,
     })
   }
 

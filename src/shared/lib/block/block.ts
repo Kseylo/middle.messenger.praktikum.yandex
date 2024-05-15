@@ -35,8 +35,8 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   private _getChildrenAndProps(propsWithChildren: TypeProps) {
-    const children = {} as Record<string, Block>
-    const props = {} as BlockProps
+    const children: Record<string, Block> = {}
+    const props: BlockProps = {}
     Object.entries(propsWithChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value
@@ -93,7 +93,6 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
       stub?.replaceWith(child.getContent())
     })
-
     return fragment.content
   }
 
