@@ -10,16 +10,14 @@ interface InputProps extends BlockProps {
 }
 
 const template = `
-<div class='${styles.wrapper}'>
-  <label for='{{id}}' class='${styles.label}'>{{label}}</label>
   <input
     placeholder='{{placeholder}}'
     id='{{id}}'
     class='${styles.input}'
     name='{{name}}'
     type="{{type}}"
+    autocomplete="false"
   />
-</div>
 `
 
 export class Input extends Block<InputProps> {

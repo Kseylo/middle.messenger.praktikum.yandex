@@ -1,5 +1,5 @@
 import { Block, type BlockProps } from '@/shared/lib/block'
-import { Input } from '@/shared/ui'
+import { InputWithLabel } from '@/shared/ui'
 import styles from './login.module.css'
 
 type LoginProps = BlockProps
@@ -22,20 +22,30 @@ const template = `
 
 export class Login extends Block<LoginProps> {
   constructor(props: LoginProps) {
-    const loginInput = new Input({
-      id: 'login',
-      label: 'Логин',
-      placeholder: 'Логин',
-      name: 'login',
+    super({
+      ...props,
+      loginInput: new InputWithLabel({
+        id: 'login',
+        label: 'Логин',
+        placeholder: 'Логин',
+        name: 'login',
+        events: {
+          blur: () => console.log('Hello World'),
+        },
+      }),
+      passwordInput: new InputWithLabel({
+        id: 'password',
+        label: 'Пароль',
+        placeholder: 'Пароль',
+        name: 'password',
+        type: 'password',
+        events: {
+          blur: () => {
+            console.log(this.children.passwordInput)
+          },
+        },
+      }),
     })
-
-    const passwordInput = new Input({
-      id: 'password',
-      label: 'Пароль',
-      placeholder: 'Пароль',
-      name: 'password',
-    })
-    super({ ...props, loginInput, passwordInput })
   }
 
   render() {

@@ -1,4 +1,3 @@
-import { chatsPlaceholderData } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Avatar, ChatList, SearchInput } from '@/shared/ui'
 
@@ -22,7 +21,7 @@ export class Sidebar extends Block<SidebarProps> {
     const searchInput = new SearchInput({
       placeholder: 'Поиск',
     })
-    const chatList = new ChatList({ chats: chatsPlaceholderData })
+    const chatList = new ChatList({})
     super({ ...props, profileAvatar, searchInput, chatList })
   }
 

@@ -1,4 +1,5 @@
 import { Block, BlockProps } from '@/shared/lib/block'
+import { Message } from '@/shared/ui/message'
 import { Sidebar } from '@/widgets'
 
 type ChatFeedProps = BlockProps
@@ -17,7 +18,9 @@ const template = `
         </svg>
       </button>
     </header>
-    <h1 style="text-align: center">Здесь будет лента чата</h1>
+    <div>
+      {{{ message }}}
+    </div>
     <footer class="chat-feed__footer">
       <button class="button ghost-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
@@ -41,7 +44,12 @@ const template = `
 export class ChatFeed extends Block<ChatFeedProps> {
   constructor(props: ChatFeedProps) {
     const sidebar = new Sidebar({})
-    super({ ...props, sidebar })
+    const message = new Message({
+      message:
+        'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.',
+      time: '11:47',
+    })
+    super({ ...props, sidebar, message })
   }
 
   render() {

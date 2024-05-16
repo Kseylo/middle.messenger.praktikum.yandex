@@ -1,7 +1,7 @@
-<div class="chat-list">
-  {{#each chats}}
+import { Block, BlockProps } from '@/shared/lib/block'
+
+const template = `
     <a href="/chat-feed" class="chat no-wrap">
-      {{> Avatar width='56' height='56'}}
       <div class="chat__info">
         <div class="chat__row no-wrap">
           <h4 class="chat__user-title no-wrap">{{this.title}}</h4>
@@ -15,5 +15,17 @@
         </div>
       </div>
     </a>
-  {{/each}}
-</div>
+`
+
+interface ChatProps extends BlockProps {
+  title: string
+  messageTime: string
+  lastMessage: string
+  unreadCount?: number
+}
+
+export class Chat extends Block<ChatProps> {
+  render() {
+    return this.compile(template, this.props)
+  }
+}
