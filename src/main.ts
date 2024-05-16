@@ -1,5 +1,5 @@
 import * as Pages from '@/pages'
-import { Block } from '@/shared/lib/block'
+import { Block, BlockProps } from '@/shared/lib/block'
 
 enum Routes {
   Login = '/',
@@ -12,21 +12,26 @@ enum Routes {
   ServerError = '/server-error',
 }
 
-export const pages: Record<Routes, Block> = {
-  [Routes.Login]: new Pages.Login({}),
-  [Routes.SignUp]: new Pages.SignUp({}),
-  [Routes.SelectChat]: new Pages.SelectChat({}),
-  [Routes.Account]: new Pages.Account({}),
-  [Routes.ChatFeed]: new Pages.ChatFeed({}),
-  [Routes.Profile]: new Pages.Profile({}),
-  [Routes.NotFound]: new Pages.Error({
-    code: 404,
-    description: 'Не туда попали',
-  }),
-  [Routes.ServerError]: new Pages.Error({
-    code: 500,
-    description: 'Мы уже фиксим',
-  }),
+interface Page<Props extends BlockProps = any> {
+  component: new (props: Props) => Block<Props>
+  props?: Props
+}
+
+const pages: Record<Routes, Page> = {
+  [Routes.Login]: { component: Pages.Login },
+  [Routes.SignUp]: { component: Pages.SignUp },
+  [Routes.SelectChat]: { component: Pages.SelectChat },
+  [Routes.Account]: { component: Pages.Account },
+  [Routes.ChatFeed]: { component: Pages.ChatFeed },
+  [Routes.Profile]: { component: Pages.Profile },
+  [Routes.NotFound]: {
+    component: Pages.Error,
+    props: { code: 404, description: 'Не туда попали' },
+  },
+  [Routes.ServerError]: {
+    component: Pages.Error,
+    props: { code: 500, description: 'Мы уже фиксим' },
+  },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,7 +50,9 @@ function handleRouteChange() {
   }
 }
 
-function renderPage(page: Block) {
+function renderPage(page: Page) {
   const root = document.querySelector('#root')!
-  root.append(page.getContent())
+  root.innerHTML = ''
+  const pageProps = page.props || {}
+  root.append(new page.component(pageProps).getContent())
 }
