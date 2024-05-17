@@ -16,51 +16,56 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   private _element: HTMLElement | null = null
   private _eventBus: EventBus
-  private readonly _id
+  private readonly _id: string
+  private readonly _children: Record<string, Block>
+  private readonly _lists: Record<string, unknown[]>
   readonly props: TypeProps
-  children: Record<string, Block>
+  _setUpdate = false
 
   constructor(propsWithChildren: TypeProps) {
     this._id = makeUUID()
-    const { props, children } = this._getChildrenAndProps(propsWithChildren)
+    const { props, children, lists } = this._getChildren(propsWithChildren)
     this.props = this._makePropsProxy({
       ...props,
       _id: this._id,
     } as unknown as TypeProps)
-    this.children = children
+    this._children = this._makePropsProxy(children)
+    this._lists = this._makePropsProxy(lists)
 
     this._eventBus = EventBus.getInstance()
     this._registerEvents()
     this._eventBus.dispatch(Block.EVENTS.INIT)
   }
 
-  private _getChildrenAndProps(propsWithChildren: TypeProps) {
+  private _getChildren(propsWithChildren: TypeProps) {
     const children: Record<string, Block> = {}
     const props: BlockProps = {}
+    const lists: Record<string, unknown[]> = {}
+
     Object.entries(propsWithChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value
+      } else if (Array.isArray(value)) {
+        lists[key] = value
       } else {
         props[key] = value
       }
     })
-    return { props, children }
+    return { props, children, lists }
   }
 
-  private _makePropsProxy(props: TypeProps) {
+  private _makePropsProxy<T extends object>(props: T): T {
     return new Proxy(props, {
-      get: (target, prop) => {
-        const value = target[prop as keyof TypeProps]
+      get: (target, prop: string) => {
+        const value = target[prop as keyof T]
         return typeof value === 'function' ? value.bind(target) : value
       },
-      set: (target, prop, value) => {
-        const prevProps = { ...target }
-        target[prop as keyof TypeProps] = value
-        this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, prevProps, target)
+      set: (target, prop: string, value) => {
+        if (target[prop as keyof T] !== value) {
+          target[prop as keyof T] = value
+          this._setUpdate = true
+        }
         return true
-      },
-      deleteProperty() {
-        throw new Error('Нет доступа')
       },
     })
   }
@@ -80,8 +85,12 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   compile(template: string, props: TypeProps) {
     const propsAndStubs = { ...(props as BlockProps) }
-    Object.entries(this.children).forEach(([key, child]) => {
+
+    Object.entries(this._children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+    })
+    Object.entries(this._lists).forEach(([key]) => {
+      propsAndStubs[key] = `<div data-id="__l_${key}"></div>`
     })
 
     const fragment = this._createDocumentElement(
@@ -89,9 +98,30 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     ) as HTMLTemplateElement
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs)
 
-    Object.values(this.children).forEach((child) => {
+    Object.values(this._children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
-      stub?.replaceWith(child.getContent())
+      if (stub) {
+        stub.replaceWith(child.getContent())
+      }
+    })
+
+    Object.entries(this._lists).forEach(([key, list]) => {
+      const stub = fragment.content.querySelector(`[data-id="__l_${key}"]`)
+      if (stub) {
+        const listContent = this._createDocumentElement(
+          'template',
+        ) as HTMLTemplateElement
+
+        list.forEach((item) => {
+          if (item instanceof Block) {
+            listContent.content.append(item.getContent())
+          } else {
+            listContent.content.append(`${item}`)
+          }
+        })
+
+        stub.replaceWith(listContent.content)
+      }
     })
     return fragment.content
   }
@@ -103,7 +133,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   private _componentDidMount() {
     this.componentDidMount()
-    Object.values(this.children).forEach((child) => {
+    Object.values(this._children).forEach((child) => {
       child.dispatchComponentDidMount()
     })
   }
@@ -122,20 +152,21 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   componentDidUpdate(oldProps: TypeProps, newProps: TypeProps) {
-    return oldProps !== newProps
+    console.log(oldProps, newProps)
+    return true
   }
 
   private _render() {
     const block = this.render() as unknown as HTMLElement
     const newElement = block.firstElementChild as HTMLElement
-    this._removeEvents()
+    this.removeEvents()
 
     if (this._element) {
       this._element.replaceWith(newElement)
       this._element = newElement
     }
 
-    this._addEvents()
+    this.addEvents()
   }
 
   render() {}
@@ -147,17 +178,37 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   setProps(nextProps: TypeProps) {
-    Object.assign(this.props, nextProps)
+    this._setUpdate = false
+    const oldProps = { ...this.props }
+
+    const { children, props, lists } = this._getChildren(nextProps)
+
+    if (Object.values(children).length > 0) {
+      Object.assign(this._children, children)
+    }
+
+    if (Object.values(props).length > 0) {
+      Object.assign(this.props, props)
+    }
+
+    if (Object.values(lists).length > 0) {
+      Object.assign(this._lists, lists)
+    }
+
+    if (this._setUpdate) {
+      this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, this.props)
+      this._setUpdate = false
+    }
   }
 
-  private _removeEvents() {
+  removeEvents() {
     const { events = {} } = this.props
     Object.keys(events).forEach((eventName) => {
       this._element?.removeEventListener(eventName, events[eventName])
     })
   }
 
-  private _addEvents() {
+  addEvents() {
     const { events = {} } = this.props
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName])
