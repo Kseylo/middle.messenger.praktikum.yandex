@@ -1,4 +1,5 @@
 export { Avatar } from './avatar'
+export { Button } from './button'
 export { ChatList } from './chat-list'
 export { Input, InputWithLabel } from './input'
 export { SearchInput } from './search-input'
