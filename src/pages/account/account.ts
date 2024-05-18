@@ -4,9 +4,9 @@ import { Sidebar } from '@/widgets'
 import styles from './account.module.css'
 
 const template = `
-<div class='app-container'>
+<div class='${styles.container}'>
     {{{ sidebar }}}
-  <main class="${styles.container}">
+  <main class="${styles.main}">
     <header class="sidebar-header">
       <a href="/profile" class="sidebar-link">Профиль</a>
       <a href="/account" class="sidebar-link sidebar-link__active">Аккаунт</a>

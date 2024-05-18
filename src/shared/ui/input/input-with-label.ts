@@ -1,18 +1,19 @@
-import { Block, type BlockProps } from '@/shared/lib'
-import { Input } from './input'
+import { Block } from '@/shared/lib'
+import { Input, type InputProps } from './input'
 import styles from './input.module.css'
 
-interface InputWithLabelProps extends BlockProps {
+interface InputWithLabelProps extends InputProps {
   id: string
   label: string
-  error?: string
+  errorMessage?: string
 }
 
+// language=hbs
 const template = `
 <div class='${styles.wrapper}'>
-  <label for='{{ id }}' class='${styles.label}'>{{ label }}</label>
-  {{{ Input }}}
-  <span>{{ error }}</span>
+  <label for='{{id}}' class='${styles.label}'>{{label}}</label>
+  {{{Input}}}
+  <span class='${styles.error}'>{{errorMessage}}</span>
 </div>
 `
 

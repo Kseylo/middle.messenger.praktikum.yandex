@@ -1,20 +1,24 @@
 import { Block, BlockProps } from '@/shared/lib/block'
+import { Avatar } from '@/shared/ui'
+import styles from './chat.module.css'
 
+// language=hbs
 const template = `
-    <a href="/chat-feed" class="chat no-wrap">
-      <div class="chat__info">
-        <div class="chat__row no-wrap">
-          <h4 class="chat__user-title no-wrap">{{this.title}}</h4>
-          <time class="chat__message-time">{{this.messageTime}}</time>
+    <li class="${styles.container} ${styles.noWrap}">
+      {{{ avatar }}}
+      <div class="${styles.wrapper}">
+        <div class="${styles.row} ${styles.noWrap}">
+          <h4 class="${styles.userTitle} ${styles.noWrap}">{{this.title}}</h4>
+          <time class="${styles.messageTime}">{{this.messageTime}}</time>
         </div>
-        <div class="chat__row no-wrap">
-          <p class="chat__last-message no-wrap">{{this.lastMessage}}</p>
+        <div class="${styles.row} ${styles.noWrap}">
+          <p class="${styles.lastMessage} ${styles.noWrap}">{{this.lastMessage}}</p>
           {{#if this.unreadCount}}
-            <span class="chat__unread-count">{{this.unreadCount}}</span>
+            <span class="${styles.unreadCount}">{{this.unreadCount}}</span>
           {{/if}}
         </div>
       </div>
-    </a>
+    </li>
 `
 
 interface ChatProps extends BlockProps {
@@ -25,6 +29,10 @@ interface ChatProps extends BlockProps {
 }
 
 export class Chat extends Block<ChatProps> {
+  constructor(props: ChatProps) {
+    super({ ...props, avatar: new Avatar({ width: 56, height: 56 }) })
+  }
+
   render() {
     return this.compile(template, this.props)
   }

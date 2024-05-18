@@ -1,14 +1,7 @@
 import { Block, BlockProps } from '@/shared/lib/block'
 import styles from './input.module.css'
 
-interface InputProps extends BlockProps {
-  placeholder?: string
-  label?: string
-  id?: string
-  name?: string
-  type?: string
-}
-
+// language=hbs
 const template = `
   <input
     placeholder='{{placeholder}}'
@@ -19,6 +12,13 @@ const template = `
     autocomplete="false"
   />
 `
+
+export interface InputProps extends BlockProps {
+  placeholder?: string
+  id?: string
+  name?: string
+  type?: string
+}
 
 export class Input extends Block<InputProps> {
   render() {

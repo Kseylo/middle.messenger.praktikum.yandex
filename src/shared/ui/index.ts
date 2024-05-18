@@ -1,5 +1,6 @@
 export { Avatar } from './avatar'
 export { Button } from './button'
-export { ChatList } from './chat-list'
+export { Chat } from './chat'
+export { ChatHeader } from './chat-header'
 export { Input, InputWithLabel } from './input'
 export { SearchInput } from './search-input'

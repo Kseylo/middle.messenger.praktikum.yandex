@@ -29,3 +29,16 @@
     line-height: 1;
     font-size: var(--fs-sm);
 }
+
+.error {
+    color: var(--destructive);
+    font-size: var(--fs-sm);
+}
+
+[data-error="true"] .input {
+    border-color: var(--destructive);
+}
+
+[data-error="true"] .label {
+    color: var(--destructive);
+}

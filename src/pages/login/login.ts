@@ -1,19 +1,19 @@
 import { Block, type BlockProps } from '@/shared/lib/block'
-import { InputWithLabel } from '@/shared/ui'
+import { Validator } from '@/shared/lib/validator'
+import { Button, InputWithLabel } from '@/shared/ui'
 import styles from './login.module.css'
 
 type LoginProps = BlockProps
 
+// language=hbs
 const template = `
 <main class='${styles.container}'>
   <form class='card ${styles.form}'>
     <h1 class='${styles.title}'>Вход</h1>
-    {{{ loginInput }}}
-    {{{ passwordInput }}}
+    {{{loginInput}}}
+    {{{passwordInput}}}
     <div class='${styles.actions}'>
-      <a href="/chat">
-        <button class='button button-primary' style="width: 100%; pointer-events: none">Войти</button>
-      </a>
+      {{{button}}}
       <a href='/sign-up'>Нет аккаунта?</a>
     </div>
   </form>
@@ -22,6 +22,7 @@ const template = `
 
 export class Login extends Block<LoginProps> {
   constructor(props: LoginProps) {
+    const validator = new Validator()
     super({
       ...props,
       loginInput: new InputWithLabel({
@@ -30,7 +31,13 @@ export class Login extends Block<LoginProps> {
         placeholder: 'Логин',
         name: 'login',
         events: {
-          blur: () => console.log('Hello World'),
+          blur: (event) => {
+            const input = event.target as HTMLInputElement
+            const { errorMessage } = validator.validateLogin(input.value)
+            this.children.loginInput.setProps({
+              errorMessage,
+            })
+          },
         },
       }),
       passwordInput: new InputWithLabel({
@@ -40,10 +47,17 @@ export class Login extends Block<LoginProps> {
         name: 'password',
         type: 'password',
         events: {
-          blur: () => {
-            console.log(this.children.passwordInput)
+          blur: (event) => {
+            const input = event.target as HTMLInputElement
+            const { errorMessage } = validator.validatePassword(input.value)
+            this.children.passwordInput.setProps({
+              errorMessage,
+            })
           },
         },
+      }),
+      button: new Button({
+        text: 'Войти',
       }),
     })
   }

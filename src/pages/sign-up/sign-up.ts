@@ -1,18 +1,19 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { Input } from '@/shared/ui'
+import { Button, Input } from '@/shared/ui'
 import styles from './sign-up.module.css'
 
+// language=hbs
 const template = `
 <main class='${styles.container}'>
   <form class='card ${styles.form}'>
     <h1 class='${styles.title}'>Регистрация</h1>
-    {{{ loginInput }}}
-    {{{ emailInput }}}
-    {{{ nameInput }}}
-    {{{ secondNameInput }}}
-    {{{ passwordInput }}}
+    {{{loginInput}}}
+    {{{emailInput}}}
+    {{{nameInput}}}
+    {{{secondNameInput}}}
+    {{{passwordInput}}}
     <div class='${styles.actions}'>
-      <button class='button button-primary'>Создать аккаунт</button>
+      {{{button}}}
       <a href='/'>Войти</a>
     </div>
   </form>
@@ -60,6 +61,10 @@ export class SignUp extends Block<SignUpProps> {
       name: 'password',
     })
 
+    const button = new Button({
+      text: 'Создать аккаунт',
+    })
+
     super({
       ...props,
       loginInput,
@@ -68,6 +73,7 @@ export class SignUp extends Block<SignUpProps> {
       nameInput,
       secondNameInput,
       passwordInput,
+      button,
     })
   }
 

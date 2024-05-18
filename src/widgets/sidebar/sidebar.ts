@@ -1,15 +1,16 @@
+import { chatsPlaceholderData } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib/block'
-import { Avatar, ChatList, SearchInput } from '@/shared/ui'
+import { Chat, ChatHeader } from '@/shared/ui'
+import styles from './sidebar.module.css'
+import { SidebarHeader } from './sidebar-header'
 
+// language=hbs
 const template = `
-<aside class="sidebar">
-  <div class="sidebar-header">
-    <a href="/profile" style="min-width: 40px">
-      {{{ profileAvatar }}}
-    </a>
-    {{{ searchInput}}}
-  </div>
-  {{{ chatList }}}
+<aside class='${styles.sidebar}'>
+    {{{ sidebarHeader }}}
+  <ul class='${styles.chatList}'>
+    {{{chatList}}}
+  </ul>
 </aside>
 `
 
@@ -17,12 +18,12 @@ type SidebarProps = BlockProps
 
 export class Sidebar extends Block<SidebarProps> {
   constructor(props: SidebarProps) {
-    const profileAvatar = new Avatar({ width: 40, height: 40 })
-    const searchInput = new SearchInput({
-      placeholder: 'Поиск',
+    const chatList = chatsPlaceholderData.map((chat) => new Chat({ ...chat }))
+    super({
+      ...props,
+      chatList,
+      sidebarHeader: new ChatHeader({ content: new SidebarHeader({}) }),
     })
-    const chatList = new ChatList({})
-    super({ ...props, profileAvatar, searchInput, chatList })
   }
 
   render() {

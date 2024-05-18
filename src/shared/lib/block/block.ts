@@ -17,7 +17,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   private _element: HTMLElement | null = null
   private _eventBus: EventBus
   private readonly _id: string
-  private readonly _children: Record<string, Block>
+  readonly children: Record<string, Block>
   private readonly _lists: Record<string, unknown[]>
   readonly props: TypeProps
   _setUpdate = false
@@ -29,7 +29,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
       ...props,
       _id: this._id,
     } as unknown as TypeProps)
-    this._children = this._makePropsProxy(children)
+    this.children = this._makePropsProxy(children)
     this._lists = this._makePropsProxy(lists)
 
     this._eventBus = EventBus.getInstance()
@@ -86,7 +86,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   compile(template: string, props: TypeProps) {
     const propsAndStubs = { ...(props as BlockProps) }
 
-    Object.entries(this._children).forEach(([key, child]) => {
+    Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`
     })
     Object.entries(this._lists).forEach(([key]) => {
@@ -98,7 +98,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     ) as HTMLTemplateElement
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs)
 
-    Object.values(this._children).forEach((child) => {
+    Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
       if (stub) {
         stub.replaceWith(child.getContent())
@@ -133,7 +133,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   private _componentDidMount() {
     this.componentDidMount()
-    Object.values(this._children).forEach((child) => {
+    Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidMount()
     })
   }
@@ -151,8 +151,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
   }
 
-  componentDidUpdate(oldProps: TypeProps, newProps: TypeProps) {
-    console.log(oldProps, newProps)
+  componentDidUpdate(_oldProps: TypeProps, _newProps: TypeProps) {
     return true
   }
 
@@ -184,7 +183,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     const { children, props, lists } = this._getChildren(nextProps)
 
     if (Object.values(children).length > 0) {
-      Object.assign(this._children, children)
+      Object.assign(this.children, children)
     }
 
     if (Object.values(props).length > 0) {
