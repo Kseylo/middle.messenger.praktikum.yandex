@@ -1,13 +1,14 @@
 import { Block, type BlockProps } from '@/shared/lib'
-import { Avatar } from '@/shared/ui'
+import { Avatar, Button } from '@/shared/ui'
+import styles from './update-photo.module.css'
 
 // language=hbs
 const template = `
-<form class='profile-update__avatar'>
+<form class='${styles.form}'>
   {{{avatar}}}
-  <div>
-    <h1 class='profile-name'>{{name}}</h1>
-    <button class='button button-primary' name='avatar'>Сменить фото</button>
+  <div class="${styles.wrapper}">
+    <h1 class='${styles.name}'>{{name}}</h1>
+      {{{button}}}
   </div>
 </form>
 `
@@ -18,7 +19,11 @@ interface UpdatePhotoProps extends BlockProps {
 
 export class UpdatePhoto extends Block<UpdatePhotoProps> {
   constructor(props: UpdatePhotoProps) {
-    super({ ...props, avatar: new Avatar({ width: 80, height: 80 }) })
+    super({
+      ...props,
+      avatar: new Avatar({ width: 80, height: 80 }),
+      button: new Button({ text: 'Сменить фото' }),
+    })
   }
 
   render() {

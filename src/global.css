@@ -110,3 +110,8 @@ a:focus-visible {
     stroke-width: 2px;
     stroke: var(--primary);
 }
+
+.app {
+    min-height: 100dvh;
+    display: flex;
+}

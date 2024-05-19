@@ -1,12 +1,14 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { Sidebar, UpdateProfile } from '@/widgets'
+import { Link } from '@/shared/ui'
+import { SettingsHeader, Sidebar, UpdateProfile } from '@/widgets'
+import styles from './profile.module.css'
 
 const template = `
-<div class='app-container'>
+<div class='app'>
   {{{ sidebar }}}
-  <main class="profile">
-
-    <div class="profile-main">
+  <main class="${styles.main}">
+    {{{settingsHeader}}}
+    <div class="${styles.wrapper}">
         {{{ updateProfile }}}
     </div>
   </main>
@@ -21,6 +23,12 @@ export class Profile extends Block<ProfileProps> {
       ...props,
       sidebar: new Sidebar({}),
       updateProfile: new UpdateProfile(),
+      settingsHeader: new SettingsHeader({
+        links: [
+          new Link({ text: 'Профиль', href: '/profile', active: true }),
+          new Link({ text: 'Аккаунт', href: '/account' }),
+        ],
+      }),
     })
   }
 
