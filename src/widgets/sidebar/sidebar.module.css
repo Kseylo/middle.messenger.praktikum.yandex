@@ -15,10 +15,6 @@
         border-radius: var(--radius-md);
         visibility: hidden;
     }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: var(--radius-md);
-    }
 }
 
 .sidebar:hover {
@@ -38,4 +34,5 @@
 
 .chatList {
     padding-left: 0;
+    overflow-y: auto;
 }

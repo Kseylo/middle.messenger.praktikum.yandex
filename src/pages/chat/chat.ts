@@ -1,17 +1,16 @@
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Message } from '@/shared/ui/message'
 import { ChatFeedFooter, ChatFeedHeader, Sidebar } from '@/widgets'
+import styles from './chat.module.css'
 
 type ChatFeedProps = BlockProps
 
 const template = `
 <div class='app'>
   {{{ sidebar }}}
-  <main class="chat-feed">
+  <main class="${styles.main}">
   {{{chatFeedHeader}}}
-    <div>
-      {{{ message }}}
-    </div>
+  {{{ message }}}
   {{{chatFeedFooter}}}
   </main>
 </div>

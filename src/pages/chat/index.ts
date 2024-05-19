@@ -1,3 +1,1 @@
-import './chat.css'
-
-export { Chat } from './chat.ts'
+export { Chat } from './chat'

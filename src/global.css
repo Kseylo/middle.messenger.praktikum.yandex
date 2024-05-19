@@ -103,6 +103,6 @@ a:focus-visible {
 }
 
 .app {
-    min-height: 100dvh;
+    max-height: 100dvh;
     display: flex;
 }
