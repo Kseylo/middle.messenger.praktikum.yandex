@@ -1,9 +1,10 @@
 import { UpdateInfo, UpdatePhoto } from '@/features'
 import { Block } from '@/shared/lib'
+import styles from './update-profile.module.css'
 
 // language=hbs
 const template = `
-    <div class='profile-update card'>
+    <div class='card ${styles.wrapper}'>
         {{{updatePhoto}}}
         {{{updateInfo}}}
     </div>
