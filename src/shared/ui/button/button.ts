@@ -3,15 +3,17 @@ import styles from './button.module.css'
 
 // language=hbs
 const template = `
-<button class='${styles.button}'>{{text}}</button>
-`
+    <button class='{{className}}'>{{{children}}}</button>
+    `
 
 interface ButtonProps extends BlockProps {
-  text: string
+  children: string
+  variant?: 'primary' | 'ghost'
 }
 
 export class Button extends Block<ButtonProps> {
   render() {
-    return this.compile(template, this.props)
+    const className = `${styles.button} ${this.props.variant ? styles[this.props.variant] : styles.primary}`
+    return this.compile(template, { ...this.props, className })
   }
 }

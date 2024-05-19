@@ -85,15 +85,6 @@ a:focus-visible {
     outline: solid var(--input) 2px;
 }
 
-.ghost-button {
-    background-color: transparent;
-    padding: 0.5rem;
-}
-
-.ghost-button:hover {
-    background: var(--accent);
-}
-
 .card {
     background-color: var(--card);
     color: var(--card-foreground);

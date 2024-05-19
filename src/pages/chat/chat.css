@@ -1,0 +1,14 @@
+.chat-feed {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-feed__header {
+    justify-content: space-between;
+}
+
+.chat-feed__title {
+    font-weight: 400;
+}

@@ -31,7 +31,7 @@ export class UpdateAccount extends Block {
         placeholder: 'Новый пароль',
         type: 'password',
       }),
-      button: new Button({ text: 'Обновить аккаунт' }),
+      button: new Button({ children: 'Обновить аккаунт' }),
     })
   }
 

@@ -62,7 +62,7 @@ export class SignUp extends Block<SignUpProps> {
     })
 
     const button = new Button({
-      text: 'Создать аккаунт',
+      children: 'Создать аккаунт',
     })
 
     super({

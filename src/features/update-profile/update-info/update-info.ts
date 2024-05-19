@@ -57,7 +57,7 @@ export class UpdateInfo extends Block {
         placeholder: 'Отображаемое имя',
       }),
       button: new Button({
-        text: 'Обновить профиль',
+        children: 'Обновить профиль',
       }),
     })
   }

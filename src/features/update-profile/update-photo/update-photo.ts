@@ -22,7 +22,7 @@ export class UpdatePhoto extends Block<UpdatePhotoProps> {
     super({
       ...props,
       avatar: new Avatar({ width: 80, height: 80 }),
-      button: new Button({ text: 'Сменить фото' }),
+      button: new Button({ children: 'Сменить фото' }),
     })
   }
 

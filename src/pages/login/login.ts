@@ -57,7 +57,7 @@ export class Login extends Block<LoginProps> {
         },
       }),
       button: new Button({
-        text: 'Войти',
+        children: 'Войти',
       }),
     })
   }
