@@ -22,7 +22,7 @@ export class Sidebar extends Block<SidebarProps> {
     super({
       ...props,
       chatList,
-      sidebarHeader: new ChatHeader({ content: new SidebarHeader({}) }),
+      sidebarHeader: new ChatHeader({ children: new SidebarHeader({}) }),
     })
   }
 

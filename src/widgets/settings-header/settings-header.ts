@@ -17,7 +17,7 @@ export class SettingsHeader extends Block<SettingsHeaderProps> {
       ...props,
       chatHeader: new ChatHeader({
         additionalClass: styles.header,
-        content: props.links,
+        children: props.links,
       }),
     })
   }
