@@ -9,7 +9,6 @@ const template = `
   <footer class="${styles.footer}">
       {{{attachFile}}}
       {{{sendMessage}}}
-      {{{button}}}
   </footer>
 `
 

@@ -22,12 +22,49 @@ export class SendMessage extends Block {
   constructor(props: BlockProps) {
     super({
       ...props,
-      messageInput: new MessageInput({}),
+      messageInput: new MessageInput({
+        events: {
+          blur: (event) => {
+            const isValid = this.validateMessage(event)
+            if (!isValid) {
+              console.log('Validation error')
+            }
+          },
+        },
+      }),
       button: new Button({
         children: sendIcon,
         variant: 'ghost',
+        type: 'submit',
       }),
+      events: {
+        submit: (event) => this.handleSubmit(event),
+      },
     })
+  }
+
+  validateMessage(event: Event) {
+    const message = event.target as HTMLTextAreaElement
+    return Boolean(message.value)
+  }
+
+  handleSubmit(event: Event) {
+    event.preventDefault()
+
+    const textArea =
+      this.children.messageInput.getContent() as HTMLTextAreaElement
+    const isValid = this.validateMessage({
+      target: textArea,
+    } as unknown as Event)
+
+    if (isValid) {
+      console.log({
+        message: textArea.value,
+      })
+      textArea.value = ''
+    } else {
+      console.log('Validation error')
+    }
   }
 
   render() {
