@@ -4,7 +4,8 @@ import { Block, BlockProps } from '@/shared/lib/block'
 enum Routes {
   Login = '/',
   SignUp = '/sign-up',
-  Chat = '/chat',
+  SelectChat = '/chat',
+  Chat = '/chat/1',
   Profile = '/profile',
   Account = '/account',
   NotFound = '/not-found',
@@ -19,6 +20,7 @@ interface Page<Props extends BlockProps = any> {
 const pages: Record<Routes, Page> = {
   [Routes.Login]: { component: Pages.Login },
   [Routes.SignUp]: { component: Pages.SignUp },
+  [Routes.SelectChat]: { component: Pages.SelectChat },
   [Routes.Chat]: { component: Pages.Chat },
   [Routes.Account]: { component: Pages.Account },
   [Routes.Profile]: { component: Pages.Profile },

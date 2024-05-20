@@ -1,10 +1,10 @@
-.select-chat {
+.container {
     width: 100%;
     display: grid;
     place-content: center;
 }
 
-.select-chat__placeholder {
+.title {
     color: var(--muted-foreground);
     font-size: var(--fs-lg);
     font-weight: 400;

@@ -1,13 +1,14 @@
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Sidebar } from '@/widgets'
+import styles from './select-chat.module.css'
 
 type SelectChatProps = BlockProps
 
 const template = `
-<div class='app-container'>
+<div class='app'>
   {{{ sidebar }}}
-  <main class="select-chat">
-    <h1 class="select-chat__placeholder">Выберите чат чтобы отправить сообщение</h1>
+  <main class="${styles.container}">
+    <h1 class="${styles.title}">Выберите чат чтобы отправить сообщение</h1>
   </main>
 </div>
 `
