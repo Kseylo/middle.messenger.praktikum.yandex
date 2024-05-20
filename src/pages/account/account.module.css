@@ -7,8 +7,7 @@
 .wrapper {
     padding: 0.75rem;
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
     gap: 1rem;
     height: calc(100dvh - var(--header-height));
 }
