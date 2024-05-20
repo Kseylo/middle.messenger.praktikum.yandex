@@ -4,21 +4,25 @@ import styles from './chat.module.css'
 
 // language=hbs
 const template = `
-    <li class="${styles.container} ${styles.noWrap}">
-      {{{ avatar }}}
-      <div class="${styles.wrapper}">
-        <div class="${styles.row} ${styles.noWrap}">
-          <h4 class="${styles.userTitle} ${styles.noWrap}">{{this.title}}</h4>
-          <time class="${styles.messageTime}">{{this.messageTime}}</time>
-        </div>
-        <div class="${styles.row} ${styles.noWrap}">
-          <p class="${styles.lastMessage} ${styles.noWrap}">{{this.lastMessage}}</p>
-          {{#if this.unreadCount}}
-            <span class="${styles.unreadCount}">{{this.unreadCount}}</span>
-          {{/if}}
-        </div>
-      </div>
-    </li>
+    <a href='/chat-feed' style="text-decoration: none">
+        <li class='${styles.container} ${styles.noWrap}'>
+            {{{avatar}}}
+            <div class='${styles.wrapper}'>
+                <div class='${styles.row} ${styles.noWrap}'>
+                    <h4 class='${styles.userTitle} ${styles.noWrap}'>{{this.title}}</h4>
+                    <time class='${styles.messageTime}'>{{this.messageTime}}</time>
+                </div>
+                <div class='${styles.row} ${styles.noWrap}'>
+                    <p
+                            class='${styles.lastMessage} ${styles.noWrap}'
+                    >{{this.lastMessage}}</p>
+                    {{#if this.unreadCount}}
+                        <span class='${styles.unreadCount}'>{{this.unreadCount}}</span>
+                    {{/if}}
+                </div>
+            </div>
+        </li>
+    </a>
 `
 
 interface ChatProps extends BlockProps {
