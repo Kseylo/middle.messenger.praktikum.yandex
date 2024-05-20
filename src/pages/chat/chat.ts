@@ -1,5 +1,5 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { Message } from '@/shared/ui/message'
+import { MediaMessage, Message } from '@/shared/ui'
 import { ChatFeedFooter, ChatFeedHeader, Sidebar } from '@/widgets'
 import styles from './chat.module.css'
 
@@ -25,12 +25,10 @@ export class Chat extends Block<ChatFeedProps> {
       new Message({
         message:
           'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.',
-        time: '11:47',
+        time: '11:56',
       }),
-      new Message({
-        message:
-          'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.',
-        time: '11:47',
+      new MediaMessage({
+        time: '11:56',
       }),
       new Message({
         message: 'Круто!',
