@@ -156,6 +156,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   private _render() {
+    const start = performance.now()
     const block = this.render() as unknown as HTMLElement
     const newElement = block.firstElementChild as HTMLElement
     this.removeEvents()
@@ -166,6 +167,8 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
 
     this.addEvents()
+    const end = performance.now()
+    console.log(`${this.constructor.name} rendered in ${end - start}ms`)
   }
 
   render() {}
@@ -177,6 +180,9 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   setProps(nextProps: TypeProps) {
+    if (!nextProps) {
+      return
+    }
     this._setUpdate = false
     const oldProps = { ...this.props }
 
@@ -193,7 +199,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     if (Object.values(lists).length > 0) {
       Object.assign(this._lists, lists)
     }
-
+    console.log(this._setUpdate)
     if (this._setUpdate) {
       this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, this.props)
       this._setUpdate = false
