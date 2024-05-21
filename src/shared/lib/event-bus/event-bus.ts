@@ -1,19 +1,7 @@
 type EventName = string
 
 export class EventBus {
-  private readonly subscribers: Record<EventName, Function[]>
-  private static instance?: EventBus = undefined
-
-  private constructor() {
-    this.subscribers = {}
-  }
-
-  static getInstance(): EventBus {
-    if (this.instance === undefined) {
-      this.instance = new EventBus()
-    }
-    return this.instance
-  }
+  private readonly subscribers: Record<EventName, Function[]> = {}
 
   subscribe(event: EventName, callback: Function) {
     if (!this.subscribers[event]) {

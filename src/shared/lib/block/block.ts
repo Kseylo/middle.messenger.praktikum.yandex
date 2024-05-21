@@ -32,7 +32,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     this.children = this._makePropsProxy(children)
     this._lists = this._makePropsProxy(lists)
 
-    this._eventBus = EventBus.getInstance()
+    this._eventBus = new EventBus()
     this._registerEvents()
     this._eventBus.dispatch(Block.EVENTS.INIT)
   }
@@ -199,7 +199,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     if (Object.values(lists).length > 0) {
       Object.assign(this._lists, lists)
     }
-    console.log(this._setUpdate)
+
     if (this._setUpdate) {
       this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, this.props)
       this._setUpdate = false
