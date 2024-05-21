@@ -1,5 +1,6 @@
 export { AttachFile } from './attach-file'
 export { ChatOptions } from './chat-options'
+export { LoginForm } from './login-form'
 export { SendMessage } from './send-message'
 export { UpdateAccount } from './update-account'
 export { UpdateInfo, UpdatePhoto } from './update-profile'

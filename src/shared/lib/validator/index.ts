@@ -1,1 +1,1 @@
-export { Validator } from './validator'
+export { FIELDS, Validator } from './validator'

@@ -10,7 +10,7 @@ interface InputWithLabelProps extends InputProps {
 
 // language=hbs
 const template = `
-<div class='${styles.wrapper}'>
+<div class='${styles.wrapper}' data-error='{{#if errorMessage}}true{{else}}false{{/if}}'>
   <label for='{{id}}' class='${styles.label}'>{{label}}</label>
   {{{Input}}}
   <span class='${styles.error}'>{{errorMessage}}</span>

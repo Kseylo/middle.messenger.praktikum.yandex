@@ -30,6 +30,12 @@ export class SendMessage extends Block {
               console.log('Validation error')
             }
           },
+          keydown: (event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault()
+              this.handleSubmit(event)
+            }
+          },
         },
       }),
       button: new Button({

@@ -2,8 +2,12 @@ import Handlebars from 'handlebars'
 import { v4 as makeUUID } from 'uuid'
 import { EventBus } from '@/shared/lib/event-bus'
 
+type Events = {
+  [key in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[key]) => void
+}
+
 export type BlockProps = Record<string, unknown> & {
-  events?: Record<string, (event: Event) => void>
+  events?: Events
 } & object
 
 export class Block<TypeProps extends BlockProps = BlockProps> {
@@ -156,7 +160,6 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   private _render() {
-    const start = performance.now()
     const block = this.render() as unknown as HTMLElement
     const newElement = block.firstElementChild as HTMLElement
     this.removeEvents()
@@ -167,8 +170,6 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
 
     this.addEvents()
-    const end = performance.now()
-    console.log(`${this.constructor.name} rendered in ${end - start}ms`)
   }
 
   render() {}
@@ -208,16 +209,26 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   removeEvents() {
     const { events = {} } = this.props
-    Object.keys(events).forEach((eventName) => {
-      this._element?.removeEventListener(eventName, events[eventName])
-    })
+    ;(Object.keys(events) as (keyof HTMLElementEventMap)[]).forEach(
+      (eventName) => {
+        this._element?.removeEventListener(
+          eventName,
+          events[eventName] as EventListener,
+        )
+      },
+    )
   }
 
   addEvents() {
     const { events = {} } = this.props
-    Object.keys(events).forEach((eventName) => {
-      this._element?.addEventListener(eventName, events[eventName])
-    })
+    ;(Object.keys(events) as (keyof HTMLElementEventMap)[]).forEach(
+      (eventName) => {
+        this._element?.addEventListener(
+          eventName,
+          events[eventName] as EventListener,
+        )
+      },
+    )
   }
 
   getContent() {

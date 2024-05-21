@@ -35,10 +35,11 @@
     font-size: var(--fs-sm);
 }
 
-[data-error="true"] .input {
-    border-color: var(--destructive);
-}
-
 [data-error="true"] .label {
     color: var(--destructive);
+}
+
+[data-error="true"] .input {
+    color: var(--destructive);
+    border-color: var(--destructive);
 }
