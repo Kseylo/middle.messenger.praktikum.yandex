@@ -16,64 +16,50 @@ const template = `
 
 export class LoginForm extends Block {
   constructor(props: BlockProps) {
-    const validator = new Validator()
+    const loginInput = new InputWithLabel({
+      id: 'login',
+      label: 'Логин',
+      placeholder: 'Логин',
+      name: FIELDS.LOGIN,
+      events: {
+        blur: () => {
+          Validator.validateInput(loginInput)
+        },
+      },
+    })
+    const passwordInput = new InputWithLabel({
+      id: 'password',
+      label: 'Логин',
+      placeholder: 'Логин',
+      name: FIELDS.PASSWORD,
+      type: 'password',
+      events: {
+        blur: () => {
+          Validator.validateInput(passwordInput)
+        },
+      },
+    })
     super({
       ...props,
-      loginInput: new InputWithLabel({
-        id: 'login',
-        label: 'Логин',
-        placeholder: 'Логин',
-        name: FIELDS.LOGIN,
-        events: {
-          blur: (event) => {
-            const input = event.target as HTMLInputElement
-            const { errorMessage } = validator.validate(input.name, input.value)
-            this.children.loginInput.setProps({
-              errorMessage,
-            })
-          },
-        },
-      }),
-      passwordInput: new InputWithLabel({
-        id: 'password',
-        label: 'Пароль',
-        placeholder: 'Пароль',
-        name: FIELDS.PASSWORD,
-        type: 'password',
-        events: {
-          blur: (event) => {
-            const input = event.target as HTMLInputElement
-            const { errorMessage } = validator.validate(input.name, input.value)
-            this.children.passwordInput.setProps({
-              errorMessage,
-            })
-          },
-        },
-      }),
+      loginInput,
+      passwordInput,
       button: new Button({
         children: 'Войти',
         type: 'submit',
         events: {
           click: (event) => {
             event.preventDefault()
+            const inputs = [loginInput, passwordInput]
+            const isAllInputsValid = Validator.validateInputs(inputs)
 
-            const results: Record<string, string> = {}
-            const inputs = document.querySelectorAll('input')
-            let allFieldsValid = true
-
-            inputs.forEach((input) => {
-              const { isValid, errorMessage } = validator.validate(
-                input.name,
-                input.value,
-              )
-              this.children[`${input.name}Input`].setProps({ errorMessage })
-              results[input.name] = input.value
-              if (!isValid) {
-                allFieldsValid = false
-              }
-            })
-
-            if (allFieldsValid) {
+            if (isAllInputsValid) {
+              const results: Record<string, string> = {}
+              inputs.forEach((input) => {
+                const inputElement = input.getContent().querySelector('input')
+                if (inputElement) {
+                  results[inputElement.name] = inputElement.value
+                }
+              })
               console.log(results)
               setTimeout(() => {
                 window.location.href = '/chat-feed'

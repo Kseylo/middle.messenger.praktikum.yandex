@@ -34,19 +34,29 @@ export class Validator {
     }
   }
 
-  static validateInput(...inputs: InputWithLabel[]) {
-    inputs.forEach((inputElement) => {
-      const input = inputElement.getContent().querySelector('input')
-      if (input) {
-        const { isValid, errorMessage } = this.validate(
-          input.name as FIELDS,
-          input.value,
-        )
-        inputElement.setProps({
-          ...inputElement.props,
-          errorMessage: isValid ? '' : errorMessage,
-        })
+  static validateInput(inputElement: InputWithLabel) {
+    const input = inputElement.getContent().querySelector('input')
+    if (input) {
+      const { isValid, errorMessage } = this.validate(
+        input.name as FIELDS,
+        input.value,
+      )
+      inputElement.setProps({
+        ...inputElement.props,
+        errorMessage: isValid ? '' : errorMessage,
+      })
+      return { isValid }
+    }
+  }
+
+  static validateInputs(inputs: InputWithLabel[]) {
+    let allFieldsValid = true
+    inputs.forEach((input) => {
+      const { isValid } = this.validateInput(input)!
+      if (!isValid) {
+        allFieldsValid = false
       }
     })
+    return allFieldsValid
   }
 }
