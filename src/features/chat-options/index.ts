@@ -1,1 +1,1 @@
-export { ChatOptions } from './chat-options.ts'
+export { ChatOptions } from './chat-options'

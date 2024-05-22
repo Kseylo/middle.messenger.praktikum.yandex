@@ -1,1 +1,1 @@
-export { LoginForm } from './login-form.ts'
+export { LoginForm } from './login-form'
