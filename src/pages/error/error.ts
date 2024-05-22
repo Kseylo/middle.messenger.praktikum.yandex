@@ -1,10 +1,5 @@
-import { Block, type BlockProps } from '@/shared/lib/block'
+import { Block } from '@/shared/lib/block'
 import styles from './error.module.css'
-
-interface ErrorProps extends BlockProps {
-  code: number
-  description: string
-}
 
 const template = `
 <main class='${styles.container}'>
@@ -17,7 +12,7 @@ const template = `
 
 `
 
-export class Error extends Block<ErrorProps> {
+export class Error extends Block {
   render() {
     return this.compile(template, this.props)
   }

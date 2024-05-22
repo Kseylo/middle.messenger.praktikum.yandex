@@ -1,1 +1,1 @@
-export { ChatFeedHeader } from './chat-feed-header.ts'
+export { ChatFeedHeader } from './chat-feed-header'

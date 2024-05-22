@@ -12,7 +12,7 @@ enum Routes {
   ServerError = '/server-error',
 }
 
-interface Page<Props extends BlockProps = any> {
+interface Page<Props extends BlockProps = BlockProps> {
   component: new (props: Props) => Block<Props>
   props?: Props
 }
