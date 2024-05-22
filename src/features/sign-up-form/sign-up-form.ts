@@ -104,7 +104,7 @@ export class SignUpForm extends Block {
               inputs.forEach((input) => {
                 const inputElement = input.getContent().querySelector('input')
                 if (inputElement) {
-                  results[inputElement.name] = inputElement.value
+                  results[inputElement.id] = inputElement.value
                 }
               })
               console.log(results)

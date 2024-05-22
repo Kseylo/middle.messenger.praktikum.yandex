@@ -7,6 +7,7 @@ export enum FIELDS {
   SECOND_NAME = 'second_name',
   EMAIL = 'email',
   PHONE = 'phone',
+  DISPLAY_NAME = 'display_name',
 }
 
 export class Validator {
@@ -21,11 +22,11 @@ export class Validator {
     },
     [FIELDS.FIRST_NAME]: {
       regex: /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]*$/,
-      errorMessage: 'Некорректное имя',
+      errorMessage: 'Имя должно начинаться с большой буквы',
     },
     [FIELDS.SECOND_NAME]: {
       regex: /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]*$/,
-      errorMessage: 'Некорректная фамилия',
+      errorMessage: 'Фамилия должна начинаться с большой буквы',
     },
     [FIELDS.EMAIL]: {
       regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -34,6 +35,10 @@ export class Validator {
     [FIELDS.PHONE]: {
       regex: /^\+?[0-9]{10,15}$/,
       errorMessage: 'Некорректный номер телефона',
+    },
+    [FIELDS.DISPLAY_NAME]: {
+      regex: /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]*$/,
+      errorMessage: 'Должно начинаться с большой буквы',
     },
   }
 

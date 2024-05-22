@@ -17,7 +17,7 @@ const template = `
 export class LoginForm extends Block {
   constructor(props: BlockProps) {
     const loginInput = new InputWithLabel({
-      id: 'login',
+      id: FIELDS.LOGIN,
       label: 'Логин',
       placeholder: 'Логин',
       name: FIELDS.LOGIN,
@@ -28,7 +28,7 @@ export class LoginForm extends Block {
       },
     })
     const passwordInput = new InputWithLabel({
-      id: 'password',
+      id: FIELDS.PASSWORD,
       label: 'Логин',
       placeholder: 'Логин',
       name: FIELDS.PASSWORD,
@@ -57,7 +57,7 @@ export class LoginForm extends Block {
               inputs.forEach((input) => {
                 const inputElement = input.getContent().querySelector('input')
                 if (inputElement) {
-                  results[inputElement.name] = inputElement.value
+                  results[inputElement.id] = inputElement.value
                 }
               })
               console.log(results)
