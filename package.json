@@ -14,7 +14,8 @@
     "start": "npm run build && node server/express.js",
     "lint": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\"",
     "lint:fix": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\" --fix",
-    "stylelint": "stylelint \"**/*.css\" --fix"
+    "stylelint": "stylelint \"**/*.css\"",
+    "stylelint:fix": "stylelint \"**/*.css\" --fix"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

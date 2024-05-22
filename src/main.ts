@@ -52,7 +52,7 @@ function handleRouteChange() {
 
 function renderPage(page: Page) {
   const root = document.querySelector('#root')!
-  root.innerHTML = ''
+  root.textContent = ''
   const pageProps = page.props || {}
   root.append(new page.component(pageProps).getContent())
 }
