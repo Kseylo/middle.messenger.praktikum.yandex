@@ -5,6 +5,8 @@ export enum FIELDS {
   PASSWORD = 'password',
   FIRST_NAME = 'first_name',
   SECOND_NAME = 'second_name',
+  EMAIL = 'email',
+  PHONE = 'phone',
 }
 
 export class Validator {
@@ -24,6 +26,14 @@ export class Validator {
     [FIELDS.SECOND_NAME]: {
       regex: /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]*$/,
       errorMessage: 'Некорректная фамилия',
+    },
+    [FIELDS.EMAIL]: {
+      regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      errorMessage: 'Некорректная почта',
+    },
+    [FIELDS.PHONE]: {
+      regex: /^\+?[0-9]{10,15}$/,
+      errorMessage: 'Некорректный номер телефона',
     },
   }
 
