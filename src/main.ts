@@ -1,47 +1,37 @@
-import Handlebars from 'handlebars'
-import HandlebarsRuntime from 'handlebars/runtime'
 import * as Pages from '@/pages'
-import { chatsPlaceholderData } from '@/shared/config'
-import * as UI from '@/shared/ui'
-import * as Widgets from '@/widgets'
-
-Object.entries(UI).forEach(([name, partial]) =>
-  HandlebarsRuntime.registerPartial(name, partial),
-)
-
-Object.entries(Widgets).forEach(([name, partial]) =>
-  HandlebarsRuntime.registerPartial(name, partial),
-)
+import { Block, BlockProps } from '@/shared/lib/block'
 
 enum Routes {
   Login = '/',
   SignUp = '/sign-up',
   SelectChat = '/chat',
-  ChatFeed = '/chat-feed',
+  Chat = '/chat-feed',
   Profile = '/profile',
   Account = '/account',
   NotFound = '/not-found',
   ServerError = '/server-error',
 }
 
-export const pages: Record<string, string> = {
-  [Routes.Login]: Pages.Login({}),
-  [Routes.SignUp]: Pages.SignUp({}),
-  [Routes.SelectChat]: Pages.SelectChat({
-    chats: chatsPlaceholderData,
-  }),
-  [Routes.ChatFeed]: Pages.ChatFeed({ chats: chatsPlaceholderData }),
-  [Routes.Profile]: Pages.Profile({
-    chats: chatsPlaceholderData,
-  }),
-  [Routes.Account]: Pages.Account({
-    chats: chatsPlaceholderData,
-  }),
-  [Routes.NotFound]: Pages.Error({ code: 404, description: 'Не туда попали' }),
-  [Routes.ServerError]: Pages.Error({
-    code: 500,
-    description: 'Мы уже фиксим',
-  }),
+interface Page<Props extends BlockProps = BlockProps> {
+  component: new (props: Props) => Block<Props>
+  props?: Props
+}
+
+const pages: Record<Routes, Page> = {
+  [Routes.Login]: { component: Pages.Login },
+  [Routes.SignUp]: { component: Pages.SignUp },
+  [Routes.SelectChat]: { component: Pages.SelectChat },
+  [Routes.Chat]: { component: Pages.Chat },
+  [Routes.Account]: { component: Pages.Account },
+  [Routes.Profile]: { component: Pages.Profile },
+  [Routes.NotFound]: {
+    component: Pages.Error,
+    props: { code: 404, description: 'Не туда попали' },
+  },
+  [Routes.ServerError]: {
+    component: Pages.Error,
+    props: { code: 500, description: 'Мы уже фиксим' },
+  },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleRouteChange() {
   const { pathname } = window.location
-  const route = pathname
+  const route = pathname as Routes
 
   if (Object.prototype.hasOwnProperty.call(pages, route)) {
     renderPage(pages[route])
@@ -60,7 +50,9 @@ function handleRouteChange() {
   }
 }
 
-function renderPage(page: string) {
+function renderPage(page: Page) {
   const root = document.querySelector('#root')!
-  root.innerHTML = Handlebars.compile(page)({})
+  root.textContent = ''
+  const pageProps = page.props || {}
+  root.append(new page.component(pageProps).getContent())
 }

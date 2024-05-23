@@ -1,0 +1,6 @@
+.wrapper {
+    display: grid;
+    width: 100%;
+    max-width: var(--max-width-2xl);
+    gap: 0.75rem;
+}

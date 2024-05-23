@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
+
+.title {
+    color: var(--muted-foreground);
+    font-size: var(--fs-lg);
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+}

@@ -1,3 +1,1 @@
-import './sidebar.css'
-
-export { default as Sidebar } from './sidebar.hbs'
+export { Sidebar } from './sidebar'

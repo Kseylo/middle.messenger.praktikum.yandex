@@ -1,0 +1,36 @@
+.wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    left: 0.5rem;
+    pointer-events: none;
+    stroke: var(--muted-foreground);
+    fill: none;
+}
+
+.input {
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    color: var(--primary);
+    width: 100%;
+}
+
+.input:focus-visible {
+    outline: solid var(--input) 2px;
+    outline-offset: 2px;
+}
+
+.input::placeholder {
+    color: var(--muted-foreground);
+}

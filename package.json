@@ -13,15 +13,21 @@
     "preview": "vite preview",
     "start": "npm run build && node server/express.js",
     "lint": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\"",
-    "lint:fix": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\" --fix"
+    "lint:fix": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\" --fix",
+    "stylelint": "stylelint \"**/*.css\"",
+    "stylelint:fix": "stylelint \"**/*.css\" --fix"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "@types/uuid": "^9.0.8",
     "eslint": "^8.57.0",
     "eslint-kit": "^10.28.0",
     "handlebars": "^4.7.8",
     "prettier": "^3.2.5",
+    "stylelint": "^16.5.0",
+    "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.4.5",
+    "uuid": "^9.0.1",
     "vite": "^5.2.0"
   },
   "dependencies": {

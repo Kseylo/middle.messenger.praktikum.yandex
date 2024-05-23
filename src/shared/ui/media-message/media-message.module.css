@@ -1,0 +1,21 @@
+.message {
+    max-width: 19.75rem;
+    border-radius: var(--radius-md);
+    position: relative;
+    border: var(--border);
+}
+
+.image {
+    border-radius: var(--radius-md);
+    object-fit: contain;
+}
+
+.time {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    background: var(--muted-foreground);
+    font-size: var(--fs-sm);
+    border-radius: 9999px;
+    padding: 0 0.25rem;
+}

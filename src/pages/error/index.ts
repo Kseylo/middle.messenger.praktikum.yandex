@@ -1,3 +1,1 @@
-import './error.css'
-
-export { default as Error } from './error.hbs'
+export { Error } from './error'

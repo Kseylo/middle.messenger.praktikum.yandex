@@ -1,0 +1,16 @@
+.container {
+    display: grid;
+    place-content: center;
+    min-height: 100dvh;
+    justify-items: center;
+    gap: 2rem;
+}
+
+.code {
+    font-size: var(--fs-5xl);
+    text-align: center;
+}
+
+.description {
+    font-size: var(--fs-lg);
+}
