@@ -10,6 +10,8 @@ interface Options {
   data?: string
 }
 
+type HTTPMethod = (url: string, options: Options) => Promise<XMLHttpRequest>
+
 function queryStringify(data: string | undefined) {
   if (typeof data !== 'object') {
     throw new TypeError('Data must be an object')
@@ -22,23 +24,23 @@ function queryStringify(data: string | undefined) {
 }
 
 export class HTTPTransport {
-  get = (url: string, options: Options) => {
+  get: HTTPMethod = (url, options) => {
     return this._request(url, { ...options, method: METHODS.GET })
   }
 
-  post = (url: string, options: Options) => {
+  post: HTTPMethod = (url, options) => {
     return this._request(url, { ...options, method: METHODS.POST })
   }
 
-  put = (url: string, options: Options) => {
+  put: HTTPMethod = (url, options) => {
     return this._request(url, { ...options, method: METHODS.PUT })
   }
 
-  delete = (url: string, Options: Options) => {
+  delete: HTTPMethod = (url, Options) => {
     return this._request(url, { ...Options, method: METHODS.DELETE })
   }
 
-  private _request(url: string, options: Options): Promise<XMLHttpRequest> {
+  private _request: HTTPMethod = (url, options) => {
     const { method, data } = options
 
     return new Promise((resolve, reject) => {
