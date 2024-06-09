@@ -1,5 +1,5 @@
 import * as Pages from '@/pages'
-import { Block, BlockProps } from '@/shared/lib/block'
+import { type Page, Router } from '@/shared/lib/router'
 
 enum Routes {
   Login = '/',
@@ -12,47 +12,28 @@ enum Routes {
   ServerError = '/server-error',
 }
 
-interface Page<Props extends BlockProps = BlockProps> {
-  component: new (props: Props) => Block<Props>
-  props?: Props
-}
-
 const pages: Record<Routes, Page> = {
-  [Routes.Login]: { component: Pages.Login },
-  [Routes.SignUp]: { component: Pages.SignUp },
-  [Routes.SelectChat]: { component: Pages.SelectChat },
-  [Routes.Chat]: { component: Pages.Chat },
-  [Routes.Account]: { component: Pages.Account },
-  [Routes.Profile]: { component: Pages.Profile },
+  [Routes.Login]: { block: Pages.Login },
+  [Routes.SignUp]: { block: Pages.SignUp },
+  [Routes.SelectChat]: { block: Pages.SelectChat },
+  [Routes.Chat]: { block: Pages.Chat },
+  [Routes.Account]: { block: Pages.Account },
+  [Routes.Profile]: { block: Pages.Profile },
   [Routes.NotFound]: {
-    component: Pages.Error,
+    block: Pages.Error,
     props: { code: 404, description: 'Не туда попали' },
   },
   [Routes.ServerError]: {
-    component: Pages.Error,
+    block: Pages.Error,
     props: { code: 500, description: 'Мы уже фиксим' },
   },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  handleRouteChange()
-  window.addEventListener('popstate', handleRouteChange)
+  const router = new Router('#root')
+  Object.entries(pages).forEach(([pathname, page]) => {
+    router.use(pathname, page)
+  })
+
+  router.start()
 })
-
-function handleRouteChange() {
-  const { pathname } = window.location
-  const route = pathname as Routes
-
-  if (Object.prototype.hasOwnProperty.call(pages, route)) {
-    renderPage(pages[route])
-  } else {
-    renderPage(pages[Routes.NotFound])
-  }
-}
-
-function renderPage(page: Page) {
-  const root = document.querySelector('#root')!
-  root.textContent = ''
-  const pageProps = page.props || {}
-  root.append(new page.component(pageProps).getContent())
-}

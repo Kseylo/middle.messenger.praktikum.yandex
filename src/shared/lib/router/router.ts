@@ -1,4 +1,9 @@
-import { Block } from '@/shared/lib'
+import { Block, BlockProps } from '@/shared/lib'
+
+export interface Page<Props extends BlockProps = BlockProps> {
+  block: new (props: Props) => Block<Props>
+  props?: Props
+}
 
 interface RouteProps {
   rootQuery: string
@@ -6,15 +11,17 @@ interface RouteProps {
 
 class Route {
   private _pathname: string
-  private readonly _blockClass: typeof Block
+  private readonly _blockClass: new (props: BlockProps) => Block
   private _block: Block | null
   private _props: RouteProps
+  private _blockProps: BlockProps
 
-  constructor(pathname: string, view: typeof Block, props: RouteProps) {
+  constructor(pathname: string, page: Page, props: RouteProps) {
     this._pathname = pathname
-    this._blockClass = view
+    this._blockClass = page.block
     this._block = null
     this._props = props
+    this._blockProps = page.props || {}
   }
 
   navigate(pathname: string) {
@@ -36,7 +43,7 @@ class Route {
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass({})
+      this._block = new this._blockClass(this._blockProps)
     }
 
     const root = document.querySelector(this._props.rootQuery)
@@ -64,8 +71,8 @@ export class Router {
     Router.__instance = this
   }
 
-  use(pathname: string, block: typeof Block) {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery })
+  use(pathname: string, page: Page) {
+    const route = new Route(pathname, page, { rootQuery: this._rootQuery })
     this._routes.push(route)
     return this
   }

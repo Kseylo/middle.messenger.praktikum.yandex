@@ -1,1 +1,1 @@
-export { Router } from './router'
+export { type Page, Router } from './router'
