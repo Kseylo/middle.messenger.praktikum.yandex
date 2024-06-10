@@ -15,7 +15,7 @@ export class Store extends EventBus {
 
   setState(path: string, value: unknown) {
     set(this._state, path, value)
-    this.dispatch(StoreEvents.UPDATED)
+    this.dispatch(StoreEvents.UPDATED, this._state)
   }
 }
 
