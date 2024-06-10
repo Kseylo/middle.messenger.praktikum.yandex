@@ -1,5 +1,6 @@
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'
+import { LoginModel } from '../model/login-model'
 import styles from './login.module.css'
 
 const template = `
@@ -51,7 +52,7 @@ export class LoginForm extends Block {
             event.preventDefault()
             const inputs = [loginInput, passwordInput]
             const isAllInputsValid = Validator.validateInputs(inputs)
-
+            LoginModel.login()
             if (isAllInputsValid) {
               const results: Record<string, string> = {}
               inputs.forEach((input) => {

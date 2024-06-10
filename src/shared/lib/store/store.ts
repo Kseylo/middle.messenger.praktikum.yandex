@@ -14,7 +14,7 @@ export class Store extends EventBus {
   }
 
   setState(path: string, value: unknown) {
-    set(this._state, path, value)
+    this._state = set(this._state, path, value) as Indexed
     this.dispatch(StoreEvents.UPDATED, this._state)
   }
 }
