@@ -1,4 +1,6 @@
 export { Block, type BlockProps } from './block'
+export { EventBus } from './event-bus'
 export { HTTPTransport } from './http-transport'
 export { type Page, Router } from './router'
+export { store, StoreEvents } from './store'
 export { FIELDS, Validator } from './validator'
