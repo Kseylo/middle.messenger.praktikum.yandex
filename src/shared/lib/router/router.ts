@@ -55,7 +55,7 @@ class Route {
   }
 }
 
-export class Router {
+class Router {
   private static __instance: Router
   private _routes: Route[] = []
   private _history = window.history
@@ -114,3 +114,5 @@ export class Router {
     return this._routes.find((route) => route.match(pathname))
   }
 }
+
+export default new Router('#root')

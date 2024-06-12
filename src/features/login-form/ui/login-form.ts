@@ -1,6 +1,8 @@
+import { LoginRequest } from '@/shared/api'
+import { Indexed } from '@/shared/config'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'
-import { LoginModel } from '../model/login-model'
+import LoginModel from '../model/login-model'
 import styles from './login.module.css'
 
 const template = `
@@ -50,22 +52,18 @@ export class LoginForm extends Block {
         events: {
           click: (event) => {
             event.preventDefault()
-            LoginModel.login()
             const inputs = [loginInput, passwordInput]
             const isAllInputsValid = Validator.validateInputs(inputs)
-            LoginModel.login()
+
             if (isAllInputsValid) {
-              const results: Record<string, string> = {}
+              const results: Indexed = {}
               inputs.forEach((input) => {
                 const inputElement = input.getContent().querySelector('input')
                 if (inputElement) {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              console.log(results)
-              setTimeout(() => {
-                window.location.href = '/chat-feed'
-              }, 2000)
+              void LoginModel.login(results as unknown as LoginRequest)
             } else {
               console.log('Validation error')
             }

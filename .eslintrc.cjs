@@ -28,6 +28,7 @@ module.exports = configure({
 
     rules: {
       'import/no-default-export': 'off',
+      'import/no-anonymous-default-export': 'off',
       'import/extensions': [
         'error',
         'ignorePackages',

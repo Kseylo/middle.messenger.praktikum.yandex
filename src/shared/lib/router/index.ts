@@ -1,1 +1,1 @@
-export { type Page, Router } from './router'
+export { default, type Page } from './router'

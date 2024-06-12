@@ -1,1 +1,1 @@
-export { LoginModel } from './login-model'
+export { default } from './login-model'

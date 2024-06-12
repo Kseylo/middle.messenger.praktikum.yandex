@@ -1,6 +1,6 @@
 import { BaseAPI } from '../base-api'
 
-interface LoginRequest {
+export interface LoginRequest {
   login: string
   password: string
 }

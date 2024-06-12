@@ -1,12 +1,16 @@
-import { authApi } from '@/shared/api'
-import { store } from '@/shared/lib'
+import { authApi, type LoginRequest } from '@/shared/api'
+import { Routes } from '@/shared/config'
+import Router from '@/shared/lib'
 
-export class LoginModel {
-  static login() {
-    authApi.login()
-    store.setState('login', {
-      login: 'test',
-      password: 'test',
-    })
+class LoginModel {
+  async login(data: LoginRequest) {
+    try {
+      await authApi.login(data)
+      Router.go(Routes.SelectChat)
+    } catch (error) {
+      console.log(`Error occurred while login`)
+    }
   }
 }
+
+export default new LoginModel()
