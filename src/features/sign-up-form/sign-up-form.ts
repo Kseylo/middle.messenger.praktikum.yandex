@@ -1,5 +1,5 @@
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
-import { Button, InputWithLabel } from '@/shared/ui'
+import { Button, InputWithLabel, Link } from '@/shared/ui'
 import styles from './sign-up-form.module.css'
 
 // language=hbs
@@ -13,7 +13,7 @@ const template = `
         {{{passwordInput}}}
         <div class='${styles.actions}'>
             {{{button}}}
-            <a href='/'>Войти</a>
+            {{{loginLink}}}
         </div>
     </form>
 `
@@ -77,6 +77,12 @@ export class SignUpForm extends Block {
       },
     })
 
+    const loginLink = new Link({
+      text: 'Войти',
+      href: '/',
+      active: true,
+    })
+
     super({
       ...props,
       loginInput,
@@ -84,6 +90,7 @@ export class SignUpForm extends Block {
       firstNameInput,
       secondNameInput,
       passwordInput,
+      loginLink,
       button: new Button({
         children: 'Зарегистрироваться',
         type: 'submit',
