@@ -18,7 +18,7 @@ const pages: Record<Routes, Page> = {
     props: { code: 500, description: 'Мы уже фиксим' },
   },
 }
-console.log(Router)
+
 document.addEventListener('DOMContentLoaded', () => {
   Object.entries(pages).forEach(([pathname, page]) => {
     Router.use(pathname, page)

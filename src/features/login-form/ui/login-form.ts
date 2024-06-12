@@ -1,7 +1,7 @@
 import { LoginRequest } from '@/shared/api'
-import { Indexed } from '@/shared/config'
+import { Indexed, Routes } from '@/shared/config'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
-import { Button, InputWithLabel } from '@/shared/ui'
+import { Button, InputWithLabel, Link } from '@/shared/ui'
 import LoginModel from '../model/login-model'
 import styles from './login.module.css'
 
@@ -12,7 +12,7 @@ const template = `
   {{{passwordInput}}}
   <div class='${styles.actions}'>
     {{{button}}}
-    <a href='/sign-up'>Нет аккаунта?</a>
+    {{{signupLink}}}
   </div>
 </form>
 `
@@ -42,10 +42,16 @@ export class LoginForm extends Block {
         },
       },
     })
+    const signupLink = new Link({
+      href: Routes.SignUp,
+      text: 'Нет аккаунта?',
+      active: true,
+    })
     super({
       ...props,
       loginInput,
       passwordInput,
+      signupLink,
       button: new Button({
         children: 'Войти',
         type: 'submit',

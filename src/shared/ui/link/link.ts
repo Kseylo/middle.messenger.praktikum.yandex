@@ -1,4 +1,4 @@
-import { Block, type BlockProps } from '@/shared/lib'
+import Router, { Block, type BlockProps } from '@/shared/lib'
 import styles from './link.module.css'
 
 const template = `
@@ -12,6 +12,18 @@ interface LinkProps extends BlockProps {
 }
 
 export class Link extends Block<LinkProps> {
+  constructor(props: LinkProps) {
+    super({
+      ...props,
+      events: {
+        click: (event) => {
+          event.preventDefault()
+          Router.go(this.props.href)
+        },
+      },
+    })
+  }
+
   render() {
     return this.compile(template, this.props)
   }

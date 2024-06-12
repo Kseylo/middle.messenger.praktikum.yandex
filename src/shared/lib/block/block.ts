@@ -236,7 +236,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   show() {
-    this.getContent().style.display = 'block'
+    this.getContent().style.display = 'flex'
   }
 
   hide() {
