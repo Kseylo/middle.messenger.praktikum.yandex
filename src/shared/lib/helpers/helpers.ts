@@ -22,11 +22,11 @@ export function isEqual(lhs: Indexed, rhs: Indexed) {
   return true
 }
 
-function isArrayOrObject(value: unknown): value is [] | Indexed {
+export function isArrayOrObject(value: unknown): value is [] | Indexed {
   return isIndexed(value) || isArray(value)
 }
 
-function isIndexed(value: unknown): value is Indexed {
+export function isIndexed(value: unknown): value is Indexed {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -35,6 +35,6 @@ function isIndexed(value: unknown): value is Indexed {
   )
 }
 
-function isArray(value: unknown): value is [] {
+export function isArray(value: unknown): value is [] {
   return Array.isArray(value)
 }

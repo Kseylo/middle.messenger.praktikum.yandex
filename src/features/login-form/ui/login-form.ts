@@ -50,6 +50,7 @@ export class LoginForm extends Block {
         events: {
           click: (event) => {
             event.preventDefault()
+            LoginModel.login()
             const inputs = [loginInput, passwordInput]
             const isAllInputsValid = Validator.validateInputs(inputs)
             LoginModel.login()

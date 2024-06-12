@@ -1,1 +1,1 @@
-export { loginModel } from './login-model'
+export { LoginModel } from './login-model'

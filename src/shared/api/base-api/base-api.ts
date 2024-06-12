@@ -1,17 +1,11 @@
+import { HTTPTransport } from '@/shared/lib'
+
+const BASE_URL = 'https://ya-praktikum.tech/api/v2'
+
 export class BaseAPI {
-  create() {
-    throw new Error('Method not implemented.')
-  }
+  protected http: HTTPTransport
 
-  request() {
-    throw new Error('Method not implemented.')
-  }
-
-  update() {
-    throw new Error('Method not implemented.')
-  }
-
-  delete() {
-    throw new Error('Method not implemented.')
+  constructor(endpoint: string) {
+    this.http = new HTTPTransport(`${BASE_URL}/${endpoint}`)
   }
 }
