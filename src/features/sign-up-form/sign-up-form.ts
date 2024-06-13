@@ -78,7 +78,7 @@ export class SignUpForm extends Block {
     })
 
     const loginLink = new Link({
-      text: 'Войти',
+      children: 'Войти',
       href: '/',
       active: true,
     })

@@ -29,16 +29,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.location.pathname as Routes,
   )
 
-  try {
-    await AuthApi.getUser()
-    Router.start()
-    if (!isRouteProtected) {
-      Router.go(Routes.SelectChat)
-    }
-  } catch (error) {
-    Router.start()
-    if (isRouteProtected) {
-      Router.go(Routes.Login)
-    }
-  }
+  Router.start()
+  //
+  // try {
+  //   await AuthApi.getUser()
+  //   Router.start()
+  //   if (!isRouteProtected) {
+  //     Router.go(Routes.SelectChat)
+  //   }
+  // } catch (error) {
+  //   Router.start()
+  //   if (isRouteProtected) {
+  //     Router.go(Routes.Login)
+  //   }
+  // }
 })

@@ -44,7 +44,7 @@ export class LoginForm extends Block {
     })
     const signupLink = new Link({
       href: Routes.SignUp,
-      text: 'Нет аккаунта?',
+      children: 'Нет аккаунта?',
       active: true,
     })
     super({

@@ -1,11 +1,11 @@
 import { Block, BlockProps } from '@/shared/lib'
-import { Avatar, SearchInput } from '@/shared/ui'
+import { Avatar, Link, SearchInput } from '@/shared/ui'
 import styles from './sidebar-header.module.css'
 
 // language=hbs
 const template = `
     <div class="${styles.wrapper}">
-        <a href='/profile' style='min-width: 40px'>{{{profileAvatar}}}</a>
+        {{{profileLink}}}
         {{{searchInput}}}
     </div>
 `
@@ -14,7 +14,11 @@ export class SidebarHeader extends Block {
   constructor(props: BlockProps) {
     super({
       ...props,
-      profileAvatar: new Avatar({ width: 40, height: 40 }),
+      profileLink: new Link({
+        href: '/profile',
+        children: new Avatar({ width: 40, height: 40 }),
+        className: styles.profileLink,
+      }),
       searchInput: new SearchInput({
         placeholder: 'Поиск',
       }),
