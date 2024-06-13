@@ -1,1 +1,1 @@
-export * from './auth-api'
+export { default, type LoginRequest } from './auth-api'

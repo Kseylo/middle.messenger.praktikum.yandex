@@ -1,4 +1,5 @@
 import * as Pages from '@/pages'
+import AuthApi from '@/shared/api'
 import { Routes } from '@/shared/config'
 import Router, { type Page } from '@/shared/lib/router'
 
@@ -19,10 +20,19 @@ const pages: Record<Routes, Page> = {
   },
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   Object.entries(pages).forEach(([pathname, page]) => {
     Router.use(pathname, page)
   })
 
   Router.start()
+
+  // try {
+  //   await AuthApi.getUser()
+  //   Router.start()
+  //   Router.go(Routes.SelectChat)
+  // } catch (error) {
+  //   Router.start()
+  //   Router.go(Routes.Login)
+  // }
 })

@@ -16,7 +16,7 @@ interface OptionsWithMethod extends Options {
   method: METHODS
 }
 
-type HTTPMethod = (url: string, options: Options) => Promise<XMLHttpRequest>
+type HTTPMethod = (url: string, options?: Options) => Promise<XMLHttpRequest>
 
 export class HTTPTransport {
   protected endpoint: string

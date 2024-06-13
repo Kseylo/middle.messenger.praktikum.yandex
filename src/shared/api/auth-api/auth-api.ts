@@ -15,6 +15,10 @@ class AuthApi extends BaseAPI {
       data,
     })
   }
+
+  getUser() {
+    return this.http.get('/user')
+  }
 }
 
-export const authApi = new AuthApi()
+export default new AuthApi()
