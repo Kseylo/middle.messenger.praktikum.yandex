@@ -1,4 +1,5 @@
 import { UpdateInfo, UpdatePhoto } from '@/features'
+import { Logout } from '@/features/logout'
 import { Block } from '@/shared/lib'
 import styles from './update-profile.module.css'
 
@@ -7,6 +8,7 @@ const template = `
     <div class='card ${styles.wrapper}'>
         {{{updatePhoto}}}
         {{{updateInfo}}}
+        {{{logout}}}
     </div>
 `
 
@@ -15,6 +17,7 @@ export class UpdateProfile extends Block {
     super({
       updatePhoto: new UpdatePhoto({ name: 'Алексей Ложкин' }),
       updateInfo: new UpdateInfo({}),
+      logout: new Logout({}),
     })
   }
 
