@@ -16,8 +16,14 @@ class AuthApi extends BaseAPI {
     })
   }
 
+  signup() {}
+
   getUser() {
     return this.http.get('/user')
+  }
+
+  logout() {
+    return this.http.post('/logout')
   }
 }
 

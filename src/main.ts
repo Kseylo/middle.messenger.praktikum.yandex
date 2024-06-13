@@ -1,6 +1,6 @@
 import * as Pages from '@/pages'
 import AuthApi from '@/shared/api'
-import { Routes } from '@/shared/config'
+import { protectedRoutes, Routes } from '@/shared/config'
 import Router, { type Page } from '@/shared/lib/router'
 
 const pages: Record<Routes, Page> = {
@@ -25,14 +25,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     Router.use(pathname, page)
   })
 
-  Router.start()
+  const isRouteProtected = protectedRoutes.includes(
+    window.location.pathname as Routes,
+  )
 
-  // try {
-  //   await AuthApi.getUser()
-  //   Router.start()
-  //   Router.go(Routes.SelectChat)
-  // } catch (error) {
-  //   Router.start()
-  //   Router.go(Routes.Login)
-  // }
+  try {
+    await AuthApi.getUser()
+    Router.start()
+    if (!isRouteProtected) {
+      Router.go(Routes.SelectChat)
+    }
+  } catch (error) {
+    Router.start()
+    if (isRouteProtected) {
+      Router.go(Routes.Login)
+    }
+  }
 })

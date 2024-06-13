@@ -8,3 +8,10 @@ export enum Routes {
   NotFound = '/not-found',
   ServerError = '/server-error',
 }
+
+export const protectedRoutes = [
+  Routes.SelectChat,
+  Routes.Chat,
+  Routes.Profile,
+  Routes.Account,
+]
