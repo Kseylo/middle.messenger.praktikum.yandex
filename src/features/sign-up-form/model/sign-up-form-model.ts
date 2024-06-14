@@ -1,4 +1,4 @@
-import AuthApi, { type SignUpRequest } from '@/shared/api'
+import { AuthApi, type SignUpRequest } from '@/shared/api'
 import { Routes } from '@/shared/config'
 import Router from '@/shared/lib'
 

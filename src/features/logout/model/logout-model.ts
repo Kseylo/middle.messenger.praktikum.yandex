@@ -1,4 +1,4 @@
-import AuthApi from '@/shared/api'
+import { AuthApi } from '@/shared/api'
 import { Routes } from '@/shared/config'
 import Router from '@/shared/lib'
 

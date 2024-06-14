@@ -1,5 +1,7 @@
+import { type ChangePasswordData } from '@/shared/api'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'
+import UpdateAccountModel from '../model'
 import styles from './update-account.module.css'
 
 // language=hbs
@@ -46,7 +48,7 @@ export class UpdateAccount extends Block {
       button: new Button({
         children: 'Обновить аккаунт',
         events: {
-          click: (event) => {
+          click: async (event) => {
             event.preventDefault()
             const inputs = [oldPasswordInput, newPasswordInput]
             const isAllInputsValid = Validator.validateInputs(inputs)
@@ -59,7 +61,9 @@ export class UpdateAccount extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              console.log(results)
+              await UpdateAccountModel.changePassword(
+                results as unknown as ChangePasswordData,
+              )
             } else {
               console.log('Validation error')
             }

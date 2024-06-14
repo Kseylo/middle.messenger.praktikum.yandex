@@ -32,8 +32,8 @@ export class LoginForm extends Block {
     })
     const passwordInput = new InputWithLabel({
       id: FIELDS.PASSWORD,
-      label: 'Логин',
-      placeholder: 'Логин',
+      label: 'Пароль',
+      placeholder: 'Пароль',
       name: FIELDS.PASSWORD,
       type: 'password',
       events: {

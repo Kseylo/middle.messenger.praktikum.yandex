@@ -1,1 +1,1 @@
-export { UpdateAccount } from './update-account'
+export { UpdateAccount } from './ui'

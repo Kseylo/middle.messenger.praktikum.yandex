@@ -1,5 +1,5 @@
 import * as Pages from '@/pages'
-import AuthApi from '@/shared/api'
+import { AuthApi } from '@/shared/api'
 import { protectedRoutes, Routes } from '@/shared/config'
 import Router, { type Page } from '@/shared/lib/router'
 

@@ -25,8 +25,8 @@ export class Account extends Block<AccountProps> {
       sidebar: new Sidebar({}),
       settingsHeader: new SettingsHeader({
         links: [
-          new Link({ text: 'Профиль', href: '/profile' }),
-          new Link({ text: 'Аккаунт', href: '/account', active: true }),
+          new Link({ children: 'Профиль', href: '/profile' }),
+          new Link({ children: 'Аккаунт', href: '/account', active: true }),
         ],
       }),
       updateAccount: new UpdateAccount({}),

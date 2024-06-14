@@ -25,8 +25,8 @@ export class Profile extends Block<ProfileProps> {
       updateProfile: new UpdateProfile(),
       settingsHeader: new SettingsHeader({
         links: [
-          new Link({ text: 'Профиль', href: '/profile', active: true }),
-          new Link({ text: 'Аккаунт', href: '/account' }),
+          new Link({ children: 'Профиль', href: '/profile', active: true }),
+          new Link({ children: 'Аккаунт', href: '/account' }),
         ],
       }),
     })
