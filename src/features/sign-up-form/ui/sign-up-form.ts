@@ -1,5 +1,7 @@
+import { type SignUpRequest } from '@/shared/api'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel, Link } from '@/shared/ui'
+import SignUpFormModel from '../model'
 import styles from './sign-up-form.module.css'
 
 // language=hbs
@@ -10,6 +12,7 @@ const template = `
         {{{emailInput}}}
         {{{firstNameInput}}}
         {{{secondNameInput}}}
+        {{{phoneInput}}}
         {{{passwordInput}}}
         <div class='${styles.actions}'>
             {{{button}}}
@@ -34,6 +37,7 @@ export class SignUpForm extends Block {
     const emailInput = new InputWithLabel({
       id: FIELDS.EMAIL,
       label: 'Email',
+      type: 'email',
       placeholder: 'pochta@yandex.ru',
       name: FIELDS.EMAIL,
       events: {
@@ -64,6 +68,18 @@ export class SignUpForm extends Block {
         },
       },
     })
+    const phoneInput = new InputWithLabel({
+      id: FIELDS.PHONE,
+      label: 'Телефон',
+      placeholder: '+7 (999) 999-99-99',
+      name: FIELDS.PHONE,
+      type: 'tel',
+      events: {
+        blur: () => {
+          Validator.validateInput(phoneInput)
+        },
+      },
+    })
     const passwordInput = new InputWithLabel({
       id: FIELDS.PASSWORD,
       label: 'Пароль',
@@ -89,19 +105,21 @@ export class SignUpForm extends Block {
       emailInput,
       firstNameInput,
       secondNameInput,
+      phoneInput,
       passwordInput,
       loginLink,
       button: new Button({
         children: 'Зарегистрироваться',
         type: 'submit',
         events: {
-          click: (event) => {
+          click: async (event) => {
             event.preventDefault()
             const inputs = [
               loginInput,
               emailInput,
               firstNameInput,
               secondNameInput,
+              phoneInput,
               passwordInput,
             ]
             const isAllInputsValid = Validator.validateInputs(inputs)
@@ -114,7 +132,7 @@ export class SignUpForm extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              console.log(results)
+              await SignUpFormModel.signUp(results as unknown as SignUpRequest)
             } else {
               console.log('Validation error')
             }

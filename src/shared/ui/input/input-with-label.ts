@@ -2,7 +2,7 @@ import { Block } from '@/shared/lib'
 import { Input, type InputProps } from './input'
 import styles from './input.module.css'
 
-interface InputWithLabelProps extends InputProps {
+export interface InputWithLabelProps extends InputProps {
   id: string
   label: string
   errorMessage?: string

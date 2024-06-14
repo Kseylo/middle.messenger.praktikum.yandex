@@ -5,18 +5,27 @@ export interface LoginRequest {
   password: string
 }
 
+export interface SignUpRequest {
+  first_name: string
+  second_name: string
+  login: string
+  email: string
+  phone: string
+  password: string
+}
+
 class AuthApi extends BaseAPI {
   constructor() {
     super('auth')
   }
 
   login(data: LoginRequest) {
-    return this.http.post('/signin', {
-      data,
-    })
+    return this.http.post('/signin', { data })
   }
 
-  signup() {}
+  signup(data: SignUpRequest) {
+    return this.http.post('/signup', { data })
+  }
 
   getUser() {
     return this.http.get('/user')

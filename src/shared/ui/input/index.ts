@@ -1,2 +1,2 @@
 export { Input } from './input'
-export { InputWithLabel } from './input-with-label'
+export { InputWithLabel, type InputWithLabelProps } from './input-with-label'

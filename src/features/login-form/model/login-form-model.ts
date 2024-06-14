@@ -2,7 +2,7 @@ import AuthApi, { type LoginRequest } from '@/shared/api'
 import { Routes } from '@/shared/config'
 import Router from '@/shared/lib'
 
-class LoginModel {
+class LoginFormModel {
   async login(data: LoginRequest) {
     try {
       await AuthApi.login(data)
@@ -13,4 +13,4 @@ class LoginModel {
   }
 }
 
-export default new LoginModel()
+export default new LoginFormModel()

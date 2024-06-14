@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       Router.go(Routes.SelectChat)
     }
   } catch (error) {
-    console.log('hello?')
     Router.start()
     if (isRouteProtected) {
       Router.go(Routes.Login)
