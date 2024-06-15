@@ -1,8 +1,8 @@
 import { LoginRequest } from '@/shared/api'
 import { Indexed, Routes } from '@/shared/config'
+import { AuthController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel, Link } from '@/shared/ui'
-import LoginModel from '../model/login-form-model.ts'
 import styles from './login.module.css'
 
 const template = `
@@ -69,7 +69,7 @@ export class LoginForm extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              await LoginModel.login(results as unknown as LoginRequest)
+              await AuthController.login(results as unknown as LoginRequest)
             } else {
               console.log('Validation error')
             }

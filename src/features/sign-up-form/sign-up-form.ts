@@ -1,7 +1,7 @@
 import { type SignUpRequest } from '@/shared/api'
+import { AuthController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel, Link } from '@/shared/ui'
-import SignUpFormModel from '../model'
 import styles from './sign-up-form.module.css'
 
 // language=hbs
@@ -132,7 +132,7 @@ export class SignUpForm extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              await SignUpFormModel.signUp(results as unknown as SignUpRequest)
+              await AuthController.signUp(results as unknown as SignUpRequest)
             } else {
               console.log('Validation error')
             }

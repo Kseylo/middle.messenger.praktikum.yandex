@@ -1,5 +1,5 @@
+import { AuthController } from '@/shared/controllers'
 import { Block } from '@/shared/lib'
-import LogoutModel from '../model'
 import styles from './logout.module.css'
 
 const template = `
@@ -12,7 +12,7 @@ export class Logout extends Block {
       events: {
         submit: async (event) => {
           event.preventDefault()
-          await LogoutModel.logout()
+          await AuthController.logout()
         },
       },
     })
