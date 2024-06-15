@@ -31,8 +31,8 @@ class AuthController {
   }
 
   async getUser() {
-    const user = await AuthApi.getUser()
-    Store.setState('user', user)
+    const { response } = await AuthApi.getUser()
+    Store.setState('user', response)
   }
 }
 

@@ -1,6 +1,7 @@
 import * as Pages from '@/pages'
 import { protectedRoutes, Routes } from '@/shared/config'
 import { AuthController } from '@/shared/controllers'
+import { Store } from '@/shared/lib'
 import Router, { type Page } from '@/shared/lib/router'
 
 const pages: Record<Routes, Page> = {
@@ -41,4 +42,5 @@ document.addEventListener('DOMContentLoaded', async () => {
       Router.go(Routes.Login)
     }
   }
+  console.log(Store)
 })
