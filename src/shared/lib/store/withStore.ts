@@ -1,6 +1,6 @@
 import { type Indexed } from '@/shared/config'
 import { Block, isEqual } from '@/shared/lib'
-import { store, StoreEvents } from './store'
+import { default as store, StoreEvents } from './store'
 
 export function withStore(mapStateToProps: (state: Indexed) => Indexed) {
   return function (Component: typeof Block) {

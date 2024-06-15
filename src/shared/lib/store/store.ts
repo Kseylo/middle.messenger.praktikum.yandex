@@ -6,7 +6,7 @@ export enum StoreEvents {
   UPDATED = 'UPDATED',
 }
 
-export class Store extends EventBus {
+class Store extends EventBus {
   private _state: Indexed = {}
 
   getState() {
@@ -19,4 +19,4 @@ export class Store extends EventBus {
   }
 }
 
-export const store = new Store()
+export default new Store()

@@ -1,6 +1,6 @@
 import { AuthApi, type LoginRequest, SignUpRequest } from '@/shared/api'
 import { Routes } from '@/shared/config'
-import Router from '@/shared/lib'
+import { Router, Store } from '@/shared/lib'
 
 class AuthController {
   async signUp(data: SignUpRequest) {
@@ -28,6 +28,11 @@ class AuthController {
     } catch (error) {
       console.log(`Error occurred while logout`)
     }
+  }
+
+  async getUser() {
+    const user = await AuthApi.getUser()
+    Store.setState('user', user)
   }
 }
 

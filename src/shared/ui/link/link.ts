@@ -1,4 +1,4 @@
-import Router, { Block, type BlockProps } from '@/shared/lib'
+import { Block, type BlockProps, Router } from '@/shared/lib'
 import styles from './link.module.css'
 
 const template = `

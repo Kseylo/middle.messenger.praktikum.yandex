@@ -1,6 +1,6 @@
 import * as Pages from '@/pages'
-import { AuthApi } from '@/shared/api'
 import { protectedRoutes, Routes } from '@/shared/config'
+import { AuthController } from '@/shared/controllers'
 import Router, { type Page } from '@/shared/lib/router'
 
 const pages: Record<Routes, Page> = {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   )
 
   try {
-    await AuthApi.getUser()
+    await AuthController.getUser()
     Router.start()
     if (!isRouteProtected) {
       Router.go(Routes.SelectChat)

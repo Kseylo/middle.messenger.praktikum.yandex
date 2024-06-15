@@ -1,1 +1,1 @@
-export { store, StoreEvents } from './store'
+export { default, StoreEvents } from './store'
