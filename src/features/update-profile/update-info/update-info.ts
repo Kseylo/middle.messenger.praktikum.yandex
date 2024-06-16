@@ -1,5 +1,6 @@
 // language=hbs
 import { Block, type BlockProps, FIELDS, Validator } from '@/shared/lib'
+import { withStore } from '@/shared/lib/store'
 import { Button, InputWithLabel } from '@/shared/ui'
 import styles from './update-info.module.css'
 
@@ -16,7 +17,7 @@ const template = `
 `
 type UpdateInfoProps = BlockProps
 
-export class UpdateInfo extends Block {
+class UpdateInfo extends Block {
   constructor(props: UpdateInfoProps) {
     const loginInput = new InputWithLabel({
       id: FIELDS.LOGIN,
@@ -130,3 +131,6 @@ export class UpdateInfo extends Block {
     return this.compile(template, this.props)
   }
 }
+
+const withUser = withStore((state) => ({ user: state.user }))
+export default withUser(UpdateInfo as typeof Block)

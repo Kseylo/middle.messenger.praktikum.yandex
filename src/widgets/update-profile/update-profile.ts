@@ -17,7 +17,7 @@ export class UpdateProfile extends Block {
     super({
       updatePhoto: new UpdatePhoto({ name: 'Алексей Ложкин' }),
       updateInfo: new UpdateInfo({}),
-      logout: new Logout({}),
+      logout: new Logout(),
     })
   }
 
