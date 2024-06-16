@@ -13,6 +13,14 @@ class UserApi extends BaseAPI {
   changePassword(data: ChangePasswordData) {
     return this.http.post('/password', { data })
   }
+
+  changeAvatar(file: File) {
+    const formData = new FormData()
+    formData.append('avatar', file)
+    return this.http.put('/profile/avatar', {
+      data: formData,
+    })
+  }
 }
 
 export default new UserApi()

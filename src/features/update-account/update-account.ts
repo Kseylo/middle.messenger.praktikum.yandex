@@ -1,7 +1,7 @@
 import { type ChangePasswordData } from '@/shared/api'
+import { UserController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'
-import UpdateAccountModel from '../model'
 import styles from './update-account.module.css'
 
 // language=hbs
@@ -61,7 +61,7 @@ export class UpdateAccount extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              await UpdateAccountModel.changePassword(
+              await UserController.changePassword(
                 results as unknown as ChangePasswordData,
               )
             } else {
