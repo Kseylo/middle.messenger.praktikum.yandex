@@ -1,1 +1,1 @@
-export { BaseAPI } from './base-api'
+export { BaseAPI, RESOURCES_URL } from './base-api'

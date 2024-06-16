@@ -1,4 +1,6 @@
+import { User } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib'
+import { withStore } from '@/shared/lib/store'
 import { Avatar, Link, SearchInput } from '@/shared/ui'
 import styles from './sidebar-header.module.css'
 
@@ -10,13 +12,14 @@ const template = `
     </div>
 `
 
-export class SidebarHeader extends Block {
+class SidebarHeader extends Block {
   constructor(props: BlockProps) {
+    const user = props.user as User
     super({
       ...props,
       profileLink: new Link({
         href: '/profile',
-        children: new Avatar({ width: 40, height: 40 }),
+        children: new Avatar({ width: 40, height: 40, src: user.avatar }),
         className: styles.profileLink,
       }),
       searchInput: new SearchInput({
@@ -29,3 +32,6 @@ export class SidebarHeader extends Block {
     return this.compile(template, this.props)
   }
 }
+
+const withUser = withStore((state) => ({ user: state.user }))
+export default withUser(SidebarHeader as typeof Block)

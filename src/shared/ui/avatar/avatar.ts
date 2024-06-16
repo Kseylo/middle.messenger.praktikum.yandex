@@ -1,3 +1,4 @@
+import { RESOURCES_URL } from '@/shared/api'
 import { Block, BlockProps } from '@/shared/lib/block'
 import styles from './avatar.module.css'
 
@@ -21,7 +22,9 @@ export class Avatar extends Block<AvatarProps> {
   render() {
     return this.compile(template, {
       ...this.props,
-      src: this.props.src ?? 'images/avatar-placeholder.avif',
+      src: this.props.src
+        ? `${RESOURCES_URL}/${this.props.src}`
+        : 'images/avatar-placeholder.avif',
     })
   }
 }
