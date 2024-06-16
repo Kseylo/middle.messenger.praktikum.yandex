@@ -3,7 +3,7 @@ import styles from './avatar.module.css'
 
 const template = `
 <img
-  src='images/avatar-placeholder.avif'
+  src='{{src}}'
   width='{{width}}'
   height='{{height}}'
   class='${styles.avatar}'
@@ -14,10 +14,14 @@ const template = `
 interface AvatarProps extends BlockProps {
   width: number
   height: number
+  src?: string | null
 }
 
 export class Avatar extends Block<AvatarProps> {
   render() {
-    return this.compile(template, this.props)
+    return this.compile(template, {
+      ...this.props,
+      src: this.props.src ?? 'images/avatar-placeholder.avif',
+    })
   }
 }

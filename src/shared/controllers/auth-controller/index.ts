@@ -1,5 +1,6 @@
 import { AuthApi, type LoginRequest, SignUpRequest } from '@/shared/api'
 import { Routes } from '@/shared/config'
+import { type User } from '@/shared/config'
 import { Router, Store } from '@/shared/lib'
 
 class AuthController {
@@ -32,7 +33,7 @@ class AuthController {
 
   async getUser() {
     const { response } = await AuthApi.getUser()
-    Store.setState('user', response)
+    Store.setState('user', JSON.parse(response) as User)
   }
 }
 
