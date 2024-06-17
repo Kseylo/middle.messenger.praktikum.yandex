@@ -22,7 +22,6 @@ type UpdateInfoProps = BlockProps
 class UpdateInfo extends Block {
   constructor(props: UpdateInfoProps) {
     const user = props.user as User
-    console.log(user)
 
     const loginInput = new InputWithLabel({
       id: FIELDS.LOGIN,
