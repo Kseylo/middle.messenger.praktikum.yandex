@@ -1,0 +1,38 @@
+.wrapper {
+    position: relative;
+    display: inline-block;
+    flex: 0 0 auto;
+}
+
+.itemList {
+    display: none;
+    position: absolute;
+    z-index: 50;
+    width: 18rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background-color: var(--popover);
+    list-style: none;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+}
+
+.item {
+    color: var(--popover-foreground);
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease-in-out;
+    font-size: var(--fs-sm);
+}
+
+.item:hover {
+    background-color: var(--accent);
+    cursor: pointer;
+}
+
+.open .itemList {
+    display: block;
+}

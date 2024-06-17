@@ -1,7 +1,7 @@
 import { User } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib'
 import { withStore } from '@/shared/lib/store'
-import { Avatar, Link, SearchInput } from '@/shared/ui'
+import { Avatar, DropdownMenu, Link, SearchInput } from '@/shared/ui'
 import styles from './sidebar-header.module.css'
 
 // language=hbs
@@ -9,6 +9,7 @@ const template = `
     <div class="${styles.wrapper}">
         {{{profileLink}}}
         {{{searchInput}}}
+        {{{tooltip}}}
     </div>
 `
 
@@ -24,6 +25,14 @@ class SidebarHeader extends Block {
       }),
       searchInput: new SearchInput({
         placeholder: 'Поиск',
+      }),
+      tooltip: new DropdownMenu({
+        items: [
+          {
+            title: 'Добавить новый чат',
+            onClick: () => console.log('New Chat'),
+          },
+        ],
       }),
     })
   }
