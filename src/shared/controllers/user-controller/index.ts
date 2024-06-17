@@ -19,6 +19,15 @@ class UserController {
       console.log(`Error occurred while changing password`)
     }
   }
+
+  async updateProfile(data: User) {
+    try {
+      const { response } = await UserApi.updateProfile(data)
+      Store.setState('user', JSON.parse(response) as User)
+    } catch (error) {
+      console.log(`Error occurred while updating profile`)
+    }
+  }
 }
 
 export default new UserController()

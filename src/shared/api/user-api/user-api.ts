@@ -1,9 +1,12 @@
+import { User } from '@/shared/config'
 import { BaseAPI } from '../base-api'
 
 export interface ChangePasswordData {
   oldPassword: string
   newPassword: string
 }
+
+type UpdateProfileData = Omit<User, 'id' | 'avatar'>
 
 class UserApi extends BaseAPI {
   constructor() {
@@ -20,6 +23,10 @@ class UserApi extends BaseAPI {
     return this.http.put('/profile/avatar', {
       data: formData,
     })
+  }
+
+  updateProfile(data: UpdateProfileData) {
+    return this.http.put('/profile', { data })
   }
 }
 

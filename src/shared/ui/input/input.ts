@@ -9,6 +9,7 @@ const template = `
     class='${styles.input}'
     name='{{name}}'
     type='{{type}}'
+    value='{{value}}'
     autocomplete="false"
     pattern='{{pattern}}'
   />
@@ -20,6 +21,7 @@ export interface InputProps extends BlockProps {
   name?: string
   type?: string
   pattern?: string
+  value?: string
 }
 
 export class Input extends Block<InputProps> {
