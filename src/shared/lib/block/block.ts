@@ -132,20 +132,22 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   init() {
     this._element = this._createDocumentElement()
-    this._eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
+    this._eventBus.dispatch(Block.EVENTS.FLOW_CDM)
   }
 
   private _componentDidMount() {
     this.componentDidMount()
-    Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount()
-    })
+    this._eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
   }
 
   componentDidMount() {}
 
   dispatchComponentDidMount() {
     this._eventBus.dispatch(Block.EVENTS.FLOW_CDM)
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount()
+    })
   }
 
   private _componentDidUpdate(oldProps: TypeProps, newProps: TypeProps) {
