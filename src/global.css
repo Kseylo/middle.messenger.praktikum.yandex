@@ -25,6 +25,9 @@
     --popover: hsl(240deg 10% 3.9%);
     --popover-foreground: hsl(0deg 0% 98%);
     --destructive: hsl(0deg 84.2% 60.2%);
+    --overlay: hsla(240deg 10% 3.9% / 0.8);
+
+    /* RADIUS */
     --radius-sm: 0.25;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -39,9 +42,12 @@
     --fs-3xl: 1.875rem;
     --fs-4xl: 2.25rem;
     --fs-5xl: 3rem;
+
+    /* MAX WIDTH */
     --max-width-xs: 20rem;
     --max-width-md: 28rem;
     --max-width-2xl: 36rem;
+
     --header-height: 4rem;
 }
 

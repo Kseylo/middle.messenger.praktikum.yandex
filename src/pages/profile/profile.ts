@@ -7,6 +7,7 @@ const template = `
 <div class='app'>
   {{{ sidebar }}}
   <main class="${styles.main}">
+    {{{button}}}
     {{{settingsHeader}}}
     <div class="${styles.wrapper}">
         {{{ updateProfile }}}
