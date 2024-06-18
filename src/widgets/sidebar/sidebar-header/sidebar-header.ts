@@ -20,7 +20,9 @@ class SidebarHeader extends Block {
     const user = props.user as User
     const createChatDialog = new Dialog({
       title: 'Добавить новый чат',
-      children: new CreateChat({}),
+      children: new CreateChat({
+        onSubmit: () => this.hide(),
+      }),
     })
     super({
       ...props,

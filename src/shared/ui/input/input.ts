@@ -11,7 +11,6 @@ const template = `
     type='{{type}}'
     value='{{value}}'
     autocomplete="false"
-    pattern='{{pattern}}'
   />
 `
 

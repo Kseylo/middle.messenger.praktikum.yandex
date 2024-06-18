@@ -1,3 +1,4 @@
+import { ChatsController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'
 import styles from './create-chat.module.css'
@@ -10,17 +11,20 @@ const template = `
       </form>
   `
 
-type CreateChatProps = BlockProps
+interface CreateChatProps extends BlockProps {
+  onSubmit?: () => void
+}
 
 export class CreateChat extends Block<CreateChatProps> {
   constructor(props: CreateChatProps) {
+    const newChatInput = new InputWithLabel({
+      label: 'Новый чат',
+      placeholder: 'Введите название чата',
+      id: 'newChatInput',
+    })
     super({
       ...props,
-      newChatInput: new InputWithLabel({
-        label: 'Новый чат',
-        placeholder: 'Введите название чата',
-        id: 'newChatInput',
-      }),
+      newChatInput,
       button: new Button({
         children: 'Создать чат',
         variant: 'primary',
@@ -29,7 +33,11 @@ export class CreateChat extends Block<CreateChatProps> {
       events: {
         submit: async (event) => {
           event.preventDefault()
-          console.log('submit')
+          const title = newChatInput.getContent().querySelector('input')?.value
+          if (title) {
+            await ChatsController.createChat({ title })
+            this.props.onSubmit?.()
+          }
         },
       },
     })
