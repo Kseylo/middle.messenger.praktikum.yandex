@@ -21,7 +21,9 @@ class SidebarHeader extends Block {
     const createChatDialog = new Dialog({
       title: 'Добавить новый чат',
       children: new CreateChat({
-        onSubmit: () => this.hide(),
+        onSubmit: () => {
+          createChatDialog.hide()
+        },
       }),
     })
     super({
