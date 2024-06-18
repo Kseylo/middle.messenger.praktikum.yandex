@@ -1,12 +1,5 @@
-import { User } from '@/shared/config'
+import type { ChangePasswordData, UpdateProfileData } from '@/shared/config'
 import { BaseAPI } from '../base-api'
-
-export interface ChangePasswordData {
-  oldPassword: string
-  newPassword: string
-}
-
-type UpdateProfileData = Omit<User, 'id' | 'avatar'>
 
 class UserApi extends BaseAPI {
   constructor() {

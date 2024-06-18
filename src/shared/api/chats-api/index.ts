@@ -1,1 +1,1 @@
-export { type CreateChatData, default } from './chats-api'
+export { default } from './chats-api'

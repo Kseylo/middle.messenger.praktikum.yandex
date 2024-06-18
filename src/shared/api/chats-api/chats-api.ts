@@ -1,8 +1,5 @@
+import { CreateChatData } from '@/shared/config'
 import { BaseAPI } from '../base-api'
-
-export interface CreateChatData {
-  title: string
-}
 
 class ChatsApi extends BaseAPI {
   constructor() {

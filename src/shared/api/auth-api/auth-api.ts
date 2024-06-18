@@ -1,18 +1,5 @@
+import { LoginRequest, SignUpRequest } from '@/shared/config'
 import { BaseAPI } from '../base-api'
-
-export interface LoginRequest {
-  login: string
-  password: string
-}
-
-export interface SignUpRequest {
-  first_name: string
-  second_name: string
-  login: string
-  email: string
-  phone: string
-  password: string
-}
 
 class AuthApi extends BaseAPI {
   constructor() {

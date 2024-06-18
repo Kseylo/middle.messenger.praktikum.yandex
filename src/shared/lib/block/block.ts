@@ -157,8 +157,8 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
   }
 
-  componentDidUpdate(_oldProps: TypeProps, _newProps: TypeProps) {
-    return true
+  componentDidUpdate(oldProps?: TypeProps, newProps?: TypeProps) {
+    return oldProps !== newProps
   }
 
   private _render() {

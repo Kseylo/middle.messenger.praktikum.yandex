@@ -1,1 +1,1 @@
-export { type ChangePasswordData, default } from './user-api'
+export { default } from './user-api'

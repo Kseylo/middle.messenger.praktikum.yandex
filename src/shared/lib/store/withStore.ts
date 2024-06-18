@@ -1,11 +1,19 @@
-import { type Indexed } from '@/shared/config'
-import { Block, isEqual } from '@/shared/lib'
+import { IChat, type Indexed, User } from '@/shared/config'
+import { Block, BlockProps, isEqual } from '@/shared/lib'
 import { default as store, StoreEvents } from './store'
 
-export function withStore(mapStateToProps: (state: Indexed) => Indexed) {
-  return function (Component: typeof Block) {
-    return class extends Component {
-      constructor(props: Indexed) {
+interface State {
+  user: User
+  chats: IChat[]
+}
+
+export function withStore<StateProps>(
+  mapStateToProps: (state: State) => StateProps,
+) {
+  // @ts-expect-error - Fix later when i have better idea how to do it
+  return function wrapper<Props>(Component: typeof Block<StateProps & Props>) {
+    return class WithStore extends Component {
+      constructor(props: Omit<Props, keyof StateProps>) {
         let state = mapStateToProps(store.getState())
 
         super({ ...props, ...state })
@@ -13,8 +21,8 @@ export function withStore(mapStateToProps: (state: Indexed) => Indexed) {
         store.subscribe(StoreEvents.UPDATED, () => {
           const newState = mapStateToProps(store.getState())
 
-          if (!isEqual(state, newState)) {
-            this.setProps({ ...newState })
+          if (!isEqual(state as Indexed, newState as Indexed)) {
+            this.setProps({ ...(newState as BlockProps) })
           }
 
           state = newState
