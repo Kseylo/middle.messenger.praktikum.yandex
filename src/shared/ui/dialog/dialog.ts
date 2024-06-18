@@ -31,6 +31,7 @@ export class Dialog extends Block<DialogProps> {
         },
       }),
     })
+    this.handleOverlayClick = this.handleOverlayClick.bind(this)
   }
 
   handleOverlayClick(event: MouseEvent) {
