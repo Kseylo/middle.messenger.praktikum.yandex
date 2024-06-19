@@ -1,6 +1,6 @@
 import { CreateChat } from '@/features'
-import { User } from '@/shared/config'
-import { Block, BlockProps } from '@/shared/lib'
+import { Routes, User } from '@/shared/config'
+import { Block, BlockProps, isEqual } from '@/shared/lib'
 import { withStore } from '@/shared/lib/store'
 import { Avatar, Dialog, DropdownMenu, Link, SearchInput } from '@/shared/ui'
 import styles from './sidebar-header.module.css'
@@ -15,9 +15,13 @@ const template = `
     </div>
 `
 
-class SidebarHeader extends Block {
-  constructor(props: BlockProps) {
-    const user = props.user as User
+interface SidebarHeaderProps extends BlockProps {
+  user?: User
+}
+
+class SidebarHeader extends Block<SidebarHeaderProps> {
+  constructor(props: SidebarHeaderProps) {
+    const user = props.user
     const createChatDialog = new Dialog({
       title: 'Добавить новый чат',
       children: new CreateChat({
@@ -28,11 +32,13 @@ class SidebarHeader extends Block {
     })
     super({
       ...props,
-      profileLink: new Link({
-        href: '/profile',
-        children: new Avatar({ width: 40, height: 40, src: user.avatar }),
-        className: styles.profileLink,
-      }),
+      profileLink: user
+        ? new Link({
+            href: Routes.Profile,
+            children: new Avatar({ width: 40, height: 40, src: user.avatar }),
+            className: styles.profileLink,
+          })
+        : null,
       searchInput: new SearchInput({
         placeholder: 'Поиск',
       }),
@@ -46,6 +52,28 @@ class SidebarHeader extends Block {
         ],
       }),
     })
+  }
+
+  componentDidUpdate(
+    oldProps: SidebarHeaderProps,
+    newProps: SidebarHeaderProps,
+  ): boolean {
+    if (!isEqual(oldProps, newProps)) {
+      if (newProps.user) {
+        this.setProps({
+          profileLink: new Link({
+            href: Routes.Profile,
+            children: new Avatar({
+              width: 40,
+              height: 40,
+              src: newProps.user.avatar,
+            }),
+            className: styles.profileLink,
+          }),
+        })
+      }
+    }
+    return super.componentDidUpdate(oldProps, newProps)
   }
 
   render() {
