@@ -1,5 +1,5 @@
 import { ChatsApi } from '@/shared/api'
-import { type CreateChatData, type IChat } from '@/shared/api'
+import type { CreateChatData, IChat } from '@/shared/config'
 import { Store } from '@/shared/lib'
 
 class ChatsController {
