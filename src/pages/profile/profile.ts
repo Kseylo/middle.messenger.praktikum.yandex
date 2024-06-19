@@ -1,6 +1,6 @@
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Link } from '@/shared/ui'
-import { SettingsHeader, Sidebar, UpdateProfile } from '@/widgets'
+import { getSidebarInstance, SettingsHeader, UpdateProfile } from '@/widgets'
 import styles from './profile.module.css'
 
 const template = `
@@ -22,7 +22,7 @@ export class Profile extends Block<ProfileProps> {
   constructor(props: ProfileProps) {
     super({
       ...props,
-      sidebar: new Sidebar({}),
+      sidebar: getSidebarInstance({}),
       updateProfile: new UpdateProfile(),
       settingsHeader: new SettingsHeader({
         links: [

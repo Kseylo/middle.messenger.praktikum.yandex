@@ -1,5 +1,5 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { Sidebar } from '@/widgets'
+import { getSidebarInstance } from '@/widgets'
 import styles from './select-chat.module.css'
 
 type SelectChatProps = BlockProps
@@ -15,7 +15,7 @@ const template = `
 
 export class SelectChat extends Block {
   constructor(props: SelectChatProps) {
-    const sidebar = new Sidebar({})
+    const sidebar = getSidebarInstance({})
     super({ ...props, sidebar })
   }
 

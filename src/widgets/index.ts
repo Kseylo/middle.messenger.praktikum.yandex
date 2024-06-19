@@ -1,5 +1,5 @@
 export { ChatFeedFooter } from './chat-feed-footer'
 export { ChatFeedHeader } from './chat-feed-header'
 export { SettingsHeader } from './settings-header'
-export { Sidebar } from './sidebar'
+export { getSidebarInstance } from './sidebar'
 export { UpdateProfile } from './update-profile'

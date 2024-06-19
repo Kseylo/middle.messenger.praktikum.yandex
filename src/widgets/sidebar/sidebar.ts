@@ -1,32 +1,60 @@
-import { chatsPlaceholderData } from '@/shared/config'
+import { IChat } from '@/shared/config'
+import { ChatsController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib/block'
+import { withStore } from '@/shared/lib/store'
 import { Chat, ChatHeader } from '@/shared/ui'
 import styles from './sidebar.module.css'
 import { SidebarHeader } from './sidebar-header'
 
 // language=hbs
 const template = `
-<aside class='${styles.sidebar}'>
-    {{{ sidebarHeader }}}
-  <ul class='${styles.chatList}'>
-    {{{chatList}}}
-  </ul>
-</aside>
+    <aside class='${styles.sidebar}'>
+        {{{ sidebarHeader }}}
+        {{{ chatList }}}
+    </aside>
 `
 
-type SidebarProps = BlockProps
+interface SidebarProps extends BlockProps {
+  chats?: IChat[]
+}
 
-export class Sidebar extends Block<SidebarProps> {
+class Sidebar extends Block<SidebarProps> {
   constructor(props: SidebarProps) {
-    const chatList = chatsPlaceholderData.map((chat) => new Chat({ ...chat }))
     super({
       ...props,
-      chatList,
       sidebarHeader: new ChatHeader({ children: new SidebarHeader({}) }),
     })
+  }
+
+  componentDidMount() {
+    void ChatsController.getChats()
+  }
+
+  componentDidUpdate(_oldProps: SidebarProps, newProps: SidebarProps) {
+    if (newProps.chats) {
+      this.setProps({ chatList: this.createChats(newProps) })
+    }
+    return true
+  }
+
+  createChats(props: SidebarProps) {
+    return props.chats?.map((chat) => new Chat({ data: chat }))
   }
 
   render() {
     return this.compile(template, this.props)
   }
+}
+
+const withChats = withStore((state) => ({ chats: state.chats }))
+const SidebarWithChats = withChats(Sidebar as typeof Block)
+
+let instance: typeof SidebarWithChats | null = null
+
+export const getSidebarInstance = (props: SidebarProps) => {
+  if (!instance) {
+    // @ts-expect-error - TODO: fix this type error
+    instance = new SidebarWithChats(props)
+  }
+  return instance
 }

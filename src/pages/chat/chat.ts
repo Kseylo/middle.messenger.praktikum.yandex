@@ -1,6 +1,6 @@
 import { Block, BlockProps } from '@/shared/lib/block'
 import { MediaMessage, Message } from '@/shared/ui'
-import { ChatFeedFooter, ChatFeedHeader, Sidebar } from '@/widgets'
+import { ChatFeedFooter, ChatFeedHeader, getSidebarInstance } from '@/widgets'
 import styles from './chat.module.css'
 
 type ChatFeedProps = BlockProps
@@ -20,7 +20,7 @@ const template = `
 
 export class Chat extends Block<ChatFeedProps> {
   constructor(props: ChatFeedProps) {
-    const sidebar = new Sidebar({})
+    const sidebar = getSidebarInstance({})
     const messages = [
       new Message({
         message:

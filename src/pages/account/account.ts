@@ -1,7 +1,7 @@
 import { UpdateAccount } from '@/features'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Link } from '@/shared/ui'
-import { SettingsHeader, Sidebar } from '@/widgets'
+import { getSidebarInstance, SettingsHeader } from '@/widgets'
 import styles from './account.module.css'
 
 const template = `
@@ -22,7 +22,7 @@ export class Account extends Block<AccountProps> {
   constructor(props: AccountProps) {
     super({
       ...props,
-      sidebar: new Sidebar({}),
+      sidebar: getSidebarInstance({}),
       settingsHeader: new SettingsHeader({
         links: [
           new Link({ children: 'Профиль', href: '/profile' }),

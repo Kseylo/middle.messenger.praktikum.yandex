@@ -204,7 +204,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
 
     if (this._setUpdate) {
-      this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, this.props)
+      this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, nextProps)
       this._setUpdate = false
     }
   }

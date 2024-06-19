@@ -4,13 +4,9 @@ import { Store } from '@/shared/lib'
 
 class ChatsController {
   async getChats() {
-    try {
-      const { response } = await ChatsApi.getChats()
-      const chats = JSON.parse(response) as IChat[]
-      Store.setState('chats', chats)
-    } catch (error) {
-      console.log(`Error occurred while getting chats`)
-    }
+    const { response } = await ChatsApi.getChats()
+    const chats = JSON.parse(response) as IChat[]
+    Store.setState('chats', chats)
   }
 
   async createChat(data: CreateChatData) {
