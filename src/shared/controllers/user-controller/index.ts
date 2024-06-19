@@ -1,5 +1,6 @@
-import { ChangePasswordData, UserApi } from '@/shared/api'
+import { UserApi } from '@/shared/api'
 import type { User } from '@/shared/config'
+import { ChangePasswordData } from '@/shared/config'
 import { Store } from '@/shared/lib'
 
 class UserController {
