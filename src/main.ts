@@ -6,8 +6,7 @@ import Router, { type Page } from '@/shared/lib/router'
 const pages: Record<Routes, Page> = {
   [Routes.Login]: { block: Pages.Login },
   [Routes.SignUp]: { block: Pages.SignUp },
-  [Routes.SelectChat]: { block: Pages.SelectChat },
-  [Routes.Chat]: { block: Pages.Chat },
+  [Routes.Messenger]: { block: Pages.MessengerPage },
   [Routes.Account]: { block: Pages.Account },
   [Routes.Profile]: { block: Pages.Profile },
   [Routes.NotFound]: {
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await AuthController.getUser()
     Router.start()
     if (!isRouteProtected) {
-      Router.go(Routes.SelectChat)
+      Router.go(Routes.Messenger)
     }
   } catch (error) {
     Router.start()

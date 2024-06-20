@@ -1,7 +1,7 @@
 export { Account } from './account'
-export { Chat } from './chat'
 export { Error } from './error'
 export { Login } from './login'
+export { MessengerPage } from './messenger'
 export { Profile } from './profile'
 export { SelectChat } from './select-chat'
 export { SignUp } from './sign-up'

@@ -1,3 +1,4 @@
+import { Routes } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Link } from '@/shared/ui'
 import styles from './error.module.css'
@@ -21,7 +22,7 @@ export class Error extends Block<ErrorProps> {
       ...props,
       linkToChat: new Link({
         children: 'Назад к чатам',
-        href: '/chat',
+        href: Routes.Messenger,
         active: true,
       }),
     })

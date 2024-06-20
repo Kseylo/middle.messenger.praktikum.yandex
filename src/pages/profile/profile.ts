@@ -1,3 +1,4 @@
+import { Routes } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Link } from '@/shared/ui'
 import { getSidebarInstance, SettingsHeader, UpdateProfile } from '@/widgets'
@@ -26,8 +27,8 @@ export class Profile extends Block<ProfileProps> {
       updateProfile: new UpdateProfile(),
       settingsHeader: new SettingsHeader({
         links: [
-          new Link({ children: 'Профиль', href: '/profile', active: true }),
-          new Link({ children: 'Аккаунт', href: '/account' }),
+          new Link({ children: 'Профиль', href: Routes.Profile, active: true }),
+          new Link({ children: 'Аккаунт', href: Routes.Account }),
         ],
       }),
     })

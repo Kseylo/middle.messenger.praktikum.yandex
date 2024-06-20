@@ -1,7 +1,7 @@
 import { Block, BlockProps } from '@/shared/lib/block'
 import { MediaMessage, Message } from '@/shared/ui'
 import { ChatFeedFooter, ChatFeedHeader, getSidebarInstance } from '@/widgets'
-import styles from './chat.module.css'
+import styles from './messenger.module.css'
 
 type ChatFeedProps = BlockProps
 
@@ -18,7 +18,7 @@ const template = `
 </div>
 `
 
-export class Chat extends Block<ChatFeedProps> {
+export class MessengerPage extends Block<ChatFeedProps> {
   constructor(props: ChatFeedProps) {
     const sidebar = getSidebarInstance({})
     const messages = [

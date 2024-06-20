@@ -1,4 +1,5 @@
-import { type SignUpRequest } from '@/shared/api'
+import { Routes } from '@/shared/config'
+import { type SignUpRequest } from '@/shared/config'
 import { AuthController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel, Link } from '@/shared/ui'
@@ -95,7 +96,7 @@ export class SignUpForm extends Block {
 
     const loginLink = new Link({
       children: 'Войти',
-      href: '/',
+      href: Routes.Login,
       active: true,
     })
 
