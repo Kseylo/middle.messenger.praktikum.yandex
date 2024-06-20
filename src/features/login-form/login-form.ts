@@ -1,4 +1,4 @@
-import { LoginRequest } from '@/shared/api'
+import type { LoginRequest } from '@/shared/config'
 import { Indexed, Routes } from '@/shared/config'
 import { AuthController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'

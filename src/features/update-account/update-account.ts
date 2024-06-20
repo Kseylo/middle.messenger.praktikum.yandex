@@ -1,4 +1,4 @@
-import { type ChangePasswordData } from '@/shared/api'
+import { type ChangePasswordData } from '@/shared/config'
 import { UserController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'

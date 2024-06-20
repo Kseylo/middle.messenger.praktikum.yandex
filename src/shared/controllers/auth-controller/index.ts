@@ -1,13 +1,13 @@
-import { AuthApi, type LoginRequest, SignUpRequest } from '@/shared/api'
+import { AuthApi } from '@/shared/api'
+import type { LoginRequest, SignUpRequest, User } from '@/shared/config'
 import { Routes } from '@/shared/config'
-import { type User } from '@/shared/config'
 import { Router, Store } from '@/shared/lib'
 
 class AuthController {
   async signUp(data: SignUpRequest) {
     try {
       await AuthApi.signup(data)
-      Router.go(Routes.SelectChat)
+      Router.go(Routes.Messenger)
     } catch (error) {
       console.log(`Error occurred while signup`)
     }
@@ -16,7 +16,7 @@ class AuthController {
   async login(data: LoginRequest) {
     try {
       await AuthApi.login(data)
-      Router.go(Routes.SelectChat)
+      Router.go(Routes.Messenger)
     } catch (error) {
       console.log(`Error occurred while login`)
     }
