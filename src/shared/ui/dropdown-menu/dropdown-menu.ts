@@ -6,7 +6,7 @@ import styles from './dropdown-menu.module.css'
 const template = `
   <div class="${styles.wrapper} {{#if isOpen}}${styles.open}{{/if}}">
     {{{ iconButton }}}
-      <ul class="${styles.itemList}">
+      <ul class="${styles.itemList}" id="dropdown-menu">
           {{{items}}}
       </ul>
   </div>

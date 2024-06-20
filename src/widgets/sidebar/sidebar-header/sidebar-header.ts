@@ -10,7 +10,7 @@ const template = `
     <div class="${styles.wrapper}">
         {{{profileLink}}}
         {{{searchInput}}}
-        {{{tooltip}}}
+        {{{dropdownMenu}}}
         {{{createChatDialog}}}
     </div>
 `
@@ -43,7 +43,7 @@ class SidebarHeader extends Block<SidebarHeaderProps> {
         placeholder: 'Поиск',
       }),
       createChatDialog,
-      tooltip: new DropdownMenu({
+      dropdownMenu: new DropdownMenu({
         items: [
           {
             title: 'Добавить новый чат',

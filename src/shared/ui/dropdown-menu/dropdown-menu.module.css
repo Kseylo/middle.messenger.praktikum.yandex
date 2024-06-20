@@ -13,11 +13,9 @@
     border: 1px solid var(--border);
     background-color: var(--popover);
     list-style: none;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
     margin-top: 0.5rem;
     padding: 0.25rem;
+    right: 0;
 }
 
 .item {
