@@ -1,5 +1,10 @@
 import { ChatsApi } from '@/shared/api'
-import type { CreateChatData, IChat } from '@/shared/config'
+import type {
+  AddUser,
+  CreateChatData,
+  DeleteUser,
+  IChat,
+} from '@/shared/config'
 import { Store } from '@/shared/lib'
 
 class ChatsController {
@@ -20,6 +25,22 @@ class ChatsController {
 
   selectChat(id: IChat['id']) {
     Store.setState('selectedChatId', id)
+  }
+
+  async deleteUser(data: DeleteUser) {
+    try {
+      await ChatsApi.deleteUser(data)
+    } catch (error) {
+      alert('Не получилось удалить пользователя')
+    }
+  }
+
+  async addUser(data: AddUser) {
+    try {
+      await ChatsApi.addUser(data)
+    } catch (error) {
+      alert('Не получилось добавить пользователя')
+    }
   }
 }
 

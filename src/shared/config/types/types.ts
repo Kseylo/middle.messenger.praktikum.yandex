@@ -46,3 +46,13 @@ export interface ChangePasswordData {
 }
 
 export type UpdateProfileData = Omit<User, 'id' | 'avatar'>
+
+export interface DeleteUser {
+  chatId: IChat['id']
+  users: Array<User['id']>
+}
+
+export interface AddUser {
+  chatId: IChat['id']
+  users: Array<User['id']>
+}

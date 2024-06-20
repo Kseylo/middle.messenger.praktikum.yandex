@@ -1,6 +1,7 @@
+export { AddUser } from './add-user'
 export { AttachFile } from './attach-file'
-export { ChatOptions } from './chat-options'
 export { CreateChat } from './create-chat'
+export { DeleteUser } from './delete-user'
 export { LoginForm } from './login-form'
 export { SendMessage } from './send-message'
 export { SignUpForm } from './sign-up-form'

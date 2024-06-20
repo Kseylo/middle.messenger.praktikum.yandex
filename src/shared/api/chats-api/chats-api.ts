@@ -1,4 +1,4 @@
-import { CreateChatData } from '@/shared/config'
+import type { AddUser, CreateChatData, DeleteUser } from '@/shared/config'
 import { BaseAPI } from '../base-api'
 
 class ChatsApi extends BaseAPI {
@@ -12,6 +12,26 @@ class ChatsApi extends BaseAPI {
 
   createChat(data: CreateChatData) {
     return this.http.post('', { data })
+  }
+
+  deleteUser(data: DeleteUser) {
+    const { chatId, users } = data
+    return this.http.delete('/users', {
+      data: {
+        chatId,
+        users,
+      },
+    })
+  }
+
+  addUser(data: AddUser) {
+    const { chatId, users } = data
+    return this.http.put('/users', {
+      data: {
+        chatId,
+        users,
+      },
+    })
   }
 }
 
