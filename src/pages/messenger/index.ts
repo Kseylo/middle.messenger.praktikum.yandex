@@ -1,1 +1,1 @@
-export { MessengerPage } from './messenger'
+export { default as MessengerPage } from './messenger'

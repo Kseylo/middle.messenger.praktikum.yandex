@@ -1,6 +1,6 @@
 import { Block, BlockProps } from '@/shared/lib/block'
-import { MediaMessage, Message } from '@/shared/ui'
-import { ChatFeedFooter, ChatFeedHeader, getSidebarInstance } from '@/widgets'
+import { withStore } from '@/shared/lib/store'
+import { getSidebarInstance, Messenger } from '@/widgets'
 import styles from './messenger.module.css'
 
 type ChatFeedProps = BlockProps
@@ -8,41 +8,23 @@ type ChatFeedProps = BlockProps
 const template = `
 <div class='app'>
   {{{sidebar}}}
-  <main class='${styles.main}'>
-    {{{chatFeedHeader}}}
-    <div class="${styles.messages}">
-      {{{messages}}}
-    </div>
-    {{{chatFeedFooter}}}
+  {{#if selectedChatId}}
+  {{{messenger}}}
+  {{else}}
+  <main class="${styles.container}">
+    <h1 class="${styles.title}">Выберите чат чтобы отправить сообщение</h1>
   </main>
+  {{/if}}
 </div>
 `
 
-export class MessengerPage extends Block<ChatFeedProps> {
+class MessengerPage extends Block<ChatFeedProps> {
   constructor(props: ChatFeedProps) {
     const sidebar = getSidebarInstance({})
-    const messages = [
-      new Message({
-        message:
-          'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.',
-        time: '11:56',
-      }),
-      new MediaMessage({
-        time: '11:56',
-      }),
-      new Message({
-        message: 'Круто!',
-        time: '12:00',
-        isYourMessage: true,
-        isMessageRead: true,
-      }),
-    ]
     super({
       ...props,
       sidebar,
-      messages,
-      chatFeedHeader: new ChatFeedHeader({}),
-      chatFeedFooter: new ChatFeedFooter({}),
+      messenger: new Messenger({}),
     })
   }
 
@@ -50,3 +32,8 @@ export class MessengerPage extends Block<ChatFeedProps> {
     return this.compile(template, this.props)
   }
 }
+
+const withSelectedChat = withStore((state) => ({
+  selectedChatId: state.selectedChatId,
+}))
+export default withSelectedChat(MessengerPage as typeof Block)

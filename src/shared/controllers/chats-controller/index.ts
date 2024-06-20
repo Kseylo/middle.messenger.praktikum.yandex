@@ -12,9 +12,14 @@ class ChatsController {
   async createChat(data: CreateChatData) {
     try {
       await ChatsApi.createChat(data)
+      await this.getChats()
     } catch (error) {
       alert('Не получилось создать чат ')
     }
+  }
+
+  selectChat(id: IChat['id']) {
+    Store.setState('selectedChatId', id)
   }
 }
 

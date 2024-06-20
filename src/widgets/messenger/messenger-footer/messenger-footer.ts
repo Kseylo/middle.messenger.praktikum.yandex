@@ -1,6 +1,6 @@
 import { AttachFile, SendMessage } from '@/features'
 import { Block, type BlockProps } from '@/shared/lib'
-import styles from './chat-feed-footer.module.css'
+import styles from './messenger-footer.module.css'
 
 type ChatFeedFooterProps = BlockProps
 
@@ -12,7 +12,7 @@ const template = `
   </footer>
 `
 
-export class ChatFeedFooter extends Block {
+export class MessengerFooter extends Block {
   constructor(props: ChatFeedFooterProps) {
     super({
       ...props,

@@ -1,7 +1,7 @@
 import { ChatOptions } from '@/features'
 import { Block, BlockProps } from '@/shared/lib'
 import { ChatHeader } from '@/shared/ui'
-import styles from './chat-feed-header.module.css'
+import styles from './messenger-header.module.css'
 
 //language=hbs
 const headerTemplate = `
@@ -26,7 +26,7 @@ const template = `
   {{{chatHeader}}}
 `
 
-export class ChatFeedHeader extends Block {
+export class MessengerHeader extends Block {
   constructor(props: BlockProps) {
     super({
       ...props,

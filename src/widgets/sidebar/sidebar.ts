@@ -31,6 +31,7 @@ class Sidebar extends Block<SidebarProps> {
   }
 
   componentDidUpdate(_oldProps: SidebarProps, newProps: SidebarProps) {
+    console.log(_oldProps, newProps)
     if (newProps.chats) {
       this.setProps({ chatList: this.createChats(newProps) })
     }
@@ -38,7 +39,15 @@ class Sidebar extends Block<SidebarProps> {
   }
 
   createChats(props: SidebarProps) {
-    return props.chats?.map((chat) => new Chat({ data: chat }))
+    return props.chats?.map(
+      (chat) =>
+        new Chat({
+          data: chat,
+          events: {
+            click: () => ChatsController.selectChat(chat.id),
+          },
+        }),
+    )
   }
 
   render() {

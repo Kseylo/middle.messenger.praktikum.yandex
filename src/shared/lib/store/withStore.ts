@@ -5,6 +5,7 @@ import { default as store, StoreEvents } from './store'
 interface State {
   user: User
   chats: IChat[]
+  selectedChatId: IChat['id']
 }
 
 export function withStore<StateProps>(

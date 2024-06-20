@@ -1,5 +1,4 @@
-export { ChatFeedFooter } from './chat-feed-footer'
-export { ChatFeedHeader } from './chat-feed-header'
+export { Messenger } from './messenger'
 export { SettingsHeader } from './settings-header'
 export { getSidebarInstance } from './sidebar'
 export { UpdateProfile } from './update-profile'
