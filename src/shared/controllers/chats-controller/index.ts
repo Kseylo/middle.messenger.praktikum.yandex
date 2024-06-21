@@ -1,11 +1,12 @@
 import { ChatsApi } from '@/shared/api'
-import type {
+import {
   AddUser,
   CreateChatData,
   DeleteUser,
   IChat,
+  Routes,
 } from '@/shared/config'
-import { Store } from '@/shared/lib'
+import { Router, Store } from '@/shared/lib'
 
 class ChatsController {
   async getChats() {
@@ -25,6 +26,10 @@ class ChatsController {
 
   selectChat(id: IChat['id']) {
     Store.setState('selectedChatId', id)
+    const currentPath = window.location.pathname
+    if (currentPath !== Routes.Messenger) {
+      Router.go(Routes.Messenger)
+    }
   }
 
   async deleteUser(data: DeleteUser) {

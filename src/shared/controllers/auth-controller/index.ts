@@ -7,6 +7,7 @@ class AuthController {
   async signUp(data: SignUpRequest) {
     try {
       await AuthApi.signup(data)
+      await this.getUser()
       Router.go(Routes.Messenger)
     } catch (error) {
       if (error instanceof XMLHttpRequest && error.status === 409) {
@@ -19,6 +20,7 @@ class AuthController {
   async login(data: LoginRequest) {
     try {
       await AuthApi.login(data)
+      await this.getUser()
       Router.go(Routes.Messenger)
     } catch (error) {
       console.log(`Error occurred while login`)
