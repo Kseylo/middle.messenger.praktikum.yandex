@@ -11,7 +11,7 @@ class MessageController {
     await this._ws.connect()
   }
 
-  sendMessage(chatId: string, message: string) {
+  sendMessage(chatId: IChat['id'], message: string) {
     if (!this._ws) {
       throw new Error(`Chat with id:${chatId} is not connected`)
     }

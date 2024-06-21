@@ -53,7 +53,7 @@ class ChatsController {
   async getChatToken(id: IChat['id']) {
     try {
       const { response } = await ChatsApi.getChatToken(id)
-      return JSON.parse(response)
+      return JSON.parse(response).token
     } catch (error) {
       console.error('Не получилось получить токен чата')
     }
