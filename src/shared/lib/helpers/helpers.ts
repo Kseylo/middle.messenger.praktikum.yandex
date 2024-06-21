@@ -38,3 +38,26 @@ export function isIndexed(value: unknown): value is Indexed {
 export function isArray(value: unknown): value is [] {
   return Array.isArray(value)
 }
+
+export function getFormattedDate(timestamp: string) {
+  const date = new Date(timestamp)
+  const now = new Date()
+
+  const isToday = date.toDateString() === now.toDateString()
+  const isThisWeek = now.getTime() - date.getTime() < 7 * 24 * 60 * 60 * 1000
+
+  if (isToday) {
+    return date.toLocaleTimeString(['ru-Ru'], {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  }
+  if (isThisWeek) {
+    return date.toLocaleDateString(['ru-Ru'], { weekday: 'long' })
+  }
+  return date.toLocaleDateString(['ru-Ru'], {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+}

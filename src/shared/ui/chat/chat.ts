@@ -1,4 +1,5 @@
 import { IChat } from '@/shared/config'
+import { getFormattedDate } from '@/shared/lib'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Avatar } from '@/shared/ui'
 import styles from './chat.module.css'
@@ -31,11 +32,13 @@ interface ChatProps extends BlockProps {
 export class Chat extends Block {
   constructor(props: ChatProps) {
     const { data } = props
-    console.log(data)
     super({
       ...props,
       title: data.title,
-      lastMessage: data.last_message,
+      messageTime: data.last_message
+        ? getFormattedDate(data.last_message.time)
+        : '',
+      lastMessage: data.last_message?.content,
       unreadCount: data.unread_count,
       avatar: new Avatar({ width: 56, height: 56, src: data.avatar }),
     })

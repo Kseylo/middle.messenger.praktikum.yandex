@@ -13,10 +13,10 @@ const template = `
 export class MessageInput extends Block {
   constructor(props: BlockProps) {
     super({
+      ...props,
       events: {
         input: (event) => this.adjustTextareaHeight(event),
       },
-      ...props,
     })
   }
 
