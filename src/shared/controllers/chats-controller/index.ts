@@ -38,6 +38,7 @@ class ChatsController {
   async addUser(data: AddUser) {
     try {
       await ChatsApi.addUser(data)
+      alert('Пользователь добавлен')
     } catch (error) {
       alert('Не получилось добавить пользователя')
     }

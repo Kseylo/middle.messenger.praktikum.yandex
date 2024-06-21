@@ -1,1 +1,1 @@
-export { AddUser } from './add-user.ts'
+export { default as AddUser } from './add-user'

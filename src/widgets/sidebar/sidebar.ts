@@ -31,7 +31,6 @@ class Sidebar extends Block<SidebarProps> {
   }
 
   componentDidUpdate(_oldProps: SidebarProps, newProps: SidebarProps) {
-    console.log(_oldProps, newProps)
     if (newProps.chats) {
       this.setProps({ chatList: this.createChats(newProps) })
     }

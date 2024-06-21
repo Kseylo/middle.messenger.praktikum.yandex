@@ -21,6 +21,10 @@ class UserApi extends BaseAPI {
   updateProfile(data: UpdateProfileData) {
     return this.http.put('/profile', { data })
   }
+
+  searchUser(login: string) {
+    return this.http.post('/search', { data: { login } })
+  }
 }
 
 export default new UserApi()

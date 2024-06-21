@@ -29,6 +29,19 @@ class UserController {
       console.log(`Error occurred while updating profile`)
     }
   }
+
+  async searchUser(login: string) {
+    try {
+      const { response } = await UserApi.searchUser(login)
+      const users = JSON.parse(response) as User[]
+      if (users.length > 0) {
+        return users[0]
+      }
+      alert('Пользователь не найден')
+    } catch (error) {
+      console.log(`Error occurred while searching user`)
+    }
+  }
 }
 
 export default new UserController()
