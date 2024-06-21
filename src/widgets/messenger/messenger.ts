@@ -1,4 +1,7 @@
-import { Block, BlockProps } from '@/shared/lib'
+import { IChat, User } from '@/shared/config'
+import { ChatsController, MessageController } from '@/shared/controllers'
+import { Block, BlockProps, isEqual } from '@/shared/lib'
+import { withStore } from '@/shared/lib/store'
 import { MediaMessage, Message } from '@/shared/ui'
 import styles from './messenger.module.css'
 import { MessengerFooter } from './messenger-footer'
@@ -14,33 +17,41 @@ const template = `
 </main>
 `
 
-export default class Messenger extends Block {
-  constructor(props: BlockProps) {
-    const messages = [
-      new Message({
-        message:
-          'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.',
-        time: '11:56',
-      }),
-      new MediaMessage({
-        time: '11:56',
-      }),
-      new Message({
-        message: 'Круто!',
-        time: '12:00',
-        isYourMessage: true,
-        isMessageRead: true,
-      }),
-    ]
+interface MessengerProps extends BlockProps {
+  selectedChatId: IChat['id']
+  userId: User['id']
+}
+
+class Messenger extends Block<MessengerProps> {
+  constructor(props: MessengerProps) {
     super({
       ...props,
-      messages,
       chatFeedHeader: new MessengerHeader({}),
       chatFeedFooter: new MessengerFooter({}),
     })
+  }
+
+  componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps) {
+    if (!isEqual(oldProps, newProps)) {
+      ChatsController.getChatToken(newProps.selectedChatId).then((token) => {
+        MessageController.connect(
+          token,
+          newProps.userId,
+          newProps.selectedChatId,
+        )
+      })
+    }
+    return true
   }
 
   render() {
     return this.compile(template, this.props)
   }
 }
+
+const withState = withStore((state) => ({
+  selectedChatId: state.selectedChatId,
+  userId: state.user.id,
+  messages: state.messages,
+}))
+export default withState(Messenger as typeof Block)

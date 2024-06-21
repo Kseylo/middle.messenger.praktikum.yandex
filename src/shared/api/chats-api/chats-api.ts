@@ -1,4 +1,9 @@
-import type { AddUser, CreateChatData, DeleteUser } from '@/shared/config'
+import type {
+  AddUser,
+  CreateChatData,
+  DeleteUser,
+  IChat,
+} from '@/shared/config'
 import { BaseAPI } from '../base-api'
 
 class ChatsApi extends BaseAPI {
@@ -32,6 +37,10 @@ class ChatsApi extends BaseAPI {
         users,
       },
     })
+  }
+
+  getChatToken(id: IChat['id']) {
+    return this.http.post(`/token/${id}`)
   }
 }
 

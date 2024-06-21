@@ -56,3 +56,20 @@ export interface AddUser {
   chatId: IChat['id']
   users: Array<User['id']>
 }
+
+export interface Message {
+  chat_id: IChat['id']
+  time: string
+  type: string
+  user_id: User['id']
+  content: string
+  file?: {
+    id: number
+    user_id: number
+    path: string
+    filename: string
+    content_type: string
+    content_size: number
+    upload_url: string
+  }
+}

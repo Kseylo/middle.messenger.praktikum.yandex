@@ -17,7 +17,7 @@ export class WSTransport extends EventBus {
     this._url = url
   }
 
-  send(data: unknown) {
+  send(data: { type: string; content?: string }) {
     if (!this._ws) {
       throw new Error('WebSocket is not connected')
     }
