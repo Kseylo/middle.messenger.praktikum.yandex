@@ -1,5 +1,5 @@
 import { IChat } from '@/shared/config'
-import { ChatsController } from '@/shared/controllers'
+import { ChatsController, MessageController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { withStore } from '@/shared/lib/store'
 import { Chat, ChatHeader } from '@/shared/ui'
@@ -43,7 +43,12 @@ class Sidebar extends Block<SidebarProps> {
         new Chat({
           data: chat,
           events: {
-            click: () => ChatsController.selectChat(chat.id),
+            click: () => {
+              if (this.props.selectedChatId !== chat.id) {
+                MessageController.disconnect()
+                ChatsController.selectChat(chat.id)
+              }
+            },
           },
         }),
     )
@@ -54,7 +59,10 @@ class Sidebar extends Block<SidebarProps> {
   }
 }
 
-const withChats = withStore((state) => ({ chats: state.chats }))
+const withChats = withStore((state) => ({
+  chats: state.chats,
+  selectedChatId: state.selectedChatId,
+}))
 const SidebarWithChats = withChats(Sidebar as typeof Block)
 
 let instance: typeof SidebarWithChats | null = null

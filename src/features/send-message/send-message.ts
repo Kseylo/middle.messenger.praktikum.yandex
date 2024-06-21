@@ -1,7 +1,6 @@
 import { IChat } from '@/shared/config'
 import { MessageController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib'
-import { withStore } from '@/shared/lib/store'
 import { Button, MessageInput } from '@/shared/ui'
 import styles from './send-message.module.css'
 
@@ -25,7 +24,7 @@ interface SendMessageProps extends BlockProps {
   selectedChatId: IChat['id']
 }
 
-class SendMessage extends Block<SendMessageProps> {
+export default class SendMessage extends Block<SendMessageProps> {
   constructor(props: SendMessageProps) {
     super({
       ...props,
@@ -71,7 +70,7 @@ class SendMessage extends Block<SendMessageProps> {
     } as unknown as Event)
 
     if (isValid) {
-      MessageController.sendMessage(this.props.selectedChatId, textArea.value)
+      MessageController.sendMessage(textArea.value)
       textArea.value = ''
     } else {
       console.log('Validation error')
@@ -82,8 +81,3 @@ class SendMessage extends Block<SendMessageProps> {
     return this.compile(template, this.props)
   }
 }
-
-const withSelectedChat = withStore((state) => ({
-  selectedChatId: state.selectedChatId,
-}))
-export default withSelectedChat(SendMessage as typeof Block)
