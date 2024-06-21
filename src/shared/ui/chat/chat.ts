@@ -6,7 +6,7 @@ import styles from './chat.module.css'
 
 // language=hbs
 const template = `
-    <li class='${styles.container} ${styles.noWrap}'>
+    <li class='${styles.container} ${styles.noWrap}' data-selected="{{this.isSelected}}">
         {{{avatar}}}
         <div class='${styles.wrapper}'>
             <div class='${styles.row} ${styles.noWrap}'>
@@ -31,6 +31,7 @@ interface ChatProps extends BlockProps {
 
 export class Chat extends Block {
   constructor(props: ChatProps) {
+    console.log(props.isSelected)
     const { data } = props
     super({
       ...props,

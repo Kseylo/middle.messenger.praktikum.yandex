@@ -42,6 +42,7 @@ class Sidebar extends Block<SidebarProps> {
       (chat) =>
         new Chat({
           data: chat,
+          isSelected: props.selectedChatId === chat.id,
           events: {
             click: () => {
               if (this.props.selectedChatId !== chat.id) {
