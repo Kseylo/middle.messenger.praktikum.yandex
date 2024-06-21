@@ -31,6 +31,7 @@ interface ChatProps extends BlockProps {
 export class Chat extends Block {
   constructor(props: ChatProps) {
     const { data } = props
+    console.log(data)
     super({
       ...props,
       title: data.title,
