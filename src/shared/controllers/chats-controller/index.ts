@@ -30,6 +30,7 @@ class ChatsController {
   async deleteUser(data: DeleteUser) {
     try {
       await ChatsApi.deleteUser(data)
+      alert('Пользователь удален из чата')
     } catch (error) {
       alert('Не получилось удалить пользователя')
     }
@@ -38,7 +39,7 @@ class ChatsController {
   async addUser(data: AddUser) {
     try {
       await ChatsApi.addUser(data)
-      alert('Пользователь добавлен')
+      alert('Пользователь добавлен в чат')
     } catch (error) {
       alert('Не получилось добавить пользователя')
     }

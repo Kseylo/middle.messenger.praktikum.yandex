@@ -1,5 +1,6 @@
-import { ChatsController } from '@/shared/controllers'
+import { ChatsController, UserController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib'
+import { withStore } from '@/shared/lib/store'
 import { Button, InputWithLabel } from '@/shared/ui'
 import styles from './delete-user.module.css'
 
@@ -13,9 +14,10 @@ const template = `
 
 interface DeleteUserProps extends BlockProps {
   onSubmit?: () => void
+  selectedChatId: number
 }
 
-export class DeleteUser extends Block<DeleteUserProps> {
+class DeleteUser extends Block<DeleteUserProps> {
   constructor(props: DeleteUserProps) {
     const userInput = new InputWithLabel({
       label: 'Логин',
@@ -33,10 +35,16 @@ export class DeleteUser extends Block<DeleteUserProps> {
       events: {
         submit: async (event) => {
           event.preventDefault()
-          const title = userInput.getContent().querySelector('input')?.value
-          if (title) {
-            await ChatsController.createChat({ title })
-            this.props.onSubmit?.()
+          const login = userInput.getContent().querySelector('input')?.value
+          if (login) {
+            const user = await UserController.searchUser(login)
+            if (user) {
+              await ChatsController.deleteUser({
+                chatId: this.props.selectedChatId,
+                users: [user.id],
+              })
+              this.props.onSubmit?.()
+            }
           }
         },
       },
@@ -47,3 +55,8 @@ export class DeleteUser extends Block<DeleteUserProps> {
     return this.compile(template, this.props)
   }
 }
+
+const withSelectedChat = withStore((state) => ({
+  selectedChatId: state.selectedChatId,
+}))
+export default withSelectedChat(DeleteUser as typeof Block)

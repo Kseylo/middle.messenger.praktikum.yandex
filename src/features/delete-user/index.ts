@@ -1,1 +1,1 @@
-export { DeleteUser } from './delete-user'
+export { default as DeleteUser } from './delete-user'
