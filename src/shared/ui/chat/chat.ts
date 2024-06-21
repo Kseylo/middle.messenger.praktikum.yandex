@@ -31,7 +31,6 @@ interface ChatProps extends BlockProps {
 
 export class Chat extends Block {
   constructor(props: ChatProps) {
-    console.log(props.isSelected)
     const { data } = props
     super({
       ...props,
