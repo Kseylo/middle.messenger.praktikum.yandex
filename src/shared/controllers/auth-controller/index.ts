@@ -9,6 +9,9 @@ class AuthController {
       await AuthApi.signup(data)
       Router.go(Routes.Messenger)
     } catch (error) {
+      if (error instanceof XMLHttpRequest && error.status === 409) {
+        alert('Пользователь с таким логином уже существует')
+      }
       console.log(`Error occurred while signup`)
     }
   }
