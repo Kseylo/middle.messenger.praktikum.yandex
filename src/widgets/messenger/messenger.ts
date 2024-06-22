@@ -18,7 +18,7 @@ const template = `
 `
 
 interface MessengerProps extends BlockProps {
-  selectedChatId: IChat['id']
+  selectedChat: IChat
   userId: User['id']
 }
 
@@ -33,11 +33,11 @@ class Messenger extends Block<MessengerProps> {
 
   componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps) {
     if (!isEqual(oldProps, newProps)) {
-      ChatsController.getChatToken(newProps.selectedChatId).then((token) => {
+      ChatsController.getChatToken(newProps.selectedChat.id).then((token) => {
         MessageController.connect(
           token,
           newProps.userId,
-          newProps.selectedChatId,
+          newProps.selectedChat.id,
         )
       })
     }
@@ -50,7 +50,7 @@ class Messenger extends Block<MessengerProps> {
 }
 
 const withState = withStore((state) => ({
-  selectedChatId: state.selectedChatId,
+  selectedChat: state.selectedChat,
   userId: state.user.id,
   messages: state.messages,
 }))

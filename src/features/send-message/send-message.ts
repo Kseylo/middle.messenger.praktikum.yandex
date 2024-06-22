@@ -1,4 +1,3 @@
-import { IChat } from '@/shared/config'
 import { MessageController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib'
 import { Button, MessageInput } from '@/shared/ui'
@@ -20,9 +19,7 @@ const sendIcon = `
     </svg>
 `
 
-interface SendMessageProps extends BlockProps {
-  selectedChatId: IChat['id']
-}
+type SendMessageProps = BlockProps
 
 export default class SendMessage extends Block<SendMessageProps> {
   constructor(props: SendMessageProps) {

@@ -24,8 +24,8 @@ class ChatsController {
     }
   }
 
-  selectChat(id: IChat['id']) {
-    Store.setState('selectedChatId', id)
+  selectChat(chat: IChat) {
+    Store.setState('selectedChat', chat)
     const currentPath = window.location.pathname
     if (currentPath !== Routes.Messenger) {
       Router.go(Routes.Messenger)

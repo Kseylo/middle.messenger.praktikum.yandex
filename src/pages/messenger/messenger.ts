@@ -8,7 +8,7 @@ type ChatFeedProps = BlockProps
 const template = `
 <div class='app'>
   {{{sidebar}}}
-  {{#if selectedChatId}}
+  {{#if selectedChat}}
   {{{messenger}}}
   {{else}}
   <main class="${styles.container}">
@@ -34,6 +34,6 @@ class MessengerPage extends Block<ChatFeedProps> {
 }
 
 const withSelectedChat = withStore((state) => ({
-  selectedChatId: state.selectedChatId,
+  selectedChat: state.selectedChat,
 }))
 export default withSelectedChat(MessengerPage as typeof Block)

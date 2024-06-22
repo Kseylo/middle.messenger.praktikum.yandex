@@ -16,6 +16,7 @@ const template = `
 
 interface SidebarProps extends BlockProps {
   chats?: IChat[]
+  selectedChat?: IChat
 }
 
 class Sidebar extends Block<SidebarProps> {
@@ -42,12 +43,12 @@ class Sidebar extends Block<SidebarProps> {
       (chat) =>
         new Chat({
           data: chat,
-          isSelected: props.selectedChatId === chat.id,
+          isSelected: props.selectedChat?.id === chat.id,
           events: {
             click: () => {
-              if (this.props.selectedChatId !== chat.id) {
+              if (this.props.selectedChat?.id !== chat.id) {
                 MessageController.disconnect()
-                ChatsController.selectChat(chat.id)
+                ChatsController.selectChat(chat)
               }
             },
           },
@@ -62,7 +63,7 @@ class Sidebar extends Block<SidebarProps> {
 
 const withChats = withStore((state) => ({
   chats: state.chats,
-  selectedChatId: state.selectedChatId,
+  selectedChat: state.selectedChat,
 }))
 const SidebarWithChats = withChats(Sidebar as typeof Block)
 

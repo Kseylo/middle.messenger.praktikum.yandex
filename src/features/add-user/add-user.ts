@@ -1,3 +1,4 @@
+import { IChat } from '@/shared/config'
 import { ChatsController, UserController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib'
 import { withStore } from '@/shared/lib/store'
@@ -14,7 +15,7 @@ const template = `
 
 interface AddUserProps extends BlockProps {
   onSubmit?: () => void
-  selectedChatId: number
+  selectedChat: IChat
 }
 
 class AddUser extends Block<AddUserProps> {
@@ -40,7 +41,7 @@ class AddUser extends Block<AddUserProps> {
             const user = await UserController.searchUser(login)
             if (user) {
               await ChatsController.addUser({
-                chatId: this.props.selectedChatId,
+                chatId: this.props.selectedChat.id,
                 users: [user.id],
               })
               this.props.onSubmit?.()
@@ -57,6 +58,6 @@ class AddUser extends Block<AddUserProps> {
 }
 
 const withSelectedChat = withStore((state) => ({
-  selectedChatId: state.selectedChatId,
+  selectedChat: state.selectedChat,
 }))
 export default withSelectedChat(AddUser as typeof Block)
