@@ -48,7 +48,10 @@ class MessageController {
       incomingMessages.push(messages)
     }
     const lastMessages = Store.getState().messages || []
-    const messagesToStore = [...lastMessages, ...incomingMessages].reverse()
+    const messagesToStore = [...lastMessages, ...incomingMessages].sort(
+      (a: IMessage, b: IMessage) =>
+        new Date(a.time).getTime() - new Date(b.time).getTime(),
+    )
     Store.setState('messages', messagesToStore)
   }
 
