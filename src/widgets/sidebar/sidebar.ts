@@ -48,8 +48,8 @@ class Sidebar extends Block<SidebarProps> {
             click: () => {
               if (this.props.selectedChat?.id !== chat.id) {
                 MessageController.disconnect()
-                ChatsController.selectChat(chat)
               }
+              ChatsController.selectChat(chat)
             },
           },
         }),
