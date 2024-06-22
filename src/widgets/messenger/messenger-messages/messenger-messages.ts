@@ -1,4 +1,4 @@
-import type { IMessage } from '@/shared/config'
+import type { IMessage, User } from '@/shared/config'
 import { Block, BlockProps, isEqual } from '@/shared/lib'
 import { withStore } from '@/shared/lib/store'
 import { Message } from '@/shared/ui'
@@ -7,6 +7,7 @@ import styles from './messenger-messages.module.css'
 interface MessengerMessagesProps extends BlockProps {
   messages: IMessage[]
   messageList: Message[]
+  user: User
 }
 
 class MessengerMessages extends Block<MessengerMessagesProps> {
@@ -35,6 +36,7 @@ class MessengerMessages extends Block<MessengerMessagesProps> {
       (message) =>
         new Message({
           message: message.content,
+          isYourMessage: message.user_id === this.props.user.id,
           time: new Date(message.time).toLocaleTimeString('ru-Ru', {
             hour: '2-digit',
             minute: '2-digit',
@@ -51,8 +53,9 @@ class MessengerMessages extends Block<MessengerMessagesProps> {
   }
 }
 
-const withMessages = withStore((state) => ({
+const withState = withStore((state) => ({
   messages: state.messages,
+  user: state.user,
 }))
 
-export default withMessages(MessengerMessages as typeof Block)
+export default withState(MessengerMessages as typeof Block)
