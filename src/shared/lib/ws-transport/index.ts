@@ -1,1 +1,1 @@
-export { WSTransport } from './ws-transport'
+export { WSTransport, WSTransportEvents } from './ws-transport'
