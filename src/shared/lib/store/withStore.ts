@@ -1,4 +1,4 @@
-import { IChat, type Indexed, Message, User } from '@/shared/config'
+import { IChat, IMessage, type Indexed, User } from '@/shared/config'
 import { Block, BlockProps, isEqual } from '@/shared/lib'
 import { default as store, StoreEvents } from './store'
 
@@ -6,7 +6,7 @@ interface State {
   user: User
   chats: IChat[]
   selectedChat: IChat
-  messages: Message[]
+  messages: IMessage[]
 }
 
 export function withStore<StateProps>(

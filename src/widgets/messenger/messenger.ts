@@ -2,18 +2,17 @@ import { IChat, User } from '@/shared/config'
 import { ChatsController, MessageController } from '@/shared/controllers'
 import { Block, BlockProps, isEqual } from '@/shared/lib'
 import { withStore } from '@/shared/lib/store'
-import { MediaMessage, Message } from '@/shared/ui'
 import styles from './messenger.module.css'
 import { MessengerFooter } from './messenger-footer'
 import { MessengerHeader } from './messenger-header'
+import { MessengerMessages } from './messenger-messages'
 
+// language=hbs
 const template = `
 <main class="${styles.main}">
-    {{{chatFeedHeader}}}
-    <div class="${styles.messages}">
-      {{{messages}}}
-    </div>
-    {{{chatFeedFooter}}}
+    {{{messengerHeader}}}
+    {{{messengerMessages}}}
+    {{{messengerFooter}}}
 </main>
 `
 
@@ -26,12 +25,16 @@ class Messenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
     super({
       ...props,
-      chatFeedHeader: new MessengerHeader({}),
-      chatFeedFooter: new MessengerFooter({}),
+      messengerHeader: new MessengerHeader({}),
+      messengerMessages: new MessengerMessages({}),
+      messengerFooter: new MessengerFooter({}),
     })
   }
 
-  componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps) {
+  componentDidUpdate(
+    oldProps: MessengerProps,
+    newProps: MessengerProps,
+  ): boolean {
     if (!isEqual(oldProps, newProps)) {
       ChatsController.getChatToken(newProps.selectedChat.id).then((token) => {
         MessageController.connect(
@@ -40,8 +43,9 @@ class Messenger extends Block<MessengerProps> {
           newProps.selectedChat.id,
         )
       })
+      return true
     }
-    return true
+    return false
   }
 
   render() {
@@ -52,6 +56,5 @@ class Messenger extends Block<MessengerProps> {
 const withState = withStore((state) => ({
   selectedChat: state.selectedChat,
   userId: state.user.id,
-  messages: state.messages,
 }))
 export default withState(Messenger as typeof Block)

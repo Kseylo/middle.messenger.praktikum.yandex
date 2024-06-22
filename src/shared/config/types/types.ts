@@ -62,7 +62,7 @@ export interface AddUser {
   users: Array<User['id']>
 }
 
-export interface Message {
+export interface IMessage {
   chat_id: IChat['id']
   time: string
   type: string

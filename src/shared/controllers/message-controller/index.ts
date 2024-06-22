@@ -1,4 +1,4 @@
-import type { IChat, Message, User } from '@/shared/config'
+import type { IChat, IMessage, User } from '@/shared/config'
 import { Store, WSTransport, WSTransportEvents } from '@/shared/lib'
 
 class MessageController {
@@ -35,24 +35,26 @@ class MessageController {
     }
     this._ws.subscribe(
       WSTransportEvents.MESSAGE,
-      (message: Message | Message[]) => this._onMessage(message),
+      (message: IMessage | IMessage[]) => this._onMessage(message),
     )
   }
 
-  private _onMessage(messages: Message | Message[]) {
-    let messagesToStore: Message[] = []
+  private _onMessage(messages: IMessage | IMessage[]) {
+    let incomingMessages: IMessage[] = []
 
     if (Array.isArray(messages)) {
-      messagesToStore = messages.reverse()
+      incomingMessages = messages
     } else {
-      messagesToStore.push(messages)
+      incomingMessages.push(messages)
     }
-
+    const lastMessages = Store.getState().messages || []
+    const messagesToStore = [...lastMessages, ...incomingMessages].reverse()
     Store.setState('messages', messagesToStore)
   }
 
   disconnect() {
     this._ws?.disconnect()
+    Store.setState('messages', [])
   }
 }
 
