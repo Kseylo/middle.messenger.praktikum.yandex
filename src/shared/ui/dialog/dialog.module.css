@@ -5,7 +5,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: hsla(240deg 10% 3.9% / 0.8);
+    background-color: var(--overlay);
     display: none;
     justify-content: center;
     align-items: center;
