@@ -132,20 +132,22 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
 
   init() {
     this._element = this._createDocumentElement()
-    this._eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
+    this._eventBus.dispatch(Block.EVENTS.FLOW_CDM)
   }
 
   private _componentDidMount() {
     this.componentDidMount()
-    Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount()
-    })
+    this._eventBus.dispatch(Block.EVENTS.FLOW_RENDER)
   }
 
   componentDidMount() {}
 
   dispatchComponentDidMount() {
     this._eventBus.dispatch(Block.EVENTS.FLOW_CDM)
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount()
+    })
   }
 
   private _componentDidUpdate(oldProps: TypeProps, newProps: TypeProps) {
@@ -155,8 +157,8 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
   }
 
-  componentDidUpdate(_oldProps: TypeProps, _newProps: TypeProps) {
-    return true
+  componentDidUpdate(oldProps?: TypeProps, newProps?: TypeProps) {
+    return oldProps !== newProps
   }
 
   private _render() {
@@ -202,7 +204,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
     }
 
     if (this._setUpdate) {
-      this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, this.props)
+      this._eventBus.dispatch(Block.EVENTS.FLOW_CDU, oldProps, nextProps)
       this._setUpdate = false
     }
   }
@@ -236,7 +238,7 @@ export class Block<TypeProps extends BlockProps = BlockProps> {
   }
 
   show() {
-    this.getContent().style.display = 'block'
+    this.getContent().style.display = 'flex'
   }
 
   hide() {

@@ -1,5 +1,8 @@
+import type { LoginRequest } from '@/shared/config'
+import { Indexed, Routes } from '@/shared/config'
+import { AuthController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
-import { Button, InputWithLabel } from '@/shared/ui'
+import { Button, InputWithLabel, Link } from '@/shared/ui'
 import styles from './login.module.css'
 
 const template = `
@@ -9,7 +12,7 @@ const template = `
   {{{passwordInput}}}
   <div class='${styles.actions}'>
     {{{button}}}
-    <a href='/sign-up'>Нет аккаунта?</a>
+    {{{signupLink}}}
   </div>
 </form>
 `
@@ -29,8 +32,8 @@ export class LoginForm extends Block {
     })
     const passwordInput = new InputWithLabel({
       id: FIELDS.PASSWORD,
-      label: 'Логин',
-      placeholder: 'Логин',
+      label: 'Пароль',
+      placeholder: 'Пароль',
       name: FIELDS.PASSWORD,
       type: 'password',
       events: {
@@ -39,31 +42,34 @@ export class LoginForm extends Block {
         },
       },
     })
+    const signupLink = new Link({
+      href: Routes.SignUp,
+      children: 'Нет аккаунта?',
+      active: true,
+    })
     super({
       ...props,
       loginInput,
       passwordInput,
+      signupLink,
       button: new Button({
         children: 'Войти',
         type: 'submit',
         events: {
-          click: (event) => {
+          click: async (event) => {
             event.preventDefault()
             const inputs = [loginInput, passwordInput]
             const isAllInputsValid = Validator.validateInputs(inputs)
 
             if (isAllInputsValid) {
-              const results: Record<string, string> = {}
+              const results: Indexed = {}
               inputs.forEach((input) => {
                 const inputElement = input.getContent().querySelector('input')
                 if (inputElement) {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              console.log(results)
-              setTimeout(() => {
-                window.location.href = '/chat-feed'
-              }, 2000)
+              await AuthController.login(results as unknown as LoginRequest)
             } else {
               console.log('Validation error')
             }

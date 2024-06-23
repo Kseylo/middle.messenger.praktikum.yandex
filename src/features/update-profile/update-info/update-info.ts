@@ -1,5 +1,8 @@
 // language=hbs
+import { User } from '@/shared/config'
+import { UserController } from '@/shared/controllers'
 import { Block, type BlockProps, FIELDS, Validator } from '@/shared/lib'
+import { withStore } from '@/shared/lib/store'
 import { Button, InputWithLabel } from '@/shared/ui'
 import styles from './update-info.module.css'
 
@@ -16,12 +19,15 @@ const template = `
 `
 type UpdateInfoProps = BlockProps
 
-export class UpdateInfo extends Block {
+class UpdateInfo extends Block {
   constructor(props: UpdateInfoProps) {
+    const user = props.user as User
+
     const loginInput = new InputWithLabel({
       id: FIELDS.LOGIN,
       label: 'Логин',
       placeholder: 'Логин',
+      value: user.login,
       name: FIELDS.LOGIN,
       events: {
         blur: () => {
@@ -33,6 +39,7 @@ export class UpdateInfo extends Block {
       id: FIELDS.EMAIL,
       label: 'Email',
       placeholder: 'pochta@yandex.ru',
+      value: user.email,
       name: FIELDS.EMAIL,
       events: {
         blur: () => {
@@ -45,6 +52,7 @@ export class UpdateInfo extends Block {
       id: FIELDS.FIRST_NAME,
       label: 'Имя',
       placeholder: 'Имя',
+      value: user.first_name,
       name: FIELDS.FIRST_NAME,
       events: {
         blur: () => {
@@ -56,6 +64,7 @@ export class UpdateInfo extends Block {
       id: FIELDS.SECOND_NAME,
       label: 'Фамилия',
       placeholder: 'Фамилия',
+      value: user.second_name,
       name: FIELDS.SECOND_NAME,
       events: {
         blur: () => {
@@ -67,6 +76,7 @@ export class UpdateInfo extends Block {
       id: FIELDS.PHONE,
       label: 'Телефон',
       placeholder: '+7(999)999-99-99',
+      value: user.phone,
       name: FIELDS.PHONE,
       events: {
         blur: () => {
@@ -78,6 +88,7 @@ export class UpdateInfo extends Block {
       label: 'Отображаемое имя',
       name: FIELDS.DISPLAY_NAME,
       id: 'display_name',
+      value: user.display_name ?? '',
       placeholder: 'Отображаемое имя',
       events: {
         blur: () => {
@@ -97,7 +108,7 @@ export class UpdateInfo extends Block {
       button: new Button({
         children: 'Обновить профиль',
         events: {
-          click: (event) => {
+          click: async (event) => {
             event.preventDefault()
             const inputs = [
               loginInput,
@@ -116,7 +127,7 @@ export class UpdateInfo extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              console.log(results)
+              await UserController.updateProfile(results as unknown as User)
             } else {
               console.log('Validation error')
             }
@@ -130,3 +141,6 @@ export class UpdateInfo extends Block {
     return this.compile(template, this.props)
   }
 }
+
+const withUser = withStore((state) => ({ user: state.user }))
+export default withUser(UpdateInfo as typeof Block)

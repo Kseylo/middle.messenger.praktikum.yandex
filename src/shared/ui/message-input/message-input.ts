@@ -13,10 +13,10 @@ const template = `
 export class MessageInput extends Block {
   constructor(props: BlockProps) {
     super({
+      ...props,
       events: {
         input: (event) => this.adjustTextareaHeight(event),
       },
-      ...props,
     })
   }
 
@@ -26,7 +26,6 @@ export class MessageInput extends Block {
 
   adjustTextareaHeight(event: Event) {
     const textarea = event.target as HTMLTextAreaElement
-    textarea.style.height = 'auto'
     textarea.style.height = `${textarea.scrollHeight}px`
     if (textarea.value === '') {
       textarea.style.height = '2.5rem'

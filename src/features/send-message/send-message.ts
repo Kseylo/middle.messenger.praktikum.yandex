@@ -1,3 +1,4 @@
+import { MessageController } from '@/shared/controllers'
 import { Block, BlockProps } from '@/shared/lib'
 import { Button, MessageInput } from '@/shared/ui'
 import styles from './send-message.module.css'
@@ -18,8 +19,10 @@ const sendIcon = `
     </svg>
 `
 
-export class SendMessage extends Block {
-  constructor(props: BlockProps) {
+type SendMessageProps = BlockProps
+
+export default class SendMessage extends Block<SendMessageProps> {
+  constructor(props: SendMessageProps) {
     super({
       ...props,
       messageInput: new MessageInput({
@@ -64,9 +67,7 @@ export class SendMessage extends Block {
     } as unknown as Event)
 
     if (isValid) {
-      console.log({
-        message: textArea.value,
-      })
+      MessageController.sendMessage(textArea.value)
       textArea.value = ''
     } else {
       console.log('Validation error')

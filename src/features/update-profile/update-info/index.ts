@@ -1,1 +1,1 @@
-export { UpdateInfo } from './update-info'
+export { default as UpdateInfo } from './update-info'

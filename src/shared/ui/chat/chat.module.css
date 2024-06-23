@@ -15,11 +15,17 @@
     gap: 0.75rem;
     padding: 0.75rem;
     transition: background-color 0.2s;
+    cursor: pointer;
 }
 
-.container:hover {
+.container[data-selected='true'] {
     background-color: var(--accent);
 }
+
+.container:not([data-selected='true']):hover {
+    background-color: var(--accent);
+}
+
 
 .wrapper {
     display: grid;
@@ -66,3 +72,4 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+

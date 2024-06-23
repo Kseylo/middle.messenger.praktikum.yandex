@@ -1,1 +1,1 @@
-export { Sidebar } from './sidebar'
+export { getSidebarInstance } from './sidebar'

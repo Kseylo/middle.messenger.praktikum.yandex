@@ -1,7 +1,8 @@
 import { UpdateAccount } from '@/features'
+import { Routes } from '@/shared/config'
 import { Block, BlockProps } from '@/shared/lib/block'
 import { Link } from '@/shared/ui'
-import { SettingsHeader, Sidebar } from '@/widgets'
+import { getSidebarInstance, SettingsHeader } from '@/widgets'
 import styles from './account.module.css'
 
 const template = `
@@ -22,11 +23,11 @@ export class Account extends Block<AccountProps> {
   constructor(props: AccountProps) {
     super({
       ...props,
-      sidebar: new Sidebar({}),
+      sidebar: getSidebarInstance({}),
       settingsHeader: new SettingsHeader({
         links: [
-          new Link({ text: 'Профиль', href: '/profile' }),
-          new Link({ text: 'Аккаунт', href: '/account', active: true }),
+          new Link({ children: 'Профиль', href: Routes.Profile }),
+          new Link({ children: 'Аккаунт', href: Routes.Account, active: true }),
         ],
       }),
       updateAccount: new UpdateAccount({}),

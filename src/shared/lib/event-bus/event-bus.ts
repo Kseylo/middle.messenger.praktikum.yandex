@@ -21,7 +21,7 @@ export class EventBus {
 
   dispatch(event: EventName, ...args: object[]) {
     if (!this.subscribers[event]) {
-      throw new Error(`Нет события: ${event}`)
+      return
     }
     this.subscribers[event].forEach((subscriber) => subscriber(...args))
   }

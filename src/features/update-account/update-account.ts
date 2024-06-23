@@ -1,3 +1,5 @@
+import { type ChangePasswordData } from '@/shared/config'
+import { UserController } from '@/shared/controllers'
 import { Block, BlockProps, FIELDS, Validator } from '@/shared/lib'
 import { Button, InputWithLabel } from '@/shared/ui'
 import styles from './update-account.module.css'
@@ -46,7 +48,7 @@ export class UpdateAccount extends Block {
       button: new Button({
         children: 'Обновить аккаунт',
         events: {
-          click: (event) => {
+          click: async (event) => {
             event.preventDefault()
             const inputs = [oldPasswordInput, newPasswordInput]
             const isAllInputsValid = Validator.validateInputs(inputs)
@@ -59,7 +61,9 @@ export class UpdateAccount extends Block {
                   results[inputElement.id] = inputElement.value
                 }
               })
-              console.log(results)
+              await UserController.changePassword(
+                results as unknown as ChangePasswordData,
+              )
             } else {
               console.log('Validation error')
             }

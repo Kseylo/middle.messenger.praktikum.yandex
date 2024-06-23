@@ -1,3 +1,6 @@
+import { Indexed } from '@/shared/config'
+import { queryStringify } from './query-stringify'
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -6,41 +9,54 @@ enum METHODS {
 }
 
 interface Options {
+  data?: unknown
+}
+
+interface OptionsWithMethod extends Options {
   method: METHODS
-  data?: string
 }
 
-type HTTPMethod = (url: string, options: Options) => Promise<XMLHttpRequest>
-
-function queryStringify(data: string | undefined) {
-  if (typeof data !== 'object') {
-    throw new TypeError('Data must be an object')
-  }
-
-  const keys = Object.keys(data)
-  return Object.keys(data).reduce((result, key, index) => {
-    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`
-  }, '?')
-}
+type HTTPMethod = (url: string, options?: Options) => Promise<XMLHttpRequest>
 
 export class HTTPTransport {
+  protected endpoint: string
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint
+  }
+
   get: HTTPMethod = (url, options) => {
-    return this._request(url, { ...options, method: METHODS.GET })
+    return this._request(url, {
+      ...options,
+      method: METHODS.GET,
+    })
   }
 
   post: HTTPMethod = (url, options) => {
-    return this._request(url, { ...options, method: METHODS.POST })
+    return this._request(url, {
+      ...options,
+      method: METHODS.POST,
+    })
   }
 
   put: HTTPMethod = (url, options) => {
-    return this._request(url, { ...options, method: METHODS.PUT })
+    return this._request(url, {
+      ...options,
+      method: METHODS.PUT,
+    })
   }
 
   delete: HTTPMethod = (url, Options) => {
-    return this._request(url, { ...Options, method: METHODS.DELETE })
+    return this._request(url, {
+      ...Options,
+      method: METHODS.DELETE,
+    })
   }
 
-  private _request: HTTPMethod = (url, options) => {
+  private _request = (
+    url: string,
+    options: OptionsWithMethod,
+  ): Promise<XMLHttpRequest> => {
     const { method, data } = options
 
     return new Promise((resolve, reject) => {
@@ -54,20 +70,34 @@ export class HTTPTransport {
 
       xhr.open(
         method,
-        isGet && Boolean(data) ? `${url}${queryStringify(data)}` : url,
+        isGet && Boolean(data)
+          ? `${this.endpoint + url}${queryStringify(data as Indexed)}`
+          : this.endpoint + url,
       )
 
       xhr.addEventListener('load', () => {
-        resolve(xhr)
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr)
+        } else {
+          reject(xhr)
+        }
       })
 
       xhr.addEventListener('abort', reject)
       xhr.addEventListener('error', reject)
 
+      xhr.withCredentials = true
+
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json')
+      }
+
       if (isGet || !data) {
         xhr.send()
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data)
+      } else {
+        xhr.send(JSON.stringify(data))
       }
     })
   }
