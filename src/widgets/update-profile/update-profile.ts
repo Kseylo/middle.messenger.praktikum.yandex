@@ -15,7 +15,7 @@ const template = `
 export class UpdateProfile extends Block {
   constructor() {
     super({
-      updatePhoto: new UpdatePhoto({ name: 'Алексей Ложкин' }),
+      updatePhoto: new UpdatePhoto({}),
       updateInfo: new UpdateInfo({}),
       logout: new Logout(),
     })

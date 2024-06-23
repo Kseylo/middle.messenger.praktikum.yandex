@@ -5,7 +5,7 @@ import { default as store, StoreEvents } from './store'
 interface State {
   user: User
   chats: IChat[]
-  selectedChat: IChat
+  selectedChat?: IChat
   messages: IMessage[]
 }
 

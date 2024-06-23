@@ -32,7 +32,7 @@ export class HTTPTransport {
     })
   }
 
-  post: HTTPMethod = (url: string, options) => {
+  post: HTTPMethod = (url, options) => {
     return this._request(url, {
       ...options,
       method: METHODS.POST,

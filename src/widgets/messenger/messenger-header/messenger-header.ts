@@ -1,12 +1,13 @@
 import { AddUser, DeleteUser } from '@/features'
 import { Block, BlockProps } from '@/shared/lib'
+import { withStore } from '@/shared/lib/store'
 import { ChatHeader, Dialog, DropdownMenu } from '@/shared/ui'
 import styles from './messenger-header.module.css'
 
 //language=hbs
 const headerTemplate = `
 <div class="${styles.header}">
-  <h4 class="${styles.title}">Алексей</h4>
+  <h4 class="${styles.title}">{{{title}}}</h4>
     {{{dropdownMenu}}}
     {{{deleteUserDialog}}}
     {{{addUserDialog}}}
@@ -55,18 +56,21 @@ class Header extends Block {
   }
 }
 
+const withTitle = withStore((state) => ({ title: state.selectedChat?.title }))
+const HeaderWithTitle = withTitle(Header as typeof Block)
+
 // language=hbs
 const template = `
   {{{chatHeader}}}
 `
 
-export class MessengerHeader extends Block {
+export default class MessengerHeader extends Block {
   constructor(props: BlockProps) {
     super({
       ...props,
       chatHeader: new ChatHeader({
         additionalClass: styles.header,
-        children: new Header({}),
+        children: new HeaderWithTitle({}),
       }),
     })
   }
