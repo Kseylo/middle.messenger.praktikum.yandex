@@ -1,6 +1,6 @@
 import { type Indexed } from '@/shared/config'
 
-function merge(lhs: Indexed, rhs: Indexed): Indexed {
+export function merge(lhs: Indexed, rhs: Indexed): Indexed {
   const result = Object.assign({}, lhs)
 
   for (const key in rhs) {
@@ -15,7 +15,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
   return result
 }
 
-function isObject(value: unknown): value is Indexed {
+export function isObject(value: unknown): value is Indexed {
   return value !== null && typeof value === 'object' && !Array.isArray(value)
 }
 
