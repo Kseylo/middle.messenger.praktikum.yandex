@@ -18,11 +18,12 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node"]
+    "types": ["node", "@types/jest"]
   },
 
   "include": ["src", "vite.config.ts", ".eslintrc.cjs", "server"],
