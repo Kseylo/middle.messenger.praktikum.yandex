@@ -17,7 +17,7 @@
     "stylelint": "stylelint \"**/*.css\"",
     "stylelint:fix": "stylelint \"**/*.css\" --fix",
     "test": "jest",
-    "prepare": "husky || true"
+    "prepare": "husky install|| true"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
