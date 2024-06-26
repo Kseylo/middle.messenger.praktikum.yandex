@@ -5,7 +5,7 @@ export enum StoreEvents {
   UPDATED = 'UPDATED',
 }
 
-class Store extends EventBus {
+export class Store extends EventBus {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _state: any = {}
 

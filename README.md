@@ -45,3 +45,4 @@ npm run start
 - ESLint
 - Prettier
 - Stylelint
+- Jest
